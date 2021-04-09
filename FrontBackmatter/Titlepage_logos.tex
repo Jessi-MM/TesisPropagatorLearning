@@ -1,0 +1,91 @@
+%*******************************************************
+% Titlepage
+% *******************************************************
+
+  
+\begin{titlepage}
+
+
+
+    %\pdfbookmark[1]{\myTitle}{titlepage}
+    % if you want the titlepage to be centered, uncomment and fine-tune the line below (KOMA classes environment)
+\begin{addmargin}[-1cm]{-3cm}
+   % \begin{center}
+
+\noindent
+\begin{minipage}[c][0.99\textheight][c]{0.2\textwidth}%
+	\noindent\begin{minipage}[t][0.15\textheight][c]{\textwidth}
+		\begin{center}	
+		\includegraphics[height=2.718cm]{gfx/Escudo-FCIENCIAS.pdf}
+		\end{center}
+	\end{minipage}%
+        \vspace{14.4cm}
+	%\\
+	%\noindent\begin{minipage}[c][0.66\textheight][c]{\textwidth}
+	%	\begin{center}
+	%	\vrule width1pt height0.7\textheight
+	%	\hskip3mm
+	%	\vrule width2pt height0.7\textheight
+	%	\hskip3mm
+	%	\vrule width1pt height0.7\textheight
+	%	\end{center}
+	%\end{minipage}%
+	%\\
+	\noindent\begin{minipage}[b][0.15\textheight][c]{\textwidth}
+		\begin{center}	
+		\includegraphics[height=2.718cm]{gfx/Escudo-FCIENCIAS.pdf}
+		\end{center}
+	\end{minipage}%
+\end{minipage}
+\hfil%
+\begin{minipage}[c][0.99\textheight][t]{0.9\textwidth}
+	\begin{center}
+        \large
+
+       \vspace{2cm}
+
+        \begingroup
+            \spacedallcaps{\myUni} \\ \bigskip
+        \endgroup
+        \sectionlinetwo{CTtitle}{89}
+        
+        \vfil
+        
+        \begingroup
+            \spacedallcaps{\myFaculty} \\ \bigskip
+        \endgroup
+
+        \hfill
+
+        \vfill
+        
+        \begingroup
+            \color{CTtitle}\spacedallcaps{\myTitle} \\ \bigskip
+        \endgroup
+
+        \vfill
+        \makebox[8cm][s]{\Large\bfseries T E S I S}\\[1.2cm]
+        
+        Que para obtener el título de: \\ \bigskip
+        \myDegree
+
+        \vspace{1.4cm}
+        Presenta: \\ \bigskip
+        \spacedlowsmallcaps{\myName}
+
+        \vfill
+
+        %\includegraphics[width=6cm]{gfx/Escudo-FCIENCIAS.pdf} \\ \medskip
+
+        %\mySubtitle \\ \medskip
+      
+
+        \myTime\ -- \myVersion
+
+        \vfill
+
+        \end{center}
+\end{minipage}
+   % \end{center}
+\end{addmargin}
+\end{titlepage}

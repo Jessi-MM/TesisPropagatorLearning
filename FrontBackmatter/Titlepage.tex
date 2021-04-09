@@ -1,0 +1,64 @@
+%*******************************************************
+% Titlepage
+% *******************************************************
+
+  
+\begin{titlepage}
+\AddToShipoutPicture*{\BackgroundPic}
+
+
+
+    %\pdfbookmark[1]{\myTitle}{titlepage}
+    % if you want the titlepage to be centered, uncomment and fine-tune the line below (KOMA classes environment)
+\begin{addmargin}[-1cm]{-3cm}
+  \begin{center}
+        \large
+
+       \vspace{2cm}
+        \includegraphics[width=4.0cm]{gfx/Escudo-FCIENCIAS.pdf} \\ \medskip
+        \begingroup
+            \spacedallcaps{\myUni} \\ \bigskip
+        \endgroup
+        %\sectionlinetwo{CTtitle}{89}
+        
+        \vfil
+        
+        \begingroup
+            \spacedallcaps{\myFaculty} \\ \bigskip
+        \endgroup
+        
+        \hfill
+
+        \vfill
+        
+        \begingroup
+            \color{CTtitle}\spacedallcaps{\myTitle} \\ \bigskip
+        \endgroup
+        \sectionlinetwo{CTtitle}{89}
+        \vfill
+        \makebox[8cm][s]{\Large\bfseries T E S I S}\\[1.2cm]
+        
+        Que para obtener el título de: \\ \bigskip
+        \myDegree
+
+        \vspace{1.4cm}
+        Presenta: \\ \bigskip
+        \spacedlowsmallcaps{\myName}
+
+        \vfill
+
+        Tutor: \\ \bigskip
+        \mySupervisor
+       % \includegraphics[width=4.5cm]{gfx/Escudo-FCIENCIAS.pdf} \\ \medskip
+
+        %\mySubtitle \\ \medskip
+      
+        \vfill
+        \myTime\ -- \myVersion
+
+        \vfill
+
+        \end{center}
+
+\end{addmargin}
+\end{titlepage}

@@ -1,0 +1,14 @@
+* Tesis Jessica Martínez Marcelo
+Esta tesis fue basada en el siguiente formato:
+
+Mis aportaciones:
+- Tesis en español
+- Nuevo formato de portada
+- Cambio en el estilo de los capítulos, tablas, decoraciones
+
+** Requerimentos:
+- Compilador xelatex
+- Fuente: Tex Gyre 
+** Para correr correctamente:
+- $ bibtex tesis.aux **Para utilizar bibtex en la bibliografía** 
+
