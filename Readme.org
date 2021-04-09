@@ -1,8 +1,10 @@
-* Tesis Jessica Martínez Marcelo
-Esta tesis fue basada en el siguiente formato:
+* CNN para la distinción de Gammas y Hadrones con HAWC's Eye
+Autor: Jessica Martínez Marcelo
 
-Mis aportaciones:
-- Tesis en español
+Esta tesis fue basada en el formato: [[https://bitbucket.org/amiede/classicthesis/wiki/Home][classicthesis]], desarrollado por /André Miede/.
+
+Mis pequeñas aportaciones:
+- Idioma español
 - Nuevo formato de portada
 - Cambio en el estilo de los capítulos, tablas, decoraciones
 
@@ -10,5 +12,6 @@ Mis aportaciones:
 - Compilador xelatex
 - Fuente: Tex Gyre 
 ** Para correr correctamente:
-- $ bibtex tesis.aux **Para utilizar bibtex en la bibliografía** 
+- ~$ bibtex tesis.aux~ 
+** Notas
 
