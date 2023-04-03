@@ -47,18 +47,18 @@
 % ****************************************************************************************************
 % 2. Personal data and user ad-hoc commands (insert your own data here)
 % ****************************************************************************************************
-\newcommand{\myTitle}{CNN para la distinción de Gammas y Hadrones con HAWc's Eye}
+\newcommand{\myTitle}{ANN's como Propagadores en Dinámica Cuántica}
 \newcommand{\mySubtitle}{Facultad de Ciencias}
 \newcommand{\myDegree}{Física \xspace}
-\newcommand{\myName}{Jessica Martínez Marcelo \xspace}
+\newcommand{\myName}{Itzel Jessica Martínez Marcelo \xspace}
 \newcommand{\myProf}{Put name here \xspace}
 \newcommand{\myOtherProf}{Put name here\xspace}
-\newcommand{\mySupervisor}{Dr. José Rubén Alfaro Molina \xspace}
+\newcommand{\mySupervisor}{Dr. Huziel Enoc Sauceda Felix \xspace}
 \newcommand{\myFaculty}{Facultad de Ciencias \xspace}
 \newcommand{\myDepartment}{Put data here\xspace}
 \newcommand{\myUni}{Universidad Nacional Autónoma de México \xspace}
 \newcommand{\myLocation}{Ciudad de México, México\xspace}
-\newcommand{\myTime}{2021 \xspace}
+\newcommand{\myTime}{2023 \xspace}
 \newcommand{\myVersion}{\classicthesis}
 
 % ********************************************************************
@@ -111,7 +111,7 @@
 
 
 
-\PassOptionsToPackage{fleqn}{amsmath}       % math environments and more by the AMS
+%\PassOptionsToPackage{fleqn}{amsmath}       % math environments and more by the AMS --j: left align equation
   \usepackage{amsmath}
 
 % ********************************************************************
@@ -222,15 +222,16 @@
   {%
     %\addto\extrasamerican{% babel
     \appto{\blockextras@spanish}{% xelatex polyglossia
-      \renewcommand*{\sectionautorefname}{Section}%
+      %\renewcommand*{\sectionautorefname}{Section}%
       
-      \renewcommand*{\figureautorefname}{Figurita}%
-      \renewcommand*{\tableautorefname}{Tablita}%
-      \renewcommand*{\partautorefname}{Part}%
-      \renewcommand*{\chapterautorefname}{Chapter}%
-      \renewcommand*{\sectionautorefname}{Section}%
-      \renewcommand*{\subsectionautorefname}{Section}%
-      \renewcommand*{\subsubsectionautorefname}{Section}%
+      \renewcommand*{\figureautorefname}{Figura}%
+      \renewcommand*{\tableautorefname}{Tabla}%
+      \renewcommand*{\partautorefname}{Parte}%
+      \renewcommand*{\chapterautorefname}{Capítulo}%
+      \renewcommand*{\sectionautorefname}{\adfS}%
+      \renewcommand*{\subsectionautorefname}{\adfS}%
+      \renewcommand*{\subsubsectionautorefname}{\adfS}%
+      \renewcommand*{\equationautorefname}{Ecuación}%
     }%
     %\addto\extrasngerman{% babel
     \appto{\blockextras@german}{% xelatex
@@ -346,7 +347,6 @@ keepaspectratio]{gfx/LOgo-UNAM.png}%
 %\areaset[current]{312pt}{761pt} % 686 (factor 2.2) + 33 head + 42 head \the\footskip
 %\setlength{\marginparwidth}{7em}%
 %\setlength{\marginparsep}{2em}%
-
 % ********************************************************************
 % Using different fonts
 % ********************************************************************

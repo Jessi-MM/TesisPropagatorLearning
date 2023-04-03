@@ -1,8 +1,127 @@
 %************************************************
-\chapter{Marco histórico}\label{ch:MarcoHistorico1}
+\chapter{Conceptos Fundamentales de Mecánica Cuántica}\label{ch:2}
 % ************************************************
+% ver inicio de Sakurai
 
-\section{Primeros telescopios y observatorios}
+El formalismo matemático general para trabajar en  mecánica cuántica es el álgebra lineal. En las siguientes secciones se desarrollan algunos de los conceptos fundamentales en mecánica cuántica utilizando la notación de \emph{bra-ket}, introducida por primera vez por Paul Dirac.
 
-\section{Resultados importantes}
-% importancia de los detectores
+\section{Estados y Operadores}\label{sec:Estados y Operadores}
+La información física de un sistema en mecánica cuántica está contenida en su \textbf{estado} o \textbf{ket}, que en general es un elemento del espacio de Hilbert\footnote{Los espacios de Hilbert son espacios vectoriales reales o complejos de dimensión infinita que cuentan con un producto punto.}.
+
+\[
+\ket{\psi}
+\]
+
+La dimensión del espacio depende de las diferentes posibilidades o alternativas que el sistema puede tomar, por ejemplo, si el sistema es un átomo y las medición que se está realizando es de su spin, el átomo, que se representa por su estado, pertenece a un espacio vectorial de dos dimensiones, dado que existen dos posibilidades de spin. En ocasiones, las alternativas que puede tomar un estado son infinitas y no numerables, por ejemplo, cuando se requiere saber la posición o momento de una partícula.
+\\
+\\
+Un \textbf{operador} $\hat{a}$, en mecánica cuántica, es también un elemento del espacio de Hilbert, que opera sobre los estados, y cuyo resultado es, en general un estado distinto, que pertenece al mismo espacio.
+\[
+\hat{a} \cdot (\ket{\psi}) = \hat{a}\ket{\psi}
+\]
+
+Para cada operador $\hat{a}$ existen kets ``especiales'' llamados eigenkets o \textbf{eigenestados} de $\hat{a}$: $\ket{a}$, que al aplicarles el operador resulta el mismo estado $\ket{a}$ multiplicado por $a$, es decir:
+
+\[ \hat{a}\ket{a} = a\ket{a}\]
+
+en donde $a$ puede ser un número real o complejo, y es llamado \textbf{eigenvalor} de $\hat{a}$.
+\\
+Un \textbf{observable} en mecánica cuántica puede ser la posición, el momento o el spin de una partícula, y se puede representar mediandite un operador. Una propiedad importante de los observables, es que son operadores Hermitianos\footnote{El espacio de Hilbert Dual de los kets es el espacio de los bras, cada estado $\ket{\psi}$ tiene su dual correspondiente: $\bra{\psi}$, así como cada operador $X$ tiene su dual correspondiente $X^\dag$, llamado Hermitiano adjunto, cuando resulta que $X = X^\dag$, se dice que $X$ es un \textbf{operador Hermitiano}.}, por lo que sus eigenvalores son valores reales, y además sus eigenestados son ortonormales, y, por construcción, forman una base completa del espacio de Hilbert.
+
+
+\section{Operador de Propagación: Evolución Temporal de un Sistema}
+
+Dado un sistema cuántico a un tiempo inicial $t_0$, representado por el estado: $$\ket{\psi_{t_0}}$$ la evolución temporal del estado a un tiempo $t>t_0$ se puede escribir como: $$\ket{\psi_{t_0}(t)}$$ haciendo referencia de que el estado evolucionado en el tiempo depende del estado inicial al tiempo $t_0$.
+\\
+Bajo el formalismo de la mecánica cuántica, se puede visualizar a este nuevo estado $\ket{\psi_{t_0}(t)}$, como el resultado de aplicar un operador al estado $\ket{\psi_{t_0}}$:
+$$\ket{\psi_{t_0}(t)}=\mathcal{U}(t_0,t)\ket{\psi_{t_0}}$$
+donde el operador $\mathcal{U}$ es el \textbf{operador de propagación}. Para que este operador sea físicamente consistente, debe satisfacer las siguientes propiedades:
+
+\begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
+\item $\mathcal{U}$ debe ser un operador unitario, es decir, se debe cumplir que: $$\mathcal{U}^\dag(t_0,t)\mathcal{U}(t_0,t)=1$$
+\item Propiedad de composición, para $t_0<t_1<t_2$: $$\mathcal{U}(t_0,t_2) = \mathcal{U}(t_1,t_2)\mathcal{U}(t_0,t_1)$$  
+\end{itemize}
+
+A partir de estas propiedades, de la relación de energía Planck-Einstein: $E=\hbar\omega$, y de considerar al Hamiltoniano como el generador de la evolución temporal de un sistema físico\cite{Sakurai:1994}, se puede escribir la siguiente ecuación diferencial para el operador de propagación:
+
+\begin{equation}
+  \label{eq:TDSE operator}
+  i\hbar\frac{\partial}{\partial t}\mathcal{U}(t_0,t) = H\mathcal{U}(t_0,t)
+\end{equation}
+
+Se sigue que, para un estado $\ket{\psi_{t_0}}$, la evolución temporal está dada por la \textbf{Ecuación de Schrödinger Dependiente del Tiempo} para un estado:
+
+\begin{tcolorbox}[colback=CTtitle!5!white,colframe=CTtitle!85!white]%,title=\centering{Ecuación de Schrödinger Dependiente del Tiempo para un estado}]
+\begin{equation}
+\label{eq:TDSE ket}
+i\hbar\frac{\partial}{\partial t}\mathcal{U}(t_0,t)\ket{\psi_{t_0}} = H\mathcal{U}(t_0,t)\ket{\psi_{t_0}}
+\end{equation}
+\end{tcolorbox}
+
+\paragraph{Afirmación:}
+  Cuando el hamiltoniano $H$ no tiene dependencia temporal, el operador de propagación toma la siguiente forma:
+\begin{equation}
+\label{eq:U IT}
+\mathcal{U}(t_0,t) = \exp{\frac{-iH(t-t_0)}{\hbar}}
+\end{equation}
+
+Para probar la afirmación aterior, se escribe la función exponencial como serie de potencias:
+$$\exp{\frac{-iH(t-t_0)}{\hbar}} = 1 + \frac{-iH(t-t_0)}{\hbar}+ \left(\frac{-i^2}{2}\right)\left(\frac{H(t-t_0)}{\hbar}\right)^2+\dots $$
+al derivar respecto al tiempo se obtiene:
+
+$$\frac{\partial}{\partial t}\exp{\frac{-iH(t-t_0)}{\hbar}} = \frac{-iH\cdot 1}{\hbar}+ \left(\frac{-i^2}{2}\right)\cdot 2\left(\frac{H}{\hbar}\right)^2(t-t_0)+\dots $$
+si se multiplica esta última ecuación se observa que se cumple la \autoref{eq:TDSE operator}.
+\\\\
+Cuando el Hamiltoniano tiene dependencia temporal, pero conmuta en diferentes tiempos, es decir:
+$$[H(t_1), H(t_2)] = H(t_1)H(t_2) - H(t_2)H(t_1)=0$$
+para $t_1 \neq t_2$, se puede probar que el operador de propagación está dado por:
+$$\mathcal{U}(t_0,t) = \exp{-\left( \frac{i}{\hbar}\right)\int_{t_1}^{t_2}H(t')dt'}$$
+Encontrar de manera analítica el operador de propagación se vuelve más complejo y complicado cuando el Hamiltoniano tiene dependencia temporal y no conmuta en diferentes tiempos, para estos casos se pueden desarrollar métodos de aproximación a la \autoref{eq:TDSE ket} como: la Expanción de Magnus, Teoría de Perturbaciones con dependencia temporal, integral de caminos, entre otros.
+
+
+\section{Función de Onda en el espacio de Posiciones}
+Un observable comúnmente estudiado en sistemas cuánticos es la posición: $\hat{x}$. Como se mencionó en la sección \autoref{sec:Estados y Operadores}, un observable da lugar a un conjunto de eigenvectores: $\{\ket{x'}, \ket{x''}\dots \}$, con las siguientes propiedades:
+
+$$\hat{x}\ket{x'} = x'\ket{x'}$$
+$$\bra{x''}\ket{x'}=\delta(x''-x')$$
+
+Cualquier estado el tiempo $t$: $\ket{\psi(t)}$, puede ser escrito en función de los eigenestados de la siguiente manera:
+$$\ket{\psi(t)} = \int dx\ket{x}\bra{x}\ket{\psi(t)}$$
+
+En el formalismo de Dirac, el producto interno:
+$$\bra{x}\ket{\psi(t)} = \psi(x,t)$$
+es conocido como la \textbf{función de onda} para el estado $\ket{\psi(t)}$. Las funciones de onda en física cuántica deben cumplir con la condición de normalización:
+$$\int_{-\infty}^{\infty}| \psi(x,t)|^2dx < \infty $$
+este conjunto de funciones de onda forma un espacio de Hilbert.
+
+\subsection{Densidad de probabilidad}
+
+La \textbf{densidad de probabilidad} está definida por la siguiente función:
+
+\begin{equation}
+ \label{eq:density probablity}
+\rho(x)=|\psi(x)|^2
+\end{equation}
+
+Esta relación describe para cada $x$ en el dominio la probabilidad de encontrar a la partícula en esa posición. La probabilidad de encontrar una partícula en un intervalo $dx$ alrededor de $x$ está dado por:
+
+ $$|\psi(x)|^2 dx $$
+
+ El elemento $dx$ puede ser un intervalo de longitud, cuando se considera una sola dimensión, o un elemento de volumen $d^3\vec{x}$, cuando se tratan las tres dimensiones espaciales. Experimentalmente, está relacionado con la capacidad que tiene un detector (de posición) de asegurar que la partícula está en la vecidad $dx$ alrededor de $x$.
+
+
+
+ 
+\begin{comment}
+\subsection{Ecuación de Schrödinger Dependiente del Tiempo}
+
+La \autoref{eq:TDSE ket} se puede escribir en términos de la función de onda. Dado que en esta sección y en las posteriores se estará tratando la evolución temporal de un sistema, se hará referencia a la variable del tiempo $t$ en la función de onda: $\psi(\vec{x},t)$. 
+\\
+Tomando el operador Hamiltoniano en el espacio de posiciones:
+\begin{equation}
+  \label{eq:Hamiltoniano}
+  H = \frac{\vec{p}^2}{2m}+V(\vec{x})
+\end{equation}
+\end{comment}
+
+

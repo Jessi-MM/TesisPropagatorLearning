@@ -34,7 +34,7 @@
     \WarningFilter{titlesec}{Non standard sectioning command detected}
     \documentclass[twoside,openright,titlepage,numbers=noenddot,%1headlines,
                 headinclude,footinclude,cleardoublepage=empty,abstract=on,
-                BCOR=5mm,paper=a4,fontsize=11pt
+                BCOR=5mm,paper=a4,fontsize=12pt
                 ]{scrreprt}
 
 %============ Modificación Español en Xelatex
@@ -50,7 +50,17 @@
 % Note: Make all your adjustments in here
 %*******************************************************
 \input{classicthesis-config}
-\usepackage{fontenc}
+%\usepackage{fontenc}
+
+% ******************************
+% Margin figures
+%*******************************
+\usepackage{caption}
+\usepackage{sidenotes}
+
+%\usepackage[all]{background}
+%\newcommand{\marginfootnote}[1]{\marginpar{{\footnotemark}\footnotetext}{#1}}
+\newcommand{\marginfootnote}[1]{\marginpar{\footnotemark}\footnotetext{#1}}
 
 %******************************
 % color border tabs
@@ -59,11 +69,19 @@
 \definecolor{ColorTab}{HTML}{B9375E}
 \arrayrulecolor{ColorTab}
 
+\usepackage{physics}
+\usepackage{enumitem,xcolor}
+\usepackage{tcolorbox}%Box equation
+\tcbuselibrary{theorems}%Box equation
+\usepackage{fontawesome5}
+\usepackage{tikz}
+
+
 %********************************************************************
 % Bibliographies
 %*******************************************************
 \addbibresource{Bibliography.bib}
-\addbibresource[label=ownpubs]{AMiede_Publications.bib}
+%\addbibresource[label=ownpubs]{AMiede_Publications.bib}
 
 %********************************************************************
 % Hyphenation
@@ -72,7 +90,10 @@
 
 % ********************************************************************
 % GO!GO!GO! MOVE IT!
-%*******************************************************
+% *******************************************************
+%\includeonly{Chapters/cap01}
+
+
 \begin{document}
 \frenchspacing
 \raggedbottom
@@ -83,8 +104,7 @@
 \pagenumbering{roman}
 \pagestyle{plain}
 
-
-
+\nocite{*} % Para que aparezca la bibliografía sin ser citada
 
 
 
@@ -94,12 +114,13 @@
 %\include{FrontBackmatter/DirtyTitlepage}
 \include{FrontBackmatter/Titlepage}
 \include{FrontBackmatter/Titleback}
-\cleardoublepage\include{FrontBackmatter/Dedication}
+%\cleardoublepage\include{FrontBackmatter/Dedication}
 %\cleardoublepage\include{FrontBackmatter/Foreword}
-\cleardoublepage\include{FrontBackmatter/Abstract}
+%\cleardoublepage\include{FrontBackmatter/Abstract}
 %\cleardoublepage\include{FrontBackmatter/Publications}
-\cleardoublepage\include{FrontBackmatter/Acknowledgments}
-\cleardoublepage\include{FrontBackmatter/Contents}
+%\cleardoublepage\include{FrontBackmatter/Acknowledgments}
+%\cleardoublepage
+\include{FrontBackmatter/Contents}
 %********************************************************************
 % Mainmatter
 %*******************************************************
@@ -108,61 +129,38 @@
 \pagenumbering{arabic}
 %\setcounter{page}{90}
 % use \cleardoublepage here to avoid problems with pdfbookmark
-\cleardoublepage
-\ctparttext{You can put some informational part preamble text here.
-Illo principalmente su nos. Non message \emph{occidental} angloromanic
-da. Debitas effortio simplificate sia se, auxiliar summarios da que,
-se avantiate publicationes via. Pan in terra summarios, capital
-interlingua se que. Al via multo esser specimen, campo responder que
-da. Le usate medical addresses pro, europa origine sanctificate nos se.}
+%agregar a forma final\cleardoublepage
+%\ctparttext{}
 \part{Prólogo}\label{pt:Prologo}
 \include{Chapters/cap01}
 
 
 
-\cleardoublepage
-\ctparttext{You can put some informational part preamble text here.
-Illo principalmente su nos. Non message \emph{occidental} angloromanic
-da. Debitas effortio simplificate sia se, auxiliar summarios da que,
-se avantiate publicationes via. Pan in terra summarios, capital
-interlingua se que. Al via multo esser specimen, campo responder que
-da. Le usate medical addresses pro, europa origine sanctificate nos se.}
-\part{Detectores de rayos Gamma y Hadrones}\label{pt:Detectores}
+%agregar a forma final\cleardoublepage
+%\ctparttext{You can put some informational part preamble text here.}
+\part{Ecuación de Schrödinger Dependiente del Tiempo}\label{pt:TDSE}
 
 \include{Chapters/cap02}
 \include{Chapters/cap03}
 
 
-
-
-\cleardoublepage
-\ctparttext{You can put some informational part preamble text here.
-Illo principalmente su nos. Non message \emph{occidental} angloromanic
-da. Debitas effortio simplificate sia se, auxiliar summarios da que,
-se avantiate publicationes via. Pan in terra summarios, capital
-interlingua se que. Al via multo esser specimen, campo responder que
-da. Le usate medical addresses pro, europa origine sanctificate nos se.}
-\part{Redes Neuronales}\label{pt:Redes}
+%agregar a forma final \cleardoublepage
+%\ctparttext{You can put some informational part preamble text here.}
+\part{Redes Neuronales Artificiales (ANN's)}\label{pt:ANNS}
 \include{Chapters/cap04}
 %\addtocontents{toc}{\protect\clearpage} % <--- just debug stuff, ignore
 \include{Chapters/cap05}
-\include{Chapters/cap06}
-\include{Chapters/cap07}
+%\include{Chapters/cap06}
+%\include{Chapters/cap07}
 
 
 
-\cleardoublepage
-\ctparttext{You can put some informational part preamble text here.
-Illo principalmente su nos. Non message \emph{occidental} angloromanic
-da. Debitas effortio simplificate sia se, auxiliar summarios da que,
-se avantiate publicationes via. Pan in terra summarios, capital
-interlingua se que. Al via multo esser specimen, campo responder que
-da. Le usate medical addresses pro, europa origine sanctificate nos se.}
-\part{Implementación de un modelo CNN para la distinción de Gammas y Hadrones con HAWC's Eye}\label{pt:Modelo}
+%agregar a forma final \cleardoublepage
+%\ctparttext{You can put some informational part preamble text here.}
+\part{Implementación de modelos de ANN's como propagadores en Dinámica Cuántica }\label{pt:Modelos}
 \include{Chapters/cap08}
 \include{Chapters/cap09}
 \include{Chapters/cap10}
-
 
 %\include{multiToC} % <--- just debug stuff, ignore for your documents
 % ********************************************************************
@@ -170,18 +168,20 @@ da. Le usate medical addresses pro, europa origine sanctificate nos se.}
 %*******************************************************
 \appendix
 %\renewcommand{\thechapter}{\alph{chapter}}
-\cleardoublepage
+%agregar a forma final \cleardoublepage
 \part{Apéndice}
 \include{Chapters/Chapter0A}
 
 %********************************************************************
 % Other Stuff in the Back
 %*******************************************************
-\cleardoublepage\include{FrontBackmatter/Bibliography}
-\cleardoublepage\include{FrontBackmatter/Declaration}
-\cleardoublepage\include{FrontBackmatter/Colophon}
+%agregar a forma final \cleardoublepage
+\include{FrontBackmatter/Bibliography}
+%\cleardoublepage\include{FrontBackmatter/Declaration}
+%\cleardoublepage\include{FrontBackmatter/Colophon}
 % ********************************************************************
 % Game Over: Restore, Restart, or Quit?
-%*******************************************************
+% *******************************************************
+%\printbibliography
 \end{document}
 % ********************************************************************

@@ -170,13 +170,14 @@
 % ********************************************************************
 % Font Stuff
 % ********************************************************************
+
 \ifthenelse{\boolean{xetex}\OR\boolean{luatex}}
    { % use fontspec and OpenType fonts with utf8 engines
      \RequirePackage{fontspec}
      \ifthenelse{\boolean{ct@palatino}}% default
        {
-         \setmainfont[Ligatures=TeX,Numbers=OldStyle]{TeX Gyre Pagella} % Palatino clone
-         \linespread{1.05} % a bit more for Palatino
+         \setmainfont[Scale=0.9, Ligatures=TeX,Numbers=OldStyle]{TeX Gyre Pagella} % Palatino clone
+         \linespread{1.14} % a bit more for Palatino
          \RequirePackage{unicode-math}
          \setmathfont{TeX Gyre Pagella Math}
        }{\relax} % use class' default font
@@ -237,7 +238,7 @@
     {% Letter 216mm x 279mm
             \PackageInfo{classicthesis}{letter paper, Palatino or other}
             \areaset[current]{356pt}{700pt}%  guessing from A4 values
-            \setlength{\marginparwidth}{7em}%
+            \setlength{\marginparwidth}{17em}%
             \setlength{\marginparsep}{2em}%
     }{\relax}
 \ifthenelse{\equal{\ct@paper}{b5}}%
@@ -245,22 +246,22 @@
             % Thanks to Jos\'e M. Alcaide
             \PackageInfo{classicthesis}{B5 paper, Palatino or other}%
             \areaset[current]{311pt}{645pt}%
-            \setlength{\marginparwidth}{6em}%
+            \setlength{\marginparwidth}{16em}%
             \setlength{\marginparsep}{1.5em}%
     }{\relax}
 \ifthenelse{\equal{\ct@paper}{a5}}%
     {% A5 148mm x 210mm
             \PackageInfo{classicthesis}{A5 paper, Palatino or other}%
             \areaset[current]{288pt}{555pt}%
-            \setlength{\marginparwidth}{4em}%
+            \setlength{\marginparwidth}{14em}%
             \setlength{\marginparsep}{1.25em}%
     }{\relax}
 \ifthenelse{\equal{\ct@paper}{a4}}%
     {% A4 210mm x 297mm
             \PackageInfo{classicthesis}{A4 paper, Palatino or other}
-            \areaset[current]{336pt}{750pt} % ~ 336 * factor 2 + 33 head + 42 \the\footskip
+            \areaset[current]{376pt}{761pt}%{336pt}{750pt} % ~ 336 * factor 2 + 33 head + 42 \the\footskip %{310pt}{750pt}%original: 
             % \areaset{336pt}{761pt} % 686 (factor 2.2) + 33 head + 42 head \the\footskip 10pt
-            \setlength{\marginparwidth}{7em}%
+            \setlength{\marginparwidth}{8em}%{10em}%original: {7em}
             \setlength{\marginparsep}{2em}%
     }{\relax}
 
@@ -373,7 +374,7 @@
 % paragraph and description-headings
 % ********************************************************************
 %\RequirePackage[newparttoc]{titlesec} % newparttoc to write \part to .toc with \numberline
-\RequirePackage[explicit,sc, compact, newparttoc]{titlesec} % Titlesec for configuring the header
+\RequirePackage[sc, compact, newparttoc]{titlesec} % Titlesec for configuring the header
 
 
 \ifthenelse{\boolean{ct@nochapters}}{\relax}{\titleclass{\chapter}{top}} % thanks to Javier Bezos of titlesec
@@ -389,7 +390,8 @@
     \titleformat{\part}[display]
     {\normalfont\ct@altfont\centering\large}%
     {\thispagestyle{empty}\partname~\MakeTextUppercase{\thepart}}{1em}%
-    {\color{CTtitle}\spacedallcaps{#1}}[\bigskip\normalfont\normalsize\color{Black}\begin{quote}\ctparttext@print\end{quote}]
+    {\color{CTtitle}\spacedallcaps}[\bigskip\normalfont\normalsize\color{Black}\begin{quote}\ctparttext@print\end{quote}]
+     %%{\color{CTtitle}\spacedallcaps{#1}}[\bigskip\normalfont\normalsize\color{Black}\begin{quote}\ctparttext@print\end{quote}] %explicit option in package titlesec
 }{\relax}
 % chapters
 %----------------- quit
@@ -412,12 +414,13 @@
   \titleformat% Formatting the header
   {\chapter} % command
   [block] % shape - Only managed to get it working with block
-  {\normalfont\ct@altfont\centering\Large\color{CTsemi}} % format - Change here as needed
+  {\normalfont\ct@altfont\centering\large\color{CTsemi}} % format - Change here as needed
   {\centering  \chapterNumber\thechapter\\} % The Chapter N° label
   %{\relax}{\raggedleft{\color{CTsemi}\chapterNumber\thechapter} \\ }%
   {0pt} % sep
   {\centering \color{CTtitle}\ruleline{\otherfancydraw}\\ % The horizontal rule
-  \centering #1} % And the actual title
+    \centering\spacedallcaps} % And the actual title
+  %\centering #1} %explicit option in package titlesec 
 }
 % -------------- tercera opcion
 
@@ -426,22 +429,23 @@
 
 
 % sections \FloatBarrier
-%\titleformat{\section}[display]
-%   {\relax}{\textsc{\MakeTextLowercase{\thesection}}}{1em}{\spacedlowsmallcaps}
-\titleformat{\section}[block] % because use explicit in package titlesec
-{\spacedlowsmallcaps}{\textsc{\MakeTextLowercase{\thesection}}}{12pt}{#1}
+\titleformat{\section}[block]
+   {\color{CTurl}\relax}{\textsc{\MakeTextLowercase{\thesection}}}{1em}{\spacedlowsmallcaps}
+%\titleformat{\section}[block] % because use explicit in package titlesec
+%{\MakeTextLowercase}{\textsc{\MakeTextLowercase{\thesection}}}{12pt}{#1}
+
 % subsections
 \titleformat{\subsection}[block]
-{\normalsize\itshape}{\textsc{\MakeTextLowercase{\thesubsection}}}{12pt}{#1}
-%    {\relax}{\textsc{\MakeTextLowercase{\thesubsection}}}{1em}{\normalsize\itshape}
+%{\normalsize\itshape}{\textsc{\MakeTextLowercase{\thesubsection}}}{12pt}{#1}
+    {\relax}{\textsc{\MakeTextLowercase{\thesubsection}}}{1em}{\normalsize\itshape}
 % subsubsections
 \titleformat{\subsubsection}[block]
-{\normalsize\itshape}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{12pt}{#1}
-%{\relax}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{1em}{\normalsize\itshape}
+%{\normalsize\itshape}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{12pt}{#1}
+{\relax}{\textsc{\MakeTextLowercase{\thesubsubsection}}}{1em}{\normalsize\itshape}
 % paragraphs
 \titleformat{\paragraph}[runin]
-{\normalfont\normalsize\spacedlowsmallcaps}{\theparagraph}{0pt}{#1}
-%    {\normalfont\normalsize}{\theparagraph}{0pt}{\spacedlowsmallcaps}
+%{\normalfont\normalsize\spacedlowsmallcaps}{\theparagraph}{0pt}{#1}
+    {\normalfont\normalsize\color{CTsemi}}{\theparagraph}{0pt}{\spacedlowsmallcaps}
 % descriptionlabels
     \renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\spacedlowsmallcaps{#1}}   % spacedlowsmallcaps textit textsc
 % spacing
@@ -483,7 +487,7 @@
 % parts
 \ifthenelse{\boolean{ct@parts}}%
 {%
-    \renewcommand{\thepart}{\roman{part}}%
+    \renewcommand{\thepart}{\roman{part}}%{\roman{part}}%
     \renewcommand{\cftpartpresnum}{\scshape}%{\scshape}%  \MakeTextLowercase
     \renewcommand{\cftpartaftersnum}{\spacedallcaps}%
     \renewcommand{\cftpartaftersnumb}{\spacedlowsmallcaps}%
@@ -634,11 +638,32 @@
                 \addtocontents{lol}{\deactivateaddvspace}%
             }{\relax}%
 }%
-%    }
+   % }
+
+% ****************************************************************
+% Special symbols, emojis, etc
+% ****************************************************************
+\usepackage{adforn}
+%\usepackage{fourier}%% !!!ADVERTENCIA genera problemas con el estilo de fuente
+
+
+
+
+
+
+
+
 
 % ********************************************************************
 % Footnotes setup
 % ********************************************************************
+% \newcommand{\marginfootnote}[1]{\marginpar{\footnotemark}{\footnotetext{#1}}
+
+\usepackage{comment}
+
+
+
+\begin{comment}
 \ifdefined\deffootnote
     % KOMA-command, footnotemark not superscripted at the bottom
     \deffootnote{0em}{0em}{\thefootnotemark\hspace*{.5em}}%
@@ -650,7 +675,7 @@
     \PackageWarningNoLine{classicthesis}{Using package "footmisc" with option %
         "marginal" for footnote setup (not 100\% the same as with KOMA)}%
 \fi
-
+\end{comment}
 % ********************************************************************
 % Drafting Stuff
 % ********************************************************************
@@ -665,7 +690,7 @@
         \PassOptionsToPackage{draft}{prelim2e}
         \RequirePackage{prelim2e}
         \renewcommand{\PrelimWords}{\relax}
-        \renewcommand{\PrelimText}{\footnotesize[\,\today\ at \thistime\ -- \myVersion\,]}
+        \renewcommand{\PrelimText}{\footnotesize[\,\today\ at \thistime\ -- Draft \myVersion\,]}
 }{\renewcommand{\finalVersionString}{\emph{Final Version} as of \today\ (\myVersion).}}
 
 % ********************************************************************
