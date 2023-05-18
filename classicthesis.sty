@@ -176,7 +176,7 @@
      \RequirePackage{fontspec}
      \ifthenelse{\boolean{ct@palatino}}% default
        {
-         \setmainfont[Scale=0.9, Ligatures=TeX,Numbers=OldStyle]{TeX Gyre Pagella} % Palatino clone
+         \setmainfont[Scale=0.9, Ligatures=TeX,Numbers=OldStyle]{Cambria}%{TeX Gyre Pagella} % Palatino clone
          \linespread{1.14} % a bit more for Palatino
          \RequirePackage{unicode-math}
          \setmathfont{TeX Gyre Pagella Math}
@@ -238,7 +238,7 @@
     {% Letter 216mm x 279mm
             \PackageInfo{classicthesis}{letter paper, Palatino or other}
             \areaset[current]{356pt}{700pt}%  guessing from A4 values
-            \setlength{\marginparwidth}{17em}%
+            \setlength{\marginparwidth}{10em}%
             \setlength{\marginparsep}{2em}%
     }{\relax}
 \ifthenelse{\equal{\ct@paper}{b5}}%
@@ -261,7 +261,7 @@
             \PackageInfo{classicthesis}{A4 paper, Palatino or other}
             \areaset[current]{376pt}{761pt}%{336pt}{750pt} % ~ 336 * factor 2 + 33 head + 42 \the\footskip %{310pt}{750pt}%original: 
             % \areaset{336pt}{761pt} % 686 (factor 2.2) + 33 head + 42 head \the\footskip 10pt
-            \setlength{\marginparwidth}{8em}%{10em}%original: {7em}
+            \setlength{\marginparwidth}{7em}%{10em}%original: {7em}
             \setlength{\marginparsep}{2em}%
     }{\relax}
 
@@ -645,9 +645,22 @@
 % ****************************************************************
 \usepackage{adforn}
 %\usepackage{fourier}%% !!!ADVERTENCIA genera problemas con el estilo de fuente
+%\usepackage{dirtree}
 
+\usepackage{forest}
 
+\definecolor{folderbg}{RGB}{124,166,198}
+\definecolor{folderborder}{RGB}{110,144,169}
 
+\def\Size{4pt}
+\tikzset{
+      folder/.pic={
+        \filldraw[draw=CTtitle,top color=CTlink!50,bottom color=CTlink]
+          (-1.05*\Size,0.2\Size+5pt) rectangle ++(.75*\Size,-0.2\Size-5pt);  
+        \filldraw[draw=CTtitle,top color=CTlink!50,bottom color=CTlink]
+          (-1.15*\Size,-\Size) rectangle (1.15*\Size,\Size);
+      }
+    }
 
 
 

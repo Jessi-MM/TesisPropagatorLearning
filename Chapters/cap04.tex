@@ -5,14 +5,15 @@
 % Historical dev
 % big data &  improve of memorie in computer
 % poner el puto diagramita q siempre sale
-\begin{flushright}{\slshape
-    El aprendizaje automático es como una caja de bombones: nunca sabes lo que vas a obtener... a menos que tengas buenos datos y una sólida comprensión de tus algoritmos.} \\ \medskip
-    --- ChatGPT AI language model
-\end{flushright}
+
+%\begin{flushright}{\slshape
+ %   El aprendizaje automático es como una caja de bombones: nunca sabes lo que vas a obtener... a menos que tengas buenos datos y una sólida comprensión de tus algoritmos.} \\ \medskip
+  %  --- ChatGPT AI language model
+%\end{flushright}
 
 
 
-La \textbf{Inteligencia Artificial}, o AI por sus siglas en inglés, se puede definir como un sistema capáz de interactuar con su entorno. Algunos ejemplos de Inteligencias Artificiales son: \emph{Siri} de Apple y \emph{Alexa} de Amazon. Para poder generar una respuesta al entorno, estos sistemas contienen sensores que permiten la entrada de información, en estos ejemplos la información es obtenida mediante la voz o las palabras escritas de los usuarios, esta información es procesada a través de métodos de Aprendizaje Automático o ML por sus siglas en inglés.
+La \textbf{Inteligencia Artificial}, o AI por sus siglas en inglés, se puede definir como un sistema capaz de interactuar con su entorno. Algunos ejemplos de Inteligencias Artificiales son: \emph{Siri} de Apple y \emph{Alexa} de Amazon. Para poder generar una respuesta al entorno, estos sistemas contienen sensores que permiten la entrada de información, en estos ejemplos la información es obtenida mediante la voz o las palabras escritas de los usuarios, esta información es procesada a través de métodos de Aprendizaje Automático o ML por sus siglas en inglés.
 
 \begin{figure}[!htbp]
   \centering
@@ -34,7 +35,7 @@ Cada vector:
 \begin{equation}
 \vec{x}_i = (x_1,x_2, \dots , x_d)_i\label{eq:trainset}
 \end{equation}
-corresponde a un dato, en donde cada componente es una \textbf{caracteristica} o \textbf{atributo} del dato en cuestión, y el número de componentes depende del problema. Algunos ejemplos de $\vec{x}_i$ son:
+corresponde a un dato, en donde cada componente es una \textbf{característica} o \textbf{atributo} del dato en cuestión, y el número de componentes depende del problema. Algunos ejemplos de $\vec{x}_i$ son:
 \begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
 \item Imágenes
 \item Enunciados de texto
@@ -62,10 +63,22 @@ en donde no se cuenta con una etiqueta $y_i$. En este tipo de problemas, los mé
 Algunos ejemplos de métodos de aprendizaje no supervisado son:
 \begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
 \item Clustering: Agrupar datos similares entre sí
-\item Análisis de Componentes Principales: Buscar la relación entre las caracteristica de los datos y reducir su dimensionalidad
+\item Análisis de Componentes Principales: Buscar la relación entre las característica de los datos y reducir su dimensionalidad
 \end{itemize}
 
+El \textbf{aprendizaje por refuerzo} es comúnmente considerado una tercer categoría de aprendizaje automático, de manera general, en estas técnicas el sistema inteligente interactúa con su entorno con el objetivo de obtener recompensas, bajo el contexto en el que se está implementando, a menudo se utiliza este tipo de aprendizaje para enseñar a las máquinas cómo jugar video juegos. \cite{Ivan:2019}
 
+\section{Aprendizaje Profundo}
+El \textbf{Aprendizaje Profundo}, o \textbf{Deep Learning} en inglés, como se muestra en la \autoref{fig:IA-ML-DL}, es un sub-campo del aprendizaje automático, que puede definirse como aquellos métodos que procesan la información en múltiples capas, en donde el nivel de abstracción y complejidad de la información incrementa conforme avanza de una capa a la siguiente.
+\\
+En la práctica, los modelos de aprendizaje profundo son redes neuronales artificiales multicapa (\autoref{ch:NNBasics}). Algunos ejemplos comúnmente utilizados son: \cite{Ivan:2019}
+\begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
+\item Perceptrones Multicapa \autoref{sec:multicapamodels}
+\item Redes Neuronales Convolucionales
+\item Redes Neuronales Recurrentes \autoref{sec:RNN}
+\end{itemize}
+
+En el siguiente capítulo se abordarán conceptos básicos acerca de las redes neuronales artificiales, cómo están construidas, es decir, su arquitectura; y cómo, de manera general, este tipo de algoritmos aprenden con base al procesamiento de múltiples datos o muestras de ejemplo.
 
 
 

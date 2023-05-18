@@ -1,12 +1,12 @@
 %************************************************
-\chapter{Representación de Varieble Discreta}\label{ch:DVR}
+\chapter{Representación de Variable Discreta}\label{ch:DVR}
 % ************************************************
-Existen diferentes métodos numéricos para resolver la ecuación de Schrödinger Dependiente del Tiempo (\autoref{eq:TDSE ket}). En esta capítulo se desarrollará un método particular conocido como el método de \textbf{Representación de Variable Discreta}, DVR por sus siglas en inglés.
+Existen diferentes métodos numéricos para resolver la ecuación de Schrödinger Dependiente del Tiempo (\autoref{eq:TDSE ket}). En esta capítulo se desarrollará un método particular conocido como el método de \textbf{Representación de Variable Discreta}, \acs{DVR} por sus siglas en inglés.
 \\\\
-Formalmente, el espacio de Hilbert de las funciones de onda es infinito, sin embargo, para resolver y tratar problemas de numericamente, es necesario hacer un truncamiento de la dimensión del espacio a un número finito $N$. Este espacio reducido de Hilbert, puede verse como un espacio generado por un operador de proyección, además, el espacio reducido de Hilbert tiene el mismo formalismo de la mecánica cuántica, pues, si se recuerda que la dimensión del espacio de Hilbert está dado por las distintas alternativas que puede tomar el sistema cuántico en cuestión, este espacio de dimensión $N$, puede ser un espacio completo para otro problema en mecánica cuántica.
+Formalmente, el espacio de Hilbert de las funciones de onda es infinito, sin embargo, para resolver y tratar problemas de numéricamente, es necesario hacer un truncamiento de la dimensión del espacio a un número finito $N$. Este espacio reducido de Hilbert, puede verse como un espacio generado por un operador de proyección, además, el espacio reducido de Hilbert tiene el mismo formalismo de la mecánica cuántica, pues, si se recuerda que la dimensión del espacio de Hilbert está dado por las distintas alternativas que puede tomar el sistema cuántico en cuestión, este espacio de dimensión $N$, puede ser un espacio completo para otro problema en mecánica cuántica.
 
 \section{Proyección Espectral}
-Una función de onda y sus operadores se pueden representar mendiante una una base de funciones ortogonales, a esta base se le conoce como \textbf{base espectral}:
+Una función de onda y sus operadores se pueden representar mediante una una base de funciones ortogonales, a esta base se le conoce como \textbf{base espectral}:
 $$\{\phi_i(x)\}_{i=1}^{N}$$
 que, por ser funciones ortogonales cumplen que:
 $$\bra{\phi_i(x)}\ket{\phi_j(x)} = \delta_{ij}$$
@@ -17,7 +17,7 @@ Como se mencionó anteriormente, la dimensión del espacio de Hilbert se debe re
   P_N = \sum_{n=1}^N\ket{\phi_n}\bra{\phi_n}
 \end{equation}
 
-Meiante el operador $P_N$ se puede mapear la dinámica del espacio de Hilbert al espacio reducido de Hilbert, en partícular, es de interés para resolver la \autoref{eq:TDSE ket} conocer cómo se representa el operador Hamiltoniano:
+Mediante el operador $P_N$ se puede mapear la dinámica del espacio de Hilbert al espacio reducido de Hilbert, en particular, es de interés para resolver la \autoref{eq:TDSE ket} conocer cómo se representa el operador Hamiltoniano:
 \begin{equation}
   \label{eq:Hamiltoniano}
   H = \frac{\hat{p}^2}{2m}+V(\hat{x})
@@ -82,8 +82,8 @@ Dado un conjunto de puntos en el espacio de posiciones: $\{x_i\}$ con $i=1,2,3,\
 está asociada a la \textbf{colocación}\footnote{Los \textbf{métodos de colocación} son soluciones numéricas de un conjunto de ecuaciones, cuya solución resulta ser exacta en un conjunto discreto de puntos llamados puntos de colocación.\cite{Tannor:2006}} del operador de proyección, y los puntos $\{x_i\}$ son llamados \textbf{puntos de colocación}. Los coeficientes $b_n$ están determinados por la condición de que: $\psi_N(x)=\psi(x)$ en el conjunto de puntos de colocación.
 
 
-\section{Base Pseudoespectral}
-Una \textbf{base pseudoespectral}: $\{\theta_j\}_{j=1}^N$ se define como la base de las funciones localizadas espacialmente. La base de funciones ortogonales $\{\phi_n\}_{n=1}^N$, la colocación en la \autoref{eq:wavefunexp}, los puntos de colocación $\{x_i\}_{i=1}^N$, y los factores de peso definidos como $\Delta_j$ con $j=1,\dots,N$, determinan completamente la forma de la base pseudoespectral:
+\section{Base Pseudo-espectral}
+Una \textbf{base pseudo-espectral}: $\{\theta_j\}_{j=1}^N$ se define como la base de las funciones localizadas espacialmente. La base de funciones ortogonales $\{\phi_n\}_{n=1}^N$, la colocación en la \autoref{eq:wavefunexp}, los puntos de colocación $\{x_i\}_{i=1}^N$, y los factores de peso definidos como $\Delta_j$ con $j=1,\dots,N$, determinan completamente la forma de la base pseudo-espectral:
 
 \begin{equation}
   \label{eq:basepseudo}
@@ -94,18 +94,18 @@ $$\Phi_n(x_j)\equiv \sqrt{\Delta_j}\phi_n(x_j)$$
 $$\theta_j(x_i) = \Delta_j^{-1/2}\delta_{ij}$$
 
 
-En conjunto, las $N$ funciones de la base pseudoespectral generan el mismo espacio de Hilbert reducido que las $N$ funciones ortogonales de la base espectral, y ambas bases están relacionadas mediante una transformación unitaria: $\Phi_n^*$. Como consecuencia, se tiene que el operador de proyección es idéntico en ambas bases, es decir:
+En conjunto, las $N$ funciones de la base pseudo-espectral generan el mismo espacio de Hilbert reducido que las $N$ funciones ortogonales de la base espectral, y ambas bases están relacionadas mediante una transformación unitaria: $\Phi_n^*$. Como consecuencia, se tiene que el operador de proyección es idéntico en ambas bases, es decir:
 \begin{equation}
   \label{eq:proyecbases}
   P_N = \sum_{n=1}^N\ket{\phi_n}\bra{\phi_n}=\sum_{j=1}^N\ket{\theta_j}\bra{\theta_j}
 \end{equation}
 
-Se puede probar \cite{Tannor:2006}, que tanto la base espectral, como la base pseudoespectral tienen propiedades de completez y ortogonalidad completamente análogas. Esto es de particular importancia, pues, dado que ambas bases generan el mismo espacio reducido de Hilbert, los operadores se pueden escribir tanto en términos de una base, como en la otra, y, si es necesario hacer cálculos con estos operadores (como sumarlos), se puede utilizar la transformación unitaria para escribirlos en términos de la misma base.
+Se puede probar \cite{Tannor:2006}, que tanto la base espectral, como la base pseudo-espectral tienen propiedades de completes y ortogonalidad completamente análogas. Esto es de particular importancia, pues, dado que ambas bases generan el mismo espacio reducido de Hilbert, los operadores se pueden escribir tanto en términos de una base, como en la otra, y, si es necesario hacer cálculos con estos operadores (como sumarlos), se puede utilizar la transformación unitaria para escribirlos en términos de la misma base.
 
 
-\section{Algoritmo DVR aplicado a un proceso físico-químico}
+\section{Algoritmo DVR aplicado a un proceso físico-químico}\label{sec:DVRapp}
 
-En esta sección se aplicarán los conceptos revisados a lo largo del capítulo para resolver un problema físico-químico que involucra potenciales dependientes del tiempo utilizando el método DVR.\\
+En esta sección se aplicarán los conceptos revisados a lo largo del capítulo para resolver un problema físico-químico que involucra potenciales dependientes del tiempo utilizando el método \acs{DVR}.\\
 La implementación numérica se realizó en Python 3.9.7 y se encuentra disponible en el repositorio: \href{https://github.com/Jessi-MM/PropagatorLearning/blob/main/src/ANN_as_Propagators_DidacticNotebook.ipynb}{\faGithub Transferencia de Protones}
 
 \subsection{Sistema de Transferencia de Protones}\label{sec:ProtonTransfer}
@@ -115,7 +115,7 @@ Los sistemas de \textbf{transferencia de protones} ocurren en un complejo de enl
 \begin{figure}[ht]
   \centering
 \includegraphics[width=0.6\textwidth]{/home/jessica/Tesis/img/DrawModel.png}
-\caption{Descripción del modeo de transferencia de protones $H^+$.}
+\caption{Descripción del modelo de transferencia de protones $H^+$.}
 \label{fig:drawmodel}
 \end{figure}
 
@@ -159,7 +159,7 @@ En las ecuaciones de potenciales de oscilador armónico, $m$ se refiere a la mas
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/ExamplesPotential.png}
+  \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/ExamplesPotential1.png}
   \caption{Potencial $V(r,t)$ a diferentes tiempos.}
   \label{fig:drawPot}
 \end{figure}
@@ -168,7 +168,7 @@ La \autoref{fig:drawPot} muestra un ejemplo de potencial $V(r,t)$ generado con l
 
 \subsection{Elección de una base Ortonormal y Grid}
 
-Para proceder con la solución a la TDSE \autoref{eq:TDSE ket}, elegimos una base de funciones ortogonales: \cite{Colbert1992}
+Para proceder con la solución a la \acs{TDSE} \autoref{eq:TDSE ket}, elegimos una base de funciones ortogonales: \cite{Colbert1992}
 
 \begin{equation}
   \label{eq:eigenfunc}
@@ -181,18 +181,18 @@ y un grid en el espacio de posiciones:
   r_i = a + \frac{(b-a)i}{N-1} \,\,\,\,\, i=0,..,N-1
 \end{equation}
 
-donde: $a=-1.5\AA$, $b=1.5\AA$ y $N=32$ para la implementación numérica, es decir, que el espacio reducido de Hilbert del sistema tiene una dimensión de $N=200$. La \autoref{fig:Phi_n} muestra las primeras cinco funciones ortogonales de la base en el grid del espacio de posiciones. Las funciones $\phi_n$ están construidas para que se cumpla: $\phi_n(r=r_0=a)=\phi_n(r=r_{N-1}=b)=0$.
+donde: $a=-1.5\AA$, $b=1.5\AA$ y $N=200$ para la implementación numérica, es decir, que el espacio reducido de Hilbert del sistema tiene una dimensión de $N=200$. La \autoref{fig:Phi_n} muestra las primeras cinco funciones ortogonales de la base en el grid del espacio de posiciones. Las funciones $\phi_n$ están construidas para que se cumpla: $\phi_n(r=r_0=a)=\phi_n(r=r_{N-1}=b)=0$.
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/Phi_n.png}
+  \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/Phi_n1.png}
   \caption{Funciones ortogonales $\phi_n(r)$ en el grid $\{r_i\}_{i=0}^{N-1}$ para $n=1,..5$.}
   \label{fig:Phi_n}
 \end{figure}
 
 \subsubsection{Representación de la matriz del Hamiltoniano en la Base Espectral}
 
-Los elementos de matriz de la Energía Cinética en la base pseudoespectral están dados por:
+Los elementos de matriz de la Energía Cinética en la base pseudo-espectral están dados por:
 \begin{equation}
   \label{eq:T}
 T^{\theta}_{ij}= \bra{\theta_i}T\ket{\theta_j}=\sum_{n=1}^N\bra{\theta_i}\ket{\phi_n}\bra{\phi_n}T\ket{\theta_j}
@@ -219,10 +219,10 @@ donde: $\Delta r = (b-a)/N-1$. Obteniendo la segunda derivada de la \autoref{eq:
   T^{\theta}_{ij}=\frac{\hbar^2}{2m}\left(\frac{\pi}{b-a} \right)^2\frac{2}{N-1}\sum_{n=1}^Nn^2\sin\left(\frac{n\pi i}{N-1} \right)\sin\left(\frac{n\pi j}{N-1} \right)
 \end{equation}
 
-que son los elementos de matriz de la Energía Cinética en la base pseudoespectral, $T^{\theta}\in \mathcal{M}_{200\times200}(\mathbb{R})$.
+que son los elementos de matriz de la Energía Cinética en la base pseudo-espectral, $T^{\theta}\in \mathcal{M}_{200\times200}(\mathbb{R})$.
 \\
 \\
-La representación de la matriz de Energía Potencial en la base pseudoespectral es más simple que la de la Energía Cinética, pues 
+La representación de la matriz de Energía Potencial en la base pseudo-espectral es más simple que la de la Energía Cinética, pues 
 las funciones $\{\theta_i\}$ son localizadas en el espacio de posiciones $r$ y cumplen la condición de ortogonalidad: $\bra{\theta_i}\ket{\theta_j}= \delta_{ij}$, así:
 
 \begin{equation}
@@ -234,7 +234,7 @@ $V^{\theta}\in \mathcal{M}_{200\times200}(\mathbb{R})$ es una matriz diagonal.
 \\
 Dado un tiempo $t$, los elementos de la diagonal $V^{\theta}_{ii}$ están dados por $V(r_i,t)$ (\autoref{eq:matrixPot}), con $i=0,..,31$.
 \\
-A partir de la \autoref{eq:T_N} y \autoref{eq:V_DVR}, se construye la matriz del Hamiltoniano en la base pseudoespectral al tiempo $t$:
+A partir de la \autoref{eq:T_N} y \autoref{eq:V_DVR}, se construye la matriz del Hamiltoniano en la base pseudo-espectral al tiempo $t$:
 \begin{equation}
   \label{eq:H_DVR}
   H(t)^{\theta} = V(t)^{\theta}+T^{\theta}
@@ -246,12 +246,12 @@ en donde el Hamiltoniano tiene dependencia temporal debido a que el Potencial de
 Sea un paquete de onda al tiempo $t=0$ (\autoref{fig:psi_0}): 
 \begin{equation}
   \label{eq:psi_0}
-\psi(r,0)=\sum_{i=1}^5C_i \cdot \phi_{i}(r)
+\psi(r,0)=\sum_{i=1}^{k=5}C_i \cdot \phi_{i}(r)
 \end{equation}
-con $C_i$ números complejos aleatorios de una distrbución uniforme, y elegidos de tal forma que: $\bra{\psi(r,0)}\ket{\psi(r,0)}=1$
+con $C_i$ números complejos aleatorios de una distribución uniforme, y elegidos de tal forma que: $\bra{\psi(r,0)}\ket{\psi(r,0)}=1$
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/psi_0}
+  \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/psi_01}
   \caption{Paquete inicial de onda al tiempo $t=0$. Parte real y compleja.}
   \label{fig:psi_0}
 \end{figure}
@@ -274,18 +274,19 @@ En donde la matriz $U$ está formada por los $N$ eigenvectores de $H^{\theta}$ c
 $$D=U^{-1}H^{\theta}U$$.
 \\
 
-La \autoref{fig:psi_ev} muestra la evolución de la parte real del paquete de onda en intervalos de $1\,fs$ a lo largo de $5\,fs$, obtenida con la \autoref{eq:psi_t}. En la \autoref{fig:dens_ev} se muestra la evolución temporal de la densidad del protón.
+La \autoref{fig:psi_ev} muestra la evolución de la parte real del paquete de onda en intervalos de $1\,fs$ a lo largo de $5\,fs$, obtenida con la \autoref{eq:psi_t}. En la \autoref{fig:dens_ev} se muestra la evolución temporal de la densidad del protón.\\
+\href{https://github.com/Jessi-MM/PropagatorLearning/blob/main/src/Animacion/gifs/animation-dens\%26pot.gif}{\faPlayCircle[regular] Evolución Temporal: Potencial y Densidad}
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/psi_ev}
-  \caption{Propagación del paquete de onda.}
+  \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/psi_ev1}
+  \caption{Propagación del paquete de onda $\psi(r,t)$ parte real.}
   \label{fig:psi_ev}
 \end{figure}
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/dens_ev}
+  \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/dens_ev1}
   \caption{Evolución temporal de la densidad $|\psi(r,t)|^2$.}
   \label{fig:dens_ev}
 \end{figure}

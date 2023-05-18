@@ -30,12 +30,19 @@
 % **************************************************************************************************************
 \RequirePackage{silence} % :-\
     \WarningFilter{scrreprt}{Usage of package `titlesec'}
-    %\WarningFilter{scrreprt}{Activating an ugly workaround}
+    % \WarningFilter{scrreprt}{Activating an ugly workaround}
     \WarningFilter{titlesec}{Non standard sectioning command detected}
-    \documentclass[twoside,openright,titlepage,numbers=noenddot,%1headlines,
-                headinclude,footinclude,cleardoublepage=empty,abstract=on,
+    \documentclass[openany,%1headlines,
+                headinclude,footinclude,abstract=on,
                 BCOR=5mm,paper=a4,fontsize=12pt
                 ]{scrreprt}
+
+
+    %original
+    %\documentclass[twoside,openright,titlepage,numbers=noenddot,%1headlines,
+     %           headinclude,footinclude,cleardoublepage=empty,abstract=on,
+      %          BCOR=5mm,paper=a4,fontsize=12pt
+       %         ]{scrreprt}
 
 %============ Modificación Español en Xelatex
 \usepackage{polyglossia} 
@@ -51,7 +58,6 @@
 %*******************************************************
 \input{classicthesis-config}
 %\usepackage{fontenc}
-
 % ******************************
 % Margin figures
 %*******************************
@@ -75,6 +81,14 @@
 \tcbuselibrary{theorems}%Box equation
 \usepackage{fontawesome5}
 \usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage{neuralnetwork}
+% \usepackage{dirtree}%Trees of files diagrams
+
+
+
+
 
 
 %********************************************************************
@@ -147,9 +161,11 @@
 %agregar a forma final \cleardoublepage
 %\ctparttext{You can put some informational part preamble text here.}
 \part{Redes Neuronales Artificiales (ANN's)}\label{pt:ANNS}
+
 \include{Chapters/cap04}
-%\addtocontents{toc}{\protect\clearpage} % <--- just debug stuff, ignore
 \include{Chapters/cap05}
+%\addtocontents{toc}{\protect\clearpage} % <--- just debug stuff, ignore
+
 %\include{Chapters/cap06}
 %\include{Chapters/cap07}
 
@@ -157,10 +173,10 @@
 
 %agregar a forma final \cleardoublepage
 %\ctparttext{You can put some informational part preamble text here.}
-\part{Implementación de modelos de ANN's como propagadores en Dinámica Cuántica }\label{pt:Modelos}
+\part{Implementación de un modelo de ANN como propagador en Dinámica Cuántica }\label{pt:Modelos}
 \include{Chapters/cap08}
-\include{Chapters/cap09}
-\include{Chapters/cap10}
+%\include{Chapters/cap09}
+%\include{Chapters/cap10}
 
 %\include{multiToC} % <--- just debug stuff, ignore for your documents
 % ********************************************************************

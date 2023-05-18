@@ -26,7 +26,7 @@ Para cada operador $\hat{a}$ existen kets ``especiales'' llamados eigenkets o \t
 
 en donde $a$ puede ser un número real o complejo, y es llamado \textbf{eigenvalor} de $\hat{a}$.
 \\
-Un \textbf{observable} en mecánica cuántica puede ser la posición, el momento o el spin de una partícula, y se puede representar mediandite un operador. Una propiedad importante de los observables, es que son operadores Hermitianos\footnote{El espacio de Hilbert Dual de los kets es el espacio de los bras, cada estado $\ket{\psi}$ tiene su dual correspondiente: $\bra{\psi}$, así como cada operador $X$ tiene su dual correspondiente $X^\dag$, llamado Hermitiano adjunto, cuando resulta que $X = X^\dag$, se dice que $X$ es un \textbf{operador Hermitiano}.}, por lo que sus eigenvalores son valores reales, y además sus eigenestados son ortonormales, y, por construcción, forman una base completa del espacio de Hilbert.
+Un \textbf{observable} en mecánica cuántica puede ser la posición, el momento o el spin de una partícula, y se puede representar mediante un operador. Una propiedad importante de los observables, es que son operadores Hermitianos\footnote{El espacio de Hilbert Dual de los kets es el espacio de los bras, cada estado $\ket{\psi}$ tiene su dual correspondiente: $\bra{\psi}$, así como cada operador $X$ tiene su dual correspondiente $X^\dag$, llamado Hermitiano adjunto, cuando resulta que $X = X^\dag$, se dice que $X$ es un \textbf{operador Hermitiano}.}, por lo que sus eigenvalores son valores reales, y además sus eigenestados son ortonormales, y, por construcción, forman una base completa del espacio de Hilbert.
 
 
 \section{Operador de Propagación: Evolución Temporal de un Sistema}
@@ -65,7 +65,7 @@ i\hbar\frac{\partial}{\partial t}\mathcal{U}(t_0,t)\ket{\psi_{t_0}} = H\mathcal{
 \mathcal{U}(t_0,t) = \exp{\frac{-iH(t-t_0)}{\hbar}}
 \end{equation}
 
-Para probar la afirmación aterior, se escribe la función exponencial como serie de potencias:
+Para probar la afirmación anterior, se escribe la función exponencial como serie de potencias:
 $$\exp{\frac{-iH(t-t_0)}{\hbar}} = 1 + \frac{-iH(t-t_0)}{\hbar}+ \left(\frac{-i^2}{2}\right)\left(\frac{H(t-t_0)}{\hbar}\right)^2+\dots $$
 al derivar respecto al tiempo se obtiene:
 
@@ -76,7 +76,7 @@ Cuando el Hamiltoniano tiene dependencia temporal, pero conmuta en diferentes ti
 $$[H(t_1), H(t_2)] = H(t_1)H(t_2) - H(t_2)H(t_1)=0$$
 para $t_1 \neq t_2$, se puede probar que el operador de propagación está dado por:
 $$\mathcal{U}(t_0,t) = \exp{-\left( \frac{i}{\hbar}\right)\int_{t_1}^{t_2}H(t')dt'}$$
-Encontrar de manera analítica el operador de propagación se vuelve más complejo y complicado cuando el Hamiltoniano tiene dependencia temporal y no conmuta en diferentes tiempos, para estos casos se pueden desarrollar métodos de aproximación a la \autoref{eq:TDSE ket} como: la Expanción de Magnus, Teoría de Perturbaciones con dependencia temporal, integral de caminos, entre otros.
+Encontrar de manera analítica el operador de propagación se vuelve más complejo y complicado cuando el Hamiltoniano tiene dependencia temporal y no conmuta en diferentes tiempos, para estos casos se pueden desarrollar métodos de aproximación a la \autoref{eq:TDSE ket} como: la Expansión de Magnus, Teoría de Perturbaciones con dependencia temporal, integral de caminos, entre otros.
 
 
 \section{Función de Onda en el espacio de Posiciones}
@@ -107,7 +107,7 @@ Esta relación describe para cada $x$ en el dominio la probabilidad de encontrar
 
  $$|\psi(x)|^2 dx $$
 
- El elemento $dx$ puede ser un intervalo de longitud, cuando se considera una sola dimensión, o un elemento de volumen $d^3\vec{x}$, cuando se tratan las tres dimensiones espaciales. Experimentalmente, está relacionado con la capacidad que tiene un detector (de posición) de asegurar que la partícula está en la vecidad $dx$ alrededor de $x$.
+ El elemento $dx$ puede ser un intervalo de longitud, cuando se considera una sola dimensión, o un elemento de volumen $d^3\vec{x}$, cuando se tratan las tres dimensiones espaciales. Experimentalmente, está relacionado con la capacidad que tiene un detector (de posición) de asegurar que la partícula está en la vecindad $dx$ alrededor de $x$.
 
 
 

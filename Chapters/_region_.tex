@@ -1,106 +1,79 @@
-\message{ !name(cap05.tex)}
-\message{ !name(cap05.tex) !offset(-2) }
-%*************************************************
-\chapter{Redes Neuronales Artificales}\label{ch:NNBasics}
+\message{ !name(cap04.tex)}
+\message{ !name(cap04.tex) !offset(-2) }
+%************************************************
+\chapter{Aprendizaje Automático}\label{ch:ML}
 % ************************************************
-En el capítulo anterior se abordaron conceptos básicos del aprendizaje automático, así como dos de sus principales enfoques: aprendizaje supervisado y no supervisado. Las Redes Neuronales Artificiales son comúnmente un método de aprendizaje supervisado\footnote{Las Redes Neuronales Artificales son algoritmos que también se pueden aplicar en métodos de aprendizaje no supervisado.}, que han tenido gran impulso en los últimos años debido al incremento de datos, su fácil acceso, y al crecimiento en poder computacional, que ha permitido el desarrollo de métodos de 
+%--- Deep Learning Ian G book
+% Historical dev
+% big data &  improve of memorie in computer
+% poner el puto diagramita q siempre sale
+\begin{flushright}{\slshape
+    El aprendizaje automático es como una caja de bombones: nunca sabes lo que vas a obtener... a menos que tengas buenos datos y una sólida comprensión de tus algoritmos.} \\ \medskip
+    --- ChatGPT AI language model
+\end{flushright}
 
 
 
+La \textbf{Inteligencia Artificial}, o AI por sus siglas en inglés, se puede definir como un sistema capaz de interactuar con su entorno. Algunos ejemplos de Inteligencias Artificiales son: \emph{Siri} de Apple y \emph{Alexa} de Amazon. Para poder generar una respuesta al entorno, estos sistemas contienen sensores que permiten la entrada de información, en estos ejemplos la información es obtenida mediante la voz o las palabras escritas de los usuarios, esta información es procesada a través de métodos de Aprendizaje Automático o ML por sus siglas en inglés.
 
-
-\section{Arquitectura básica}
-
-
-\begin{figure}[hb]
+\begin{figure}[!htbp]
   \centering
-  \begin{tikzpicture}[x=1.5cm, y=1.5cm]
-  % Input nodes
-  \foreach \i in {1,2,3}
-    \node[circle, draw, fill=CTtitle!30] (input\i) at (0,\i) {$x_{\i}$};
-  % Summation node
-  \node[circle, draw, fill=CTtitle!60, minimum size=1.5cm] (sum) at (2,2) {$\Sigma$};
-  % Activation node
-  %\node[circle, draw, fill=CTtitle!50] (activation) at (6,2) {$y$};
-  % Output node
-  \node[circle, draw, fill=CTtitle!90] (output) at (4,2) {$\hat{y}$};
-  % Connect the nodes and add weights
-  \foreach \i in {1,2,3}
-  \draw[->] (input\i) -- node[midway, above] {$w_{\i}$} (sum);
-  %\draw[->] (sum) -- (activation);
-  \draw[->] (sum) -- (output);
-
-  \node[above, yshift=2.5cm] at (0,2) {Entrada};
-  \node[above, yshift=2.5cm] at (2,2) {Neurona};
-  \node[above, yshift=2.5cm] at (4,2) {Salida};
-  
-\end{tikzpicture}
-
-\caption{Modelo simple de un Perceptrón}
-\label{fig:perceptron}
+  \includegraphics[width=0.7\textwidth]{/home/jessica/Tesis/img/tesis/IA_ML_DL.png}
+  \caption{Diagrama de Venn que muestra los conceptos de Inteligencia Artificial, Aprendizaje Automático y Aprendizaje profundo.}
+  \label{fig:IA-ML-DL}
 \end{figure}
 
+Los métodos de \textbf{Aprendizaje Automático} se pueden definir como un conjunto de métodos que pueden detectar automáticamente patrones en datos y aplicarlos para predecir nuevos datos. A grandes rasgos, los métodos de aprendizaje automático pueden dividirse en dos categorías: aprendizaje supervisado y aprendizaje no supervisado. \cite{murphy:2013}
+
+\section{Aprendizaje Supervisado}
+En el \textbf{aprendizaje supervisado} el objetivo es aprender, a partir de un conjunto de $M$ datos de entrenamiento definidos como:
+\begin{equation}
+\{\vec{x}_i, y_i\}_{i=1}^{M}
+\end{equation}
+una forma de mapear $\vec{x}_i$ a $y_i$.
+\\
+Cada vector:
+\begin{equation}
+\vec{x}_i = (x_1,x_2, \dots , x_d)_i\label{eq:trainset}
+\end{equation}
+corresponde a un dato, en donde cada componente es una \textbf{característica} o \textbf{atributo} del dato en cuestión, y el número de componentes depende del problema. Algunos ejemplos de $\vec{x}_i$ son:
+\begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
+\item Imágenes
+\item Enunciados de texto
+\item Audios de voz
+\item Series de tiempo
+\end{itemize}
+
+Por otro lado, $y_i$ corresponde a la \textbf{etiqueta} de $\vec{x}_i$. Cuando $y_i$ puede tomar un valor categórico, es decir, que de un conjunto finito:
+$$y_i \in \{1,\dots,c\}, \text{  por ejemplo: 1=perro, 2=gato, etc. }$$ 
+se dice que se trata de un problema de \textbf{clasificación}. Por otro lado, si $y_i$\footnote{$y_i$ puede ser también un vector: $\vec{y}_i$, en donde su dimensión está determinada por el problema a resolver, y no necesariamente es igual a la de $\vec{x}_i$.} es un valor real, se dice que el problema es de \textbf{regresión}.
+\\
+
+Algunos ejemplos de métodos de aprendizaje supervisado son:
+\begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
+\item Árboles de desición: Para problemas de clasificación
+\item Regresión lineal: Para problemas de regresión
+\item Redes Neuronales: Para problemas de regresión y de clasificación
+\end{itemize}
+
+\section{Aprendizaje No Supervisado}
+En el \textbf{Aprendizaje No Supervisado} el conjunto de entrenamiento de $M$ datos se reduce a:
+\[ \{\vec{x}_i\}_{i=1}^M \]
+en donde no se cuenta con una etiqueta $y_i$. En este tipo de problemas, los métodos están enfocados en buscar patrones importantes a partir de únicamente los datos de entrada.
+\\
+Algunos ejemplos de métodos de aprendizaje no supervisado son:
+\begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
+\item Clustering: Agrupar datos similares entre sí
+\item Análisis de Componentes Principales: Buscar la relación entre las característica de los datos y reducir su dimensionalidad
+\end{itemize}
+
+El \textbf{aprendizaje por refuerzo} es comúnmente considerado una tercer categoría de aprendizaje automático, de manera general, en estas técnicas el sistema inteligente interactúa con su entorno con el objetivo de obtener recompensas, bajo el contexto en el que se está implementando, a menudo se utiliza este tipo de aprendizaje para enseñar a las máquinas cómo jugar video juegos. \cite{Ivan:2019}
+
+\section{Aprendizaje Profundo}
+El 
 
 
 
 
 
-\begin{figure}
-    \centering
-    \begin{tikzpicture}[scale=1.5]
-    
-    % Input layer
-    \foreach \i in {1,...,4}
-        \node[circle, draw=black, fill=CTtitle!30] (I-\i) at (0,\i-2) {$x_{\i}$};
-    
-    % Hidden layer 1
-    \foreach \i in {1,...,3}
-        \node[circle, draw=black, fill=CTtitle!60] (H1-\i) at (2,\i-1.5) {};
-    
-    % Hidden layer 2
-    \foreach \i in {1,...,3}
-        \node[circle, draw=black, fill=CTtitle!60] (H2-\i) at (4,\i-1.5) {};
-        
-    % Output layer
-    \foreach \i in {1,...,2}
-        \node[circle, draw=black, fill=CTtitle!90] (O-\i) at (6,\i-1) {$y_{\i}$};
-    
-    % Connections
-    \foreach \i in {1,...,4}
-        \foreach \j in {1,...,3}
-            \draw[->] (I-\i) -- (H1-\j);
-            
-    \foreach \i in {1,...,3}
-        \foreach \j in {1,...,3}
-            \draw[->] (H1-\i) -- (H2-\j);
-            
-    \foreach \i in {1,...,3}
-        \foreach \j in {1,...,2}
-            \draw[->] (H2-\i) -- (O-\j);
-    
-    % Labels
-    \node[above, yshift=0.5cm] at (0,2) {Capa de Entrada};
-    \node[above, yshift=0.5cm] at (2,2) {Capa oculta 1};
-    \node[above, yshift=0.5cm] at (4,2) {Capa oculta 2};
-    \node[above, yshift=0.5cm] at (6,2) {Capa de Salida};
-    
-    \end{tikzpicture}
-    \caption{Arquitectura básica de una Red Neuronal Artificial}
-    \label{fig:nn}
-\end{figure}
-
-\section{Arquitectura básica}
-%---- sec 1.2.1 NN & Deep Learning book
-% Training set 
-% input
-% hidden layer
-% output
-
-\section{Función de Activación y Función de Pérdida}
-\section{Salida y su Función de Pérdida}
-
-\section{Entrenamiento de una Red Neuronal}
-% backpropagation
-
-\section{Multilayer Perceptron, LSTM ? or other NN maybe}
-\message{ !name(cap05.tex) !offset(-106) }
+\message{ !name(cap04.tex) !offset(-79) }
