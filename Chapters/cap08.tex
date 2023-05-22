@@ -128,7 +128,7 @@ En esta sección se implementa una red \acs{LSTM} para predecir la evolución te
 
 \subsection{Obtención de Datos}
 
-El conjunto de datos de entrenamiento utilizado se obtuvo generando tres mil trayectorias de $200\,fs$, cada una con un $\Delta t = 1\,fs$. El diagrama de la \autoref{fig:DiagTraj} muestra una trayectoria, en donde $\psi(r,t_l)r$ con $l=0,\dots 200$ representa la parte real del paquete de onda, $\psi(r,t_l)i$ la parte imaginaria y $V(r,t_l)$ el potencial.
+El conjunto de datos de entrenamiento utilizado se obtuvo generando 4700 trayectorias de $200\,fs$, cada una con un $\Delta t = 1\,fs$. El diagrama de la \autoref{fig:DiagTraj} muestra una trayectoria, en donde $\psi(r,t_l)r$ con $l=0,\dots 200$ representa la parte real del paquete de onda, $\psi(r,t_l)i$ la parte imaginaria y $V(r,t_l)$ el potencial.
 
 \begin{figure}[!htbp]
   \centering
@@ -234,6 +234,7 @@ En donde se utilizan las siguientes variables:
 \end{itemize}
 
 \subsection{Procesamiento de Datos: Visualización y Forma}
+
 Una vez generadas las trayectorias, para entrenar el modelo de red 
 
 
@@ -244,16 +245,55 @@ Una vez generadas las trayectorias, para entrenar el modelo de red
   \label{fig:dataexample}
 \end{figure}
 
+
+blabla  a\footnote{Las funciones de onda $\psi$ están escaladas por un factor de 20 para poder visualizar el potencial en la misma gráfica.}
+
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/DiagramaSeqDatos.png}
+  \includegraphics[width=0.8\textwidth]{/home/jessica/Tesis/img/tesis/dataInputOutput.png}
+  \caption{Visualización: Entrada $X(t)$ y etiqueta $X^*(t+1)$ a un tiempo $t$.}
+  \label{fig:datavis}
+\end{figure}
+
+
+
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{/home/jessica/Tesis/img/tesis/DiagramaSeqDatos.png}
   \caption{Vector $X$ a un tiempo $t$.}
   \label{fig:dataexamp}
 \end{figure}
 
 
+\begin{table}[ht]
+  \myfloatalign
+  \begin{tabularx}{0.7\textwidth}{XXXX} \toprule
+   \tableheadline{Entrenamiento} & \tableheadline{Validación} & \tableheadline{Test} & \tableheadline{Total} \\ \midrule
+   3290          &  940  & 470  & 4700  \\ \midrule
+   70\%          &  20\% & 10\% & 100\% \\
+    \bottomrule
+  \end{tabularx}
+  \caption{División de datos}
+  \label{tab:SplitData}
+\end{table}
+
+
 
 \subsection{Modelo LSTM}
+
+\begin{table}[ht]
+  \myfloatalign
+  \begin{tabularx}{\textwidth}{XXX} \toprule
+   \tableheadline{Capas} & \tableheadline{Nodos} & \tableheadline{Entrada/Salida} \\ \midrule
+   LSTM          &  1024  & (In: 96, Ou:1024)  \\ \midrule
+   LSTM          &  1024  & (In: 1024, Ou:1024)  \\ \midrule
+   Lineal        &  64    & (In: 1024, Ou:64) \\
+    \bottomrule
+  \end{tabularx}
+  \caption{Resumen del modelo}
+  \label{tab:model}
+\end{table}
 
 %\begin{figure}[!htbp]
  % \centering
@@ -266,11 +306,40 @@ Una vez generadas las trayectorias, para entrenar el modelo de red
 
 \begin{equation}
   \label{eq:S}
-  S = \bra{\psi_{pred}}\ket{\psi_{real}} = |S|\exp{i\theta}
+  S = \bra{\psi_{LSTM}}\ket{\psi_{True}} = |S|\exp{i\theta}
 \end{equation}
 
-\subsection{Resultados: Precisión y Predicciones}\label{sec:Resultados}
 
+
+\subsection{Resultados y Análisis: Precisión y Predicciones}\label{sec:Resultados}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step.png}
+  \caption{Predicción 1}
+  \label{fig:1step}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step1.png}
+  \caption{Predicción 2}
+  \label{fig:1step1}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens.png}
+  \caption{Trayectoria 1}
+  \label{fig:trajec1}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens1.png}
+  \caption{Trayectoria 2}
+  \label{fig:trajec2}
+\end{figure}
 
 
 \subsection{Análisis de Resultados}
