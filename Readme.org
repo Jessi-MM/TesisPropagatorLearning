@@ -1,4 +1,4 @@
-* CNN para la distinción de Gammas y Hadrones con HAWC's Eye
+* LSTM to Solve the Time Dependent Schrödinger Equation
 Autor: Jessica Martínez Marcelo
 
 Esta tesis fue basada en el formato: [[https://bitbucket.org/amiede/classicthesis/wiki/Home][classicthesis]], desarrollado por /André Miede/.
