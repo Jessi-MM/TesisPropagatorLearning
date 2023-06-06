@@ -214,11 +214,10 @@ En el repositorio \href{https://github.com/Jessi-MM/PropagatorLearning/tree/main
  
  El código para generar las trayectorias se encuentra en el repositorio: \href{https://github.com/Jessi-MM/PropagatorLearning/blob/main/src/Proton_Transfer_DataGenerate.ipynb}{\faGithub Generación de datos}, que contiene dos clases: \emph{Potential\_System}, que contiene las ecuaciones del modelo del potencial y la clase \emph{ProtonTransfer}, con la que se generan las trayectorias. A continuación se muestra un ejemplo para generar una trayectoria, con la información que muestra el diagrama de la \autoref{fig:DiagTraj}:
 
- \begin{lstlisting}
+ \begin{lstlisting}[language=Python, morekeywords={ProtonTransfer, True, False}]
    trayectoria0 = ProtonTransfer(n=32, a=-1.5, b=1.5, time=True, var_random=True, save_dir='data0')
    trayectoria0.vector_potential(t=200,step=1)
-   trayectoria0.evolution_wp(t=200, step=1, gaussiana=True)
-\end{lstlisting}
+   trayectoria0.evolution_wp(t=200, step=1, gaussiana=True)\end{lstlisting}
 
 En donde se utilizan las siguientes variables:
 \begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
@@ -235,36 +234,33 @@ En donde se utilizan las siguientes variables:
 
 \subsection{Procesamiento de Datos: Visualización y Forma}
 
-Una vez generadas las trayectorias, para entrenar el modelo de red 
+Para el entrenamiento de la red, las trayectorias deben estar conformados por entradas $X$ y etiquetas o salidas $y$, para este problema, cada entrada está conformada por la parte real y compleja de un paquete onda y el potencial al tiempo $t$, es decir un vector de la forma:
 
+$$(\psi_{real}(r,t), \psi_{imag}(r,t),V(r,t))$$
 
-\begin{figure}[!htbp]
-  \centering
-  \includegraphics[width=0.5\textwidth]{/home/jessica/Tesis/img/tesis/InputOutput.png}
-  \caption{Entrada $X$ y etiqueta $y$ a un tiempo $t$.}
-  \label{fig:dataexample}
-\end{figure}
+para $t \in \{0,1,\dots,199\}$ de dimensión:
 
+$$(32+32+32,200)=(96,200)$$
 
-blabla  a\footnote{Las funciones de onda $\psi$ están escaladas por un factor de 20 para poder visualizar el potencial en la misma gráfica.}
+mientras que la salida es el paquete de onda propagado al tiempo $t+1$:
+
+$$(\psi_{real}(r,t+1), \psi_{imag}(r,t+1))$$
+
+para $t \in \{0,1,\dots,199\}$ de dimensión:
+
+$$(32+32,200)=(64,200)$$
+
+La \autoref{fig:datavis} muestra cada componente de los vectores de entrada y salida en su representación del espacio de posiciones $r$ a un tiempo $t$, en donde las funciones de onda $\psi$ están escaladas por un factor de 20 para poder visualizar el potencial en la misma gráfica.
 
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.8\textwidth]{/home/jessica/Tesis/img/tesis/dataInputOutput.png}
-  \caption{Visualización: Entrada $X(t)$ y etiqueta $X^*(t+1)$ a un tiempo $t$.}
+  \caption{Visualización gráfica: Entrada $X$ y etiqueta $y$ a un tiempo $t$.}
   \label{fig:datavis}
 \end{figure}
 
-
-
-
-\begin{figure}[!htbp]
-  \centering
-  \includegraphics[width=0.7\textwidth]{/home/jessica/Tesis/img/tesis/DiagramaSeqDatos.png}
-  \caption{Vector $X$ a un tiempo $t$.}
-  \label{fig:dataexamp}
-\end{figure}
-
+El código para la preparación de los datos se encuentra en la \href{https://github.com/Jessi-MM/PropagatorLearning/tree/main/Data_Gaussian}{\faGithub Notebook principal} en la clase \texttt{Propagator\_Dataset}.\\
+La división de los datos se muestra en la \autoref{tab:SplitData}.
 
 \begin{table}[ht]
   \myfloatalign
@@ -277,8 +273,6 @@ blabla  a\footnote{Las funciones de onda $\psi$ están escaladas por un factor d
   \caption{División de datos}
   \label{tab:SplitData}
 \end{table}
-
-
 
 \subsection{Modelo LSTM}
 
@@ -294,6 +288,13 @@ blabla  a\footnote{Las funciones de onda $\psi$ están escaladas por un factor d
   \caption{Resumen del modelo}
   \label{tab:model}
 \end{table}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/modelDiag2.png}
+  \caption{Modelo LSTM.}
+  \label{fig:Model}
+\end{figure}
 
 %\begin{figure}[!htbp]
  % \centering
