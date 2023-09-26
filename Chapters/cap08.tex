@@ -254,7 +254,7 @@ La \autoref{fig:datavis} muestra cada componente de los vectores de entrada y sa
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.8\textwidth]{/home/jessica/Tesis/img/tesis/dataInputOutput.png}
+  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/dataInputOutput.png}
   \caption{Visualización gráfica: Entrada $X$ y etiqueta $y$ a un tiempo $t$.}
   \label{fig:datavis}
 \end{figure}
@@ -266,7 +266,7 @@ La división de los datos se muestra en la \autoref{tab:SplitData}.
   \myfloatalign
   \begin{tabularx}{0.7\textwidth}{XXXX} \toprule
    \tableheadline{Entrenamiento} & \tableheadline{Validación} & \tableheadline{Test} & \tableheadline{Total} \\ \midrule
-   3290          &  940  & 470  & 4700  \\ \midrule
+   5600          &  1600  & 800  & 8000  \\ \midrule
    70\%          &  20\% & 10\% & 100\% \\
     \bottomrule
   \end{tabularx}
@@ -274,7 +274,9 @@ La división de los datos se muestra en la \autoref{tab:SplitData}.
   \label{tab:SplitData}
 \end{table}
 
-\subsection{Modelo LSTM}
+\subsection{Modelo LSTM: Arquitectura y Entrenamiento}
+
+Para el modelo de la red y su entrenamiento se utilizó PyTorch versión 1.9.0+cu102 en una computadora personal. El resumen del modelo se muestra en la \autoref{tab:model}.
 
 \begin{table}[ht]
   \myfloatalign
@@ -283,11 +285,24 @@ La división de los datos se muestra en la \autoref{tab:SplitData}.
    LSTM          &  1024  & (In: 96, Ou:1024)  \\ \midrule
    LSTM          &  1024  & (In: 1024, Ou:1024)  \\ \midrule
    Lineal        &  64    & (In: 1024, Ou:64) \\
-    \bottomrule
+   \bottomrule
+   Loss Function:      & Mean Square Error \\
+   Optimizer:          & AdamW &  weight decay = 0.01 \\
+   Batch size:         & 10 \\
+   Learning rate:      & 0.0001 \\
+   Epochs:             & 290 \\
+   \bottomrule
+   
   \end{tabularx}
   \caption{Resumen del modelo}
   \label{tab:model}
 \end{table}
+
+En donde los parámetros utilizados fueron elegidos después de varios intentos para hallar los que minimizaran la función de pérdida o loss function más rápido, es decir en un menor número de épocas. Las funciones de activación en las capas \acs{LSTM} son las mencionadas en la sección \autoref{sec:lstm}, mientras que la última capa corresponde a una capa lineal debido a que la salida $y$ corresponde a valores reales. El algoritmo de optimización\footnote{Detalles en la sección \autoref{sec:TrainNN}} utiliza una técnica de regularización para prevenir el sobre-entrenamiento, que consiste en agregar una pequeña penalización a la pérdida, que es la norma $L_2$ de todos los pesos entrenables del modelo: \cite{https://doi.org/10.48550/arxiv.1711.05101}
+
+\[ loss = loss + \text{weight decay}*L_2\]
+
+En la \autoref{fig:Model} se muestra un diagrama del modelo de red representado en capas de tiempo (sección \autoref{sec:lstm}), con las entradas y salidas correspondes.
 
 \begin{figure}[!htbp]
   \centering
@@ -296,23 +311,48 @@ La división de los datos se muestra en la \autoref{tab:SplitData}.
   \label{fig:Model}
 \end{figure}
 
-%\begin{figure}[!htbp]
- % \centering
-  %\includegraphics[width=1\textwidth]{/home/jessica/Tesis/Codigo_Limpio/src/ANN_Models/img/LSTM_0-model.png}
-  %\caption{Diagrama del modelo LSTM. Move to appendix ?}
- % \label{fig:modelDiag}
-%\end{figure}
-
-\subsection{Función de Precisión}
+Para calcular la precisión del modelo se utilizó la \autoref{eq:S}:
 
 \begin{equation}
   \label{eq:S}
   S = \bra{\psi_{LSTM}}\ket{\psi_{True}} = |S|\exp{i\theta}
 \end{equation}
 
+que compara dos funciones de onda, la predicha por el modelo $\psi_{LSTM}$ respecto a la esperada $\psi_{True}$, cuando se trata de la misma función de onda, dado que están normalizadas, se sigue que:
+\begin{equation*}
+  \bra{\psi}\ket{\psi} = \int_{a}^{b}\psi(x) \psi(x)^\dag dx = \int_{a}^{b}|\psi(x)| dx = 1 = |S|\exp{i\theta}
+\end{equation*}
 
+$\iff |S|=1$ y $\theta =0$. Es decir, que la función de onda $\psi_{LSTM}$ predicha por el modelo es más parecida a la esperada $\psi_{True}$ cuanto más se acerca $|S|$ a $1$ y $\theta$ a $0$. \\
+
+Al finalizar cada época en el entrenamiento se calculó la función de precisión para cada onda en cada trayectoria en el conjunto de validación y se promediaron los valores correspondientes a $|S|$ y $\theta$. 
 
 \subsection{Resultados y Análisis: Precisión y Predicciones}\label{sec:Resultados}
+
+En la \autoref{fig:S-phase} se muestran los valores promedio obtenidos de la magnitud absoluta $|S|$ y la fase $\theta$ a través de las épocas.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/S-plot.png}
+  \caption{Valores promedio de $|S|$ y $\theta$ en el conjunto de validación por cada época.}
+  \label{fig:S-phase}
+\end{figure}
+
+Al finalizar el entrenamiento, sobre el conjunto de testeo los resultados de las variables se reportan en la \autoref{tab:res-S}.
+
+\begin{table}[ht]
+  \myfloatalign
+  \begin{tabularx}{0.3\textwidth}{XX} \toprule
+   \tableheadline{$|S|$} & \tableheadline{$\theta$} \\ \midrule
+   0.946          &  0.0001 \\
+   \bottomrule  
+  \end{tabularx}
+  \caption{Valores promedio de $|S|$ y $\theta$ en el conjunto de testeo}
+  \label{tab:res-S}
+\end{table}
+
+
+
 
 \begin{figure}[!htbp]
   \centering
@@ -330,7 +370,7 @@ La división de los datos se muestra en la \autoref{tab:SplitData}.
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens.png}
+  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens7.png}
   \caption{Trayectoria 1}
   \label{fig:trajec1}
 \end{figure}
@@ -343,7 +383,9 @@ La división de los datos se muestra en la \autoref{tab:SplitData}.
 \end{figure}
 
 
-\subsection{Análisis de Resultados}
+\subsection{Aumento de resolución con 2 LSTM}
+
+
 
 \subsection{Conclusión}
 

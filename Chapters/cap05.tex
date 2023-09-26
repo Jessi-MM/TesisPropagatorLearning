@@ -163,9 +163,9 @@ En el segundo caso, la importancia de elegir una función de activación no line
 
 
 \subsection{Función de Pérdida}
-La \textbf{función de pérdida}: $L(\hat{y},y)$ es la función que compara el resultado o salida de la red: $\hat{y}$ respecto a la etiqueta original $y$ correspondiente a la entrada $\vec{x}$, en otras palabras, indica qué tan bueno es el modelo implementado. El modelo es mejor cuanto menos sea la diferencia entre el valor predicho $\hat{y}$ respecto al valor esperado $y$.
+La \textbf{función de pérdida}, o \textbf{loss function} en inglés: $L(\hat{y},y)$ es la función que compara el resultado o salida de la red: $\hat{y}$ respecto a la etiqueta original $y$ correspondiente a la entrada $\vec{x}$, en otras palabras, indica qué tan bueno es el modelo implementado. El modelo es mejor cuanto menos sea la diferencia entre el valor predicho $\hat{y}$ respecto al valor esperado $y$.
 \\
-En el entrenamiento de una red, el objetivo es minimizar esta función a través de la actualización de los pesos $w_i$. La elección de la función de pérdida, depende del problema a resolver, como en el caso de la función de activación de la última capa. Para modelos en donde los valores de la salida $\hat{y}$ son reales, se puede utilizar una \emph{función de pérdida cuadrática}:
+En el entrenamiento de una red, el objetivo es minimizar esta función a través de la actualización de los pesos $w_i$. La elección de la función de pérdida, depende del problema a resolver, como en el caso de la función de activación de la última capa. Para modelos en donde los valores de la salida $\hat{y}$ son reales, se puede utilizar una \emph{Función de Pérdida Cuadrática} o \emph{Mean Square Error (MSE)} en inglés:
 \begin{equation}
   \label{eq:MSE}
   L = (\hat{y}-y)^2
@@ -243,7 +243,7 @@ con $W^T_{k+1}$ de dimensión $o \times p_{k}$, y $\vec{h}_k$ de dimensión $p_k
 
 \section{Entrenamiento de una Red Neuronal}\label{sec:TrainNN}
 Una vez construida la arquitectura de una red, el objetivo es obtener los parámetros $w$ y $b$ de cada nodo y en cada capa, que minimicen la función de pérdida $L$. El algoritmo que se utiliza para minimizar la función de pérdida es conocido como \textbf{Descenso del Gradiente Estocástico}\footnote{poner algo del Descenso de Gradiente} o SGD por sus siglas en inglés. La \autoref{fig:gd} muestra un sencillo ejemplo del funcionamiento del algoritmo, en donde la función de pérdida únicamente depende de un parámetro $w$, el peso inicial es un valor aleatorio $w_1$, luego se calcula el valor del gradiente (en este caso unidimensional, la derivada) y se actualiza el peso como:
-$$w_2 = w_1 - \alpha \frac{dL}{dw}\bigg|_{w_1}$$
+$$w_2 = w_1 - \alpha \frac{dL}{dw}\bigg|_{w_1}$$x
 en donde $\alpha$ es un hiper-parámetro de la red llamado \textbf{tasa de aprendizaje} o \textbf{learning rate} en inglés. El proceso continúa actualizando $w$ hasta llegar a $w_m$, el mínimo de la función de pérdida, pues el algoritmo actualiza los pesos en dirección opuesta al gradiente, que apunta a la dirección de máximo cambio.
 
 \begin{figure}[h]
@@ -298,6 +298,6 @@ En este ejemplo existen únicamente dos caminos posibles de $w$ a $o$. En la pr�
 \end{equation}
 
 una vez conocidos los gradientes respecto a los pesos en las múltiples capas, se actualizan los valores $w$ con el objetivo de minimizar la función de pérdida, y así mejorar el modelo.\\
-El número de datos de entrenamiento, es decir de pares: $(X_l,y_l)$, que pasan por la red antes de que se actualicen los pesos, se llama \textbf{tamaño de lote} o \textbf{batch size}. Una vez que todos los datos de entrenamiento han pasado por la red, se dice que ha pasado una \textbf{época} o \textbf{epoch}. Tanto el número de épocas, como el tamaño de lote son hiper-parámetros de la red.
+El número de datos de entrenamiento, es decir de pares: $(X_l,y_l)$, que pasan por la red antes de que se actualicen los pesos, se llama \textbf{tamaño de lote} o \textbf{batch size} en inglés. Una vez que todos los datos de entrenamiento han pasado por la red, se dice que ha pasado una \textbf{época} o \textbf{epoch} en inglés. Tanto el número de épocas, como el tamaño de lote son hiper-parámetros de la red.
 
 %K(p,q)=K(g(f(w)),h(f(w)))
