@@ -1,19 +1,19 @@
 %************************************************
-\chapter{LSTM como propagador en Dinámica Cuántica}\label{ch:LSTMapplied}
+\chapter{Redes long short-term memory para resolver la ecuación de Schrödinger}\label{ch:LSTMapplied}
 % ************************************************
 \section{Introducción}
 En el capítulo anterior se desarrollaron conceptos básicos generales de las redes neuronales, actualmente existen diversos tipos de redes que se aplican a problemas comunes y que se distinguen por su arquitectura.
 \\
-En este capítulo se abordará un modelo particular de red llamado \emph{Long Short-Term Memory} (\acs{LSTM}, por sus siglas en inglés), que pertenece a un tipo de redes llamadas \emph{Redes Neuronales Recurrentes} (\acp{RNN}, por sus siglas en inglés). Este tipo de redes es comúnmente utilizada cuando los atributos en el conjunto de datos están relacionados entre sí, o guardan una dependencia.
+En este capítulo se abordará un modelo particular de red llamado \emph{long short-term memory} (\acs{LSTM}), que pertenece a un tipo de redes llamadas \emph{redes neuronales recurrentes} (\acs{RNN}, por sus siglas en inglés). Este tipo de redes es comúnmente utilizada cuando los atributos en el conjunto de datos están relacionados entre sí, o guardan una dependencia.
 \\\\
 En la sección \autoref{sec:lstm} se desarrollará la arquitectura de las redes \acs{LSTM}, así como sus aplicaciones más comunes, haciendo énfasis a las series de tiempo, que son de particular interés en el presente trabajo, pues la evolución temporal de un paquete de onda puede tratarse como un problema de series de tiempo, encontrando así una manera de abordar el problema de propagar una onda en el tiempo utilizando una red \acs{LSTM}.
 \\
-En la sección \autoref{sec:Project} se implementará el modelo de \acs{LSTM} que servirá como propagador $\mathcal{U}$ en la ecuación de Schrödinger Dependiente del Tiempo (\autoref{eq:TDSE ket}) para los potenciales $V(r,t)$ revisados en la sección \autoref{sec:ProtonTransfer}.
+En la sección \autoref{sec:Project} se implementa el modelo de \acs{LSTM} que servirá como propagador $\mathcal{U}$ en la ecuación de Schrödinger Dependiente del Tiempo (\autoref{eq:TDSE ket}) para los potenciales $V(r,t)$ revisados en la sección \autoref{sec:ProtonTransfer}.
 \\
-A lo largo de la sección se presentará el conjunto de datos de entrenamiento de la red, así como los parámetros del modelo del potencial que se utilizaron para su obtención; también se presentarán los hiper-parámetros empleados en la red. Finalmente, en la sección \autoref{sec:Resultados} se presentarán los resultados y predicciones obtenidas con del modelo.
+A lo largo de la sección se presentará el conjunto de datos de entrenamiento de la red, así como los parámetros del modelo del potencial que se utilizaron para su obtención; también se presentarán los hiper-parámetros empleados en la red. Finalmente, en la sección \autoref{sec:Resultados} se presentan los resultados y predicciones obtenidas con del modelo.
 
-\section{Redes Neuronales Recurrentes}\label{sec:RNN}
-Como se mencionó anteriormente, las Redes Neuronales Recurrentes se emplean cuando entre los atributos del conjunto de datos existen relaciones. Un dato de entrada para este tipo de redes puede verse de la siguiente forma:
+\section{Redes neuronales recurrentes}\label{sec:RNN}
+Como se mencionó anteriormente, las \acs{RNN}s se emplean cuando entre los atributos del conjunto de datos existen relaciones. Un dato de entrada para este tipo de redes puede verse de la siguiente forma:
 
 \begin{equation}
   \label{eq:xdataRNN}
@@ -37,7 +37,7 @@ Un diagrama sencillo de una \acs{RNN} se muestra en la \autoref{fig:RNN}, en don
 %\begin{equation}
 %  \vec{h}_t = f(\vec{h}_{t-1}, \vec{x}_t)
 %\end{equation}
-donde $Tanh$ es la función de activación, que está siendo aplicada a cada elemento del vector resultante de la multiplicación y suma de las matrices de peso $W$ por los vectores $\vec{x}_t$ y $\vec{h}_{t-1}$ para cada tiempo $t$. La salida, por su parte, está dada por:
+donde \emph{Tanh} es la función de activación, que está siendo aplicada a cada elemento del vector resultante de la multiplicación y suma de las matrices de peso $W$ por los vectores $\vec{x}_t$ y $\vec{h}_{t-1}$ para cada tiempo $t$. La salida, por su parte, está dada por:
 \begin{equation}
   \vec{y}_t = W_{hy}\vec{h}_t
 \end{equation}
@@ -52,13 +52,13 @@ donde $Tanh$ es la función de activación, que está siendo aplicada a cada ele
 En la \autoref{fig:RNN}, a la derecha se muestra la representación de la \acs{RNN} en capas para cada tiempo, en donde es importante notar que las matrices de peso $W$ son las mismas en cada tiempo $t$, de manera que ecuación de recurrencia \autoref{eq:hidden} aplica la misma función.
 \\
 
-Uno de los principales problemas de las \acp{RNN} en la práctica es en el entrenamiento, pues el gradiente tiende a desvanecerse o incrementar excesivamente, debido a la inestabilidad que produce la multiplicación de forma recursiva de las matrices de peso $W$, problema que puede incrementarse cuanto más grande sea la secuencia de tiempo que procesa la red y cuantas más capas ocultas tenga.
+Uno de los principales problemas de las \acs{RNN}s en la práctica es en el entrenamiento, pues el gradiente tiende a desvanecerse o incrementar excesivamente, debido a la inestabilidad que produce la multiplicación de forma recursiva de las matrices de peso $W$, problema que puede incrementarse cuanto más grande sea la secuencia de tiempo que procesa la red y cuantas más capas ocultas tenga. \cite{Nielsen:2018}
 \\
-Una alternativa que previene este problema es el cambio de la relación de recurrencia para el estado oculto $\vec{h}_t$ (\autoref{eq:hidden}) mediante el uso de la \emph{memoria a largo plazo} de una red \acs{LSTM}, que se abordará en la siguiente sección. \cite{Nielsen:2018}
+Una alternativa que previene este problema es el cambio de la relación de recurrencia para el estado oculto $\vec{h}_t$ (\autoref{eq:hidden}) mediante el uso de la \emph{memoria a largo plazo} de una red \acs{LSTM}, que se abordará en la siguiente sección.
 
-\section{Redes Long-Short Term Memory}\label{sec:lstm}
+\section{Redes long short-term memory}\label{sec:lstm}
 
-Las redes Long-Short Term Memory son un tipo de \acs{RNN} diseñadas para mitigar los problemas con el gradiente que estas tienen en el entrenamiento. La manera en la que realizan esto es cambiando las condiciones de recurrencia de cómo el estado oculto $\vec{h}_t$ es propagado en el tiempo, para ello, se introduce un nuevo vector llamado \textbf{celda de estado}: $\vec{c}_{t}$ de la misma dimensión de $\vec{h}_t$, que puede interpretarse como una \emph{memoria a largo plazo} que retiene parte de la información de las celdas de estados de tiempos pasados. \cite{Nielsen:2018}
+Las \textbf{redes long short-term memory} son un tipo de \acs{RNN} diseñadas para mitigar los problemas con el gradiente que estas tienen en el entrenamiento. La manera en la que realizan esto es cambiando las condiciones de recurrencia de cómo el estado oculto $\vec{h}_t$ es propagado en el tiempo, para ello, se introduce un nuevo vector llamado \textbf{celda de estado} o \textbf{cell state} en inglés denotado por $\vec{c}_{t}$ de la misma dimensión de $\vec{h}_t$, que puede interpretarse como una \emph{memoria a largo plazo} que retiene parte de la información de las celdas de estados de tiempos pasados. \cite{Nielsen:2018}
 
 \begin{figure}[!htbp]
   \centering
@@ -67,19 +67,19 @@ Las redes Long-Short Term Memory son un tipo de \acs{RNN} diseñadas para mitiga
   \label{fig:LSTMlayerS}
 \end{figure}
 
-El diagrama de la \autoref{fig:LSTMlayerS} muestra la estructura de una \acs{LSTM} desplegada en capas de tiempo, su forma en cadena es igual a la de las \acp{RNN} mencionadas en la sección anterior, sin embargo, cada bloque de memoria (recuadros rosas) tiene una arquitectura particular más compleja que la de una \acs{RNN} común.
+El diagrama de la \autoref{fig:LSTMlayerS} muestra la estructura de una \acs{LSTM} desplegada en capas de tiempo, su forma en cadena es igual a la de las \acs{RNN}s mencionadas en la sección anterior, sin embargo, cada bloque de memoria (recuadros rosas) tiene una arquitectura particular más compleja que la de una \acs{RNN} común.
 
 \subsection{Arquitectura}\label{sec:LSTM_Arch}
-La \autoref{fig:LSTMlayer} muestra un bloque de memoria de una \acs{LSTM}, en donde se observa cómo interactúan los vectores de estado oculto y de celda de estado pasados: $\vec{h}_{t-1}$ y $\vec{c}_{t-1}$ con funciones llamadas compuertas: $\vec{f}_t$, $\vec{i}_t$, $\vec{o}_t$ y operaciones básicas como suma y multiplicación, para producir nuevos vectores $\vec{h}_{t}$ y $\vec{c}_{t}$. Al tiempo $t=0$, los vectores de estado oculto y de celda de estado comienzan inicializados con un valor aleatorio.
+La \autoref{fig:LSTMlayer} muestra un bloque de memoria de una \acs{LSTM}, en donde se observa cómo interactúan los vectores de estado oculto y de celda de estado pasados: $\vec{h}_{t-1}$ y $\vec{c}_{t-1}$ con funciones llamadas compuertas o gates en inglés, denotadas por $\vec{f}_t$, $\vec{i}_t$, $\vec{o}_t$ y operaciones básicas como suma y multiplicación, para producir nuevos vectores $\vec{h}_{t}$ y $\vec{c}_{t}$. Al tiempo $t=0$, los vectores de estado oculto y de celda de estado comienzan inicializados con un valor aleatorio. \cite{Olah}
 
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.7\textwidth]{/home/jessica/Tesis/img/tesis/LSTM_layer.png}
-  \caption{Diagrama de un Bloque de Memoria de una \acs{LSTM}.}
+  \caption{Diagrama de un bloque de memoria de una \acs{LSTM}.}
   \label{fig:LSTMlayer}
 \end{figure}
 
-Una compuerta llamada \textbf{forget} $\vec{f}$, decide qué información proveniente del tiempo anterior: $t-1$ se mantiene y cual no, tomando en consideración también la entrada $\vec{x}_t$, aplicando la función $\sigma$ (es decir, $\vec{f}$ es una capa \emph{Sigmoid}):
+Una compuerta llamada \textbf{forget} $\vec{f}$, decide qué información proveniente del tiempo anterior $t-1$ se mantiene y cual no, tomando en consideración también la entrada $\vec{x}_t$, aplicando la función sigma (es decir, $\vec{f}$ es una capa \emph{Sigmoid}):
 
 \begin{equation}\label{eq:ft}
 \vec{f}_t = \sigma(W_{xf}\vec{x}_t + W_{hf}\vec{h}_{t-1} + b_f)
@@ -122,15 +122,15 @@ en donde $\vec{o}$ es una capa \emph{Sigmoid} llamada compuerta \textbf{output},
 % ************************************************************
 % ************************************************************
 
-\section{Propagación temporal de Funciones de Onda con LSTM}\label{sec:Project}
+\section{Propagación temporal de funciones de onda con LSTM}\label{sec:Project}
 
-En esta sección se implementa una red \acs{LSTM} para predecir la evolución temporal de un paquete de onda a un tiempo t $\psi(r,t)$ bajo un potencial dependiente del tiempo $V(r,t)$ después de un intervalo de tiempo $\Delta t$: $\psi(r,t+\Delta t)$. Tomando como referencia un trabajo previo \cite{Main:2021} en donde se implementó un modelo de perceptrón multicapa.
+En esta sección se implementa una red \acs{LSTM} para predecir la evolución en un periodo de tiempo largo\footnote{Respecto a la escala de tiempo característico del sistema físico estudiado.} de un paquete de onda a un tiempo inicial $\psi(r,t)$ bajo un potencial dependiente del tiempo $V(r,t)$ en intervalos de tiempo$\Delta t$. Se utilizó como referencia un trabajo previo \cite{Main:2021} en donde se implementó un modelo de perceptrón multicapa para obtener el paquete de onda propagado un paso de tiempo $\Delta t$.
 
-\subsection{Obtención de Datos}
+\subsection{Obtención de datos}
 
-El conjunto de datos de entrenamiento utilizado se obtuvo generando 4700 trayectorias de $200\,fs$, cada una con un $\Delta t = 1\,fs$. El diagrama de la \autoref{fig:DiagTraj} muestra una trayectoria, en donde $\psi(r,t_l)r$ con $l=0,\dots 200$ representa la parte real del paquete de onda, $\psi(r,t_l)i$ la parte imaginaria y $V(r,t_l)$ el potencial.
+El conjunto de datos de entrenamiento utilizado se obtuvo generando 8000 trayectorias de $200\,fs$, cada una con un $\Delta t = 1\,fs$. El diagrama de la \autoref{fig:DiagTraj} muestra una trayectoria, en donde $\psi(r,t_l)r$ con $l=0,\dots 200$ representa la parte real del paquete de onda, $\psi(r,t_l)i$ la parte imaginaria y $V(r,t_l)$ el potencial.
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{/home/jessica/Tesis/img/tesis/DiagTrayectoria.png}
   \caption{Diagrama de una trayectoria generada.\\Para cada tiempo $t_i$ la onda $\psi(r,t_i)$ contiene el valor de la onda en los $N=32$ puntos en el grid del espacio de posiciones en $r$.}
@@ -138,7 +138,7 @@ El conjunto de datos de entrenamiento utilizado se obtuvo generando 4700 trayect
 \end{figure}
 
 Para cada trayectoria, los paquetes de onda iniciales, es decir al tiempo $t=0$, se definieron como ondas Gaussianas: (\autoref{fig:Gauss})
-\begin{figure}[!htbp]
+\begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/DataWave.png}
   \caption{Parte real y compleja de un paquete de onda inicial $\psi(r,t=0)$.}
@@ -155,14 +155,14 @@ $$\bra{\psi(r,0)}\ket{\psi(r,0)} = 1$$
 Para propagar la onda se utilizó el método \acs{DVR} revisado en la sección \autoref{sec:DVRapp} con un grid de $N=32$ puntos, con $a=r_0=-1.5\mathring{A}$ y $b=r_{N-1}=1.5\mathring{A}$ (\autoref{eq:grid}).
 \\
 El modelo de potencial $V(r,t)$ utilizado fue el mismo que se usó en la sección \autoref{sec:ProtonTransfer}. Para cada trayectoria se eligieron valores de parámetros para el modelo de potencial aleatorios entre rangos especificados en la \autoref{tab:RangeValuesPot}. En la \autoref{fig:Pote} se muestra un ejemplo de un potencial generado.
-\begin{figure}[!htbp]
+\begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/DataPot.png}
   \caption{Potencial inicial al tiempo $t=0$}
   \label{fig:Pote}
 \end{figure}
 
-En el repositorio \href{https://github.com/Jessi-MM/PropagatorLearning/tree/main/Data_Gaussian}{\faGithub Trayectorias} se encuentran los datos generados. Cada carpeta contiene los directorios y archivos siguientes:
+En el repositorio \href{https://github.com/Jessi-MM/PropagatorLearning/tree/main/Data_Gaussian}{\faGithub Trayectorias} se encuentran los datos generados\footnote{\textcolor{CTtitle}{\faExclamationTriangle} Para trabajos futuros, se recomienda fuertemente NO crear un directorio por dato, pues esto generó problemas de peso y tiempo de cómputo. Un solo archivo con extensión .csv o .hdf5 es más recomendado para guardar una mayor cantidad de datos.}. Cada carpeta contiene los directorios y archivos siguientes:
 
  \begin{forest}
       for tree={
@@ -232,7 +232,7 @@ En donde se utilizan las siguientes variables:
 \item gaussiana: True o False. True genera una onda inicial Gaussiana (\autoref{eq:gaussian}), False solicita $k$ para generar la onda inicial como una suma de eigenfunciones (\autoref{eq:psi_0}) 
 \end{itemize}
 
-\subsection{Procesamiento de Datos: Visualización y Forma}
+\subsection{Procesamiento de datos: visualización y forma}
 
 Para el entrenamiento de la red, las trayectorias deben estar conformados por entradas $X$ y etiquetas o salidas $y$, para este problema, cada entrada está conformada por la parte real y compleja de un paquete onda y el potencial al tiempo $t$, es decir un vector de la forma:
 
@@ -254,7 +254,7 @@ La \autoref{fig:datavis} muestra cada componente de los vectores de entrada y sa
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/dataInputOutput.png}
+  \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{/home/jessica/Tesis/img/tesis/dataInputOutput.png}}
   \caption{Visualización gráfica: Entrada $X$ y etiqueta $y$ a un tiempo $t$.}
   \label{fig:datavis}
 \end{figure}
@@ -274,9 +274,9 @@ La división de los datos se muestra en la \autoref{tab:SplitData}.
   \label{tab:SplitData}
 \end{table}
 
-\subsection{Modelo LSTM: Arquitectura y Entrenamiento}
+\subsection{Modelo LSTM: arquitectura y entrenamiento}
 
-Para el modelo de la red y su entrenamiento se utilizó PyTorch versión 1.9.0+cu102 en una computadora personal. El resumen del modelo se muestra en la \autoref{tab:model}.
+Para el modelo de la red y su entrenamiento se utilizó PyTorch versión 1.9.0+cu102 en una computadora personal. El resumen del modelo se muestra en la \autoref{tab:model}, y el código completo se puede ver en \href{https://github.com/Jessi-MM/LSTM_PropagatorLearning/blob/main/src/Python/LSTM_model.py}{\faGithub Implementación LSTM}.
 
 \begin{table}[ht]
   \myfloatalign
@@ -306,8 +306,8 @@ En la \autoref{fig:Model} se muestra un diagrama del modelo de red representado 
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/modelDiag2.png}
-  \caption{Modelo LSTM.}
+  \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{/home/jessica/Tesis/img/tesis/model/modelDiag2.png}}
+  \caption{Diagrama del modelo \acs{LSTM}: se muestran 3 de las 200 capas de tiempo.}
   \label{fig:Model}
 \end{figure}
 
@@ -327,7 +327,7 @@ $\iff |S|=1$ y $\theta =0$. Es decir, que la función de onda $\psi_{LSTM}$ pred
 
 Al finalizar cada época en el entrenamiento se calculó la función de precisión para cada onda en cada trayectoria en el conjunto de validación y se promediaron los valores correspondientes a $|S|$ y $\theta$. 
 
-\subsection{Resultados y Análisis: Precisión y Predicciones}\label{sec:Resultados}
+\subsection{Resultados y análisis: precisión y predicciones}\label{sec:Resultados}
 
 En la \autoref{fig:S-phase} se muestran los valores promedio obtenidos de la magnitud absoluta $|S|$ y la fase $\theta$ a través de las épocas.
 
@@ -351,42 +351,138 @@ Al finalizar el entrenamiento, sobre el conjunto de testeo los resultados de las
   \label{tab:res-S}
 \end{table}
 
+A continuación se muestran algunos ejemplos de predicciones de un solo paso del tiempo tomados aleatoriamente de distintas trayectorias. Los potenciales $V(r,t)$ y funciones de onda iniciales $\psi(r,t=0)$ se tomaron del conjunto de testeo.
 
-
-
-\begin{figure}[!htbp]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step.png}
-  \caption{Predicción 1}
-  \label{fig:1step}
-\end{figure}
-
-\begin{figure}[!htbp]
-  \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step1.png}
-  \caption{Predicción 2}
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step.png}}
+  \caption{Ejemplo 1 de predicción a un paso de tiempo $\Delta t = 1\,fs$.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
   \label{fig:1step1}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step1.png}}
+  \caption{Ejemplo 2 de predicción a un paso de tiempo $\Delta t = 1\,fs$.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
+  \label{fig:1step2}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step2.png}}
+  \caption{Ejemplo 3 de predicción a un paso de tiempo $\Delta t = 1\,fs$.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica. }
+  \label{fig:1step3}
+\end{figure}
+
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens7.png}
-  \caption{Trayectoria 1}
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step3.png}}
+  \caption{Ejemplo 4 de predicción a un paso de tiempo $\Delta t = 1\,fs$.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
+  \label{fig:1step4}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step4.png}}
+  \caption{Ejemplo 5 de predicción a un paso de tiempo $\Delta t = 1\,fs$.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
+  \label{fig:1step5}
+\end{figure}
+
+En la \autoref{tab:comptime} se reportan los tiempos de computación requeridos para propagar un paso de tiempo una onda usando los métodos numéricos que utiliza el método \acs{DVR}: la exponenciación o la diagonalización \cite{Main:2021}, y el tiempo requerido que utiliza la red \acs{LSTM} entrenada. 
+
+\begin{table}[H]
+  \myfloatalign
+  \begin{tabularx}{\textwidth}{XXXX} \toprule
+   \tableheadline{N grid} & \tableheadline{exponencial$^a$} & \tableheadline{diagonalización$^b$}& \tableheadline{LSTM$^c$} \\ \midrule
+   32          &  0.41 s & 0.14 s & 0.0536 s
+ \end{tabularx}
+ \begin{tabularx}{\textwidth}{X}
+   $^a$Tiempo necesario para realizar la exponenciación matricial del hamiltoniano y multiplicación de matrices para la propagación de paquetes de ondas. $^b$Tiempo requerido para realizar la diagonalización de matrices, multiplicación de vectores por elementos, y transformación de base. $^c$Tiempo necesario para aplicar la red LSTM entrenada para la propagación de paquetes de ondas. \\
+   \bottomrule  
+  \end{tabularx}
+  \caption{Tiempo requerido para propagar un paquete de onda un paso en el tiempo $\Delta t$}
+  \label{tab:comptime}
+\end{table}
+
+
+
+Las siguientes gráficas muestran la evolución temporal de la densidad de probabilidad $|\psi(r,t)|$ a través del tiempo bajo potenciales $V(r,t)$ calculadas utilizando la función de onda predicha por la red. Los potenciales $V(r,t)$ y funciones de onda iniciales $\psi(r,t=0)$ se tomaron del conjunto de testeo.
+
+\newpage
+
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens7.png}}
+  \caption{Ejemplo 1 de predicción para una trayectoria completa de $200\,fs$.\\ Las densidades de probabilidad $|\psi|$ están escaladas para poder visualizar el potencial en la misma gráfica.}
   \label{fig:trajec1}
 \end{figure}
 
-\begin{figure}[!htbp]
+\begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens1.png}
-  \caption{Trayectoria 2}
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens1.png}}
+  \caption{Ejemplo 2 de predicción para una trayectoria completa de $200\,fs$.\\ Las densidades de probabilidad $|\psi|$ están escaladas para poder visualizar el potencial en la misma gráfica}
   \label{fig:trajec2}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens5.png}}
+  \caption{Ejemplo 3 de predicción para una trayectoria completa de $200\,fs$.\\ Las densidades de probabilidad $|\psi|$ están escaladas para poder visualizar el potencial en la misma gráfica}
+  \label{fig:trajec3}
+\end{figure}
 
-\subsection{Aumento de resolución con 2 LSTM}
+En las gráficas anteriores se observa que la red es capaz de predecir la evolución temporal de una onda inicial hasta $200\,fs$ después, dado que la escala de tiempo característico del movimiento vibratorio de protones es de $10\,fs$ a $25\,fs$ \cite{Main:2021}, la red puede predecir al menos 8 veces más esta escala de tiempo característico.  
 
 
+\subsection{Aumento de resolución con dos LSTM}
+
+Una manera de aumentar la resolución de la red, es decir, aumentar el número de puntos en el grid es tomar una división de $N=64$ puntos en el grid para la onda inicial $\psi(r,t=0)$ y los potenciales $V(r,t)$, y dividirlos en dos grupos de $N_{azul}=32$ y $N_{rojo}=32$ de manera distribuida en el grid, como se muestra en la \autoref{fig:aumento}. 
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.5\textwidth]{/home/jessica/Tesis/img/tesis/aumento.drawio.png}
+  \caption{División de 64 puntos en el espacio de posiciones en dos grupos.}
+  \label{fig:aumento}
+\end{figure}
+
+De esta forma, se tienen los valores correspondientes: $\psi_{azul}(r,t=0)$, $V_{azul}(r,t)$, $\psi_{rojo}(r,t=0)$ y $V_{rojo}(r,t)$, en donde cada uno tiene entradas de $N=32$ puntos, que se ajustan al tamaño de la entrada de la red. Así, utilizando dos veces la misma red, una vez para cada grupo de puntos, se obtienen los resultados a cada tiempo $t$ para un grid de tamaño de $N=64$ puntos.
+\\
+Las siguientes gráficas muestran el resultado de aplicar este método.
+
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step64size.png}}
+  \caption{Ejemplo 1 de predicción a un paso de tiempo $\Delta t = 1\,fs$, $N=64$ puntos.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
+  \label{fig:1step164}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step64size1.png}}
+  \caption{Ejemplo 2 de predicción a un paso de tiempo $\Delta t = 1\,fs$, $N=64$ puntos.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
+  \label{fig:1step264}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step64size2.png}}
+  \caption{Ejemplo 3 de predicción a un paso de tiempo $\Delta t = 1\,fs$, $N=64$ puntos.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
+  \label{fig:1step364}
+\end{figure}
+
+La siguiente gráfica muestra la evolución temporal de la densidad de probabilidad $|\psi(r,t)|$ bajo un potencial $V(r,t)$ aplicando el método de aumento de resolución de puntos.
+
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens64size.png}}
+  \caption{Ejemplo de predicción para una trayectoria completa de $200\,fs$, $N=64$ puntos.\\ Las densidades de probabilidad $|\psi|$ están escaladas para poder visualizar el potencial en la misma gráfica}
+  \label{fig:trajec1_64}
+\end{figure}
 
 \subsection{Conclusión}
-
-
+La evolución temporal de un sistema cuántico se encuentra resolviendo la ecuación de Schrödinger \autoref{eq:TDSE ket}, cuando el Hamiltoniano del sistema es dependiente del tiempo, encontrar el operador de propagación, que es una solución general de la ecuación, puede ser un proceso complicado para los métodos analíticos, o costoso en tiempo computacional para los métodos numéricos. En este trabajo se desarrolló una alternativa para resolver la \acs{TDSE} utilizando una red neuronal artificial tipo long short-term memory como propagador, encontrando que la red entrenada necesita menos tiempo de ejecución para propagar una onda en comparación a otros métodos numéricos, con una calidad de predicción promedio de $0.946$ para la magnitud $|S|$ y $0.0001$ para la fase absoluta $\theta$. \\
+Como propuesta para trabajos futuros se presentan las siguientes sugerencias:
+\begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
+\item Utilizar más puntos en el grid: Generar datos con más puntos en el grid requieren de un mayor tiempo de computación, sin embargo la calidad en las predicciones puede mejorar significativamente, esperando resultados como los que se presentan en la sección \autoref{sec:ProtonTransfer}.
+\item Implementar el modelo para dos dimensiones en el espacio de posiciones: En el documento de información adicional de la referencia \cite{Main:2021} se proporcionan las ecuaciones para modelar el potencial en dos dimensiones.
+\end{itemize}

@@ -1,5 +1,5 @@
 %************************************************
-\chapter{Aprendizaje Automático}\label{ch:ML}
+\chapter{Aprendizaje automático}\label{ch:ML}
 % ************************************************
 %--- Deep Learning Ian G book
 % Historical dev
@@ -13,19 +13,19 @@
 
 
 
-La \textbf{Inteligencia Artificial}, o AI por sus siglas en inglés, se puede definir como un sistema capaz de interactuar con su entorno. Algunos ejemplos de Inteligencias Artificiales son: \emph{Siri} de Apple y \emph{Alexa} de Amazon. Para poder generar una respuesta al entorno, estos sistemas contienen sensores que permiten la entrada de información, en estos ejemplos la información es obtenida mediante la voz o las palabras escritas de los usuarios, esta información es procesada a través de métodos de Aprendizaje Automático o ML por sus siglas en inglés.
+La \textbf{inteligencia artificial}, o AI por sus siglas en inglés, se puede definir como un sistema capaz de interactuar con su entorno. Algunos ejemplos de inteligencias artificiales son: \emph{Siri} de Apple y \emph{Alexa} de Amazon. Para poder generar una respuesta al entorno, estos sistemas contienen sensores que permiten la entrada de información, en estos ejemplos la información es obtenida mediante la voz o las palabras escritas de los usuarios, esta información es procesada a través de métodos de aprendizaje automático o ML por sus siglas en inglés.
 
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.7\textwidth]{/home/jessica/Tesis/img/tesis/IA_ML_DL.png}
-  \caption{Diagrama de Venn que muestra los conceptos de Inteligencia Artificial, Aprendizaje Automático y Aprendizaje profundo.}
+  \caption{Diagrama de Venn que muestra los conceptos de inteligencia artificial, aprendizaje automático y aprendizaje profundo.}
   \label{fig:IA-ML-DL}
 \end{figure}
 
-Los métodos de \textbf{Aprendizaje Automático} se pueden definir como un conjunto de métodos que pueden detectar automáticamente patrones en datos y aplicarlos para predecir nuevos datos. A grandes rasgos, los métodos de aprendizaje automático pueden dividirse en dos categorías: aprendizaje supervisado y aprendizaje no supervisado. \cite{murphy:2013}
+Los métodos de \textbf{aprendizaje automático} se pueden definir como un conjunto de métodos que pueden detectar automáticamente patrones en datos y aplicarlos para predecir nuevos datos. A grandes rasgos, los métodos de aprendizaje automático pueden dividirse en dos categorías: aprendizaje supervisado y aprendizaje no supervisado. \cite{murphy:2013}
 
-\section{Aprendizaje Supervisado}
-En el \textbf{aprendizaje supervisado} el objetivo es aprender, a partir de un conjunto de $M$ datos de entrenamiento definidos como:
+\section{Aprendizaje supervisado}
+En el \textbf{aprendizaje supervisado} el objetivo es aprender a partir de un conjunto de $M$ datos de entrenamiento definidos como:
 \begin{equation}
 \{\vec{x}_i, y_i\}_{i=1}^{M}
 \end{equation}
@@ -55,8 +55,8 @@ Algunos ejemplos de métodos de aprendizaje supervisado son:
 \item Redes Neuronales: Para problemas de regresión y de clasificación
 \end{itemize}
 
-\section{Aprendizaje No Supervisado}
-En el \textbf{Aprendizaje No Supervisado} el conjunto de entrenamiento de $M$ datos se reduce a:
+\section{Aprendizaje no supervisado}
+En el \textbf{aprendizaje no supervisado} el conjunto de entrenamiento de $M$ datos se reduce a:
 \[ \{\vec{x}_i\}_{i=1}^M \]
 en donde no se cuenta con una etiqueta $y_i$. En este tipo de problemas, los métodos están enfocados en buscar patrones importantes a partir de únicamente los datos de entrada.
 \\
@@ -68,8 +68,8 @@ Algunos ejemplos de métodos de aprendizaje no supervisado son:
 
 El \textbf{aprendizaje por refuerzo} es comúnmente considerado una tercer categoría de aprendizaje automático, de manera general, en estas técnicas el sistema inteligente interactúa con su entorno con el objetivo de obtener recompensas, bajo el contexto en el que se está implementando, a menudo se utiliza este tipo de aprendizaje para enseñar a las máquinas cómo jugar video juegos. \cite{Ivan:2019}
 
-\section{Aprendizaje Profundo}
-El \textbf{Aprendizaje Profundo}, o \textbf{Deep Learning} en inglés, como se muestra en la \autoref{fig:IA-ML-DL}, es un sub-campo del aprendizaje automático, que puede definirse como aquellos métodos que procesan la información en múltiples capas, en donde el nivel de abstracción y complejidad de la información incrementa conforme avanza de una capa a la siguiente.
+\section{Aprendizaje profundo}
+El \textbf{aprendizaje profundo}, o \textbf{deep learning} en inglés, como se muestra en la \autoref{fig:IA-ML-DL}, es un sub-campo del aprendizaje automático, que puede definirse como aquellos métodos que procesan la información en múltiples capas, en donde el nivel de abstracción y complejidad de la información incrementa conforme avanza de una capa a la siguiente.
 \\
 En la práctica, los modelos de aprendizaje profundo son redes neuronales artificiales multicapa (\autoref{ch:NNBasics}). Algunos ejemplos comúnmente utilizados son: \cite{Ivan:2019}
 \begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]

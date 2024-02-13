@@ -47,7 +47,7 @@
 % ****************************************************************************************************
 % 2. Personal data and user ad-hoc commands (insert your own data here)
 % ****************************************************************************************************
-\newcommand{\myTitle}{ANN's como Propagadores en Dinámica Cuántica}
+\newcommand{\myTitle}{Redes Neuronales Artificiales para resolver la Ecuación de Schrödinger Dependiente del Tiempo}
 \newcommand{\mySubtitle}{Facultad de Ciencias}
 \newcommand{\myDegree}{Física \xspace}
 \newcommand{\myName}{Itzel Jessica Martínez Marcelo \xspace}
@@ -93,11 +93,12 @@
 %#######
 
 \usepackage{csquotes}
+
 \PassOptionsToPackage{%
   %backend=biber,bibencoding=utf8, %instead of bibtex
   backend=bibtex8,bibencoding=ascii,%
-  language=auto,%
-  style=numeric-comp,%
+  %language=auto,%
+  %style=numeric-comp,%
   %style=authoryear-comp, % Author 1999, 2010
   %bibstyle=authoryear,dashed=false, % dashed: substitute rep. author with ---
   sorting=nyt, % name, year, title
@@ -105,7 +106,8 @@
   %backref=true,%
   natbib=true % natbib compatibility mode (\citep and \citet still work)
 }{biblatex}
-    \usepackage{biblatex}
+
+    \usepackage[backend=biber]{biblatex}
 
 
 
@@ -359,7 +361,7 @@ keepaspectratio]{gfx/LOgo-UNAM.png}%
 }}}
 
 
-
+\usepackage{float}
 
 
 

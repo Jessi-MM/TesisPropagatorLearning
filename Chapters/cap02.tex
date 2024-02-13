@@ -1,12 +1,12 @@
 %************************************************
-\chapter{Conceptos Fundamentales de Mecánica Cuántica}\label{ch:2}
+\chapter{Conceptos fundamentales de mecánica cuántica}\label{ch:2}
 % ************************************************
 % ver inicio de Sakurai
 
 El formalismo matemático general para trabajar en  mecánica cuántica es el álgebra lineal. En las siguientes secciones se desarrollan algunos de los conceptos fundamentales en mecánica cuántica utilizando la notación de \emph{bra-ket}, introducida por primera vez por Paul Dirac.
 
-\section{Estados y Operadores}\label{sec:Estados y Operadores}
-La información física de un sistema en mecánica cuántica está contenida en su \textbf{estado} o \textbf{ket}, que en general es un elemento del espacio de Hilbert\footnote{Los espacios de Hilbert son espacios vectoriales reales o complejos de dimensión infinita que cuentan con un producto punto.}.
+\section{Estados y operadores}\label{sec:Estados y Operadores}
+La información física de un sistema en mecánica cuántica está contenida en su \textbf{estado} o \textbf{ket}, que en general es un elemento del espacio de Hilbert. Los \textbf{espacios de Hilbert} son espacios vectoriales reales o complejos que cuentan con un producto punto y pueden ser de dimensión infinita. Este espacio es conocido como el \textbf{espacio ket}.
 
 \[
 \ket{\psi}
@@ -15,21 +15,69 @@ La información física de un sistema en mecánica cuántica está contenida en 
 La dimensión del espacio depende de las diferentes posibilidades o alternativas que el sistema puede tomar, por ejemplo, si el sistema es un átomo y las medición que se está realizando es de su spin, el átomo, que se representa por su estado, pertenece a un espacio vectorial de dos dimensiones, dado que existen dos posibilidades de spin. En ocasiones, las alternativas que puede tomar un estado son infinitas y no numerables, por ejemplo, cuando se requiere saber la posición o momento de una partícula.
 \\
 \\
-Un \textbf{operador} $\hat{a}$, en mecánica cuántica, es también un elemento del espacio de Hilbert, que opera sobre los estados, y cuyo resultado es, en general un estado distinto, que pertenece al mismo espacio.
+Un \textbf{operador} $\hat{a}$, en mecánica cuántica, es también un elemento del espacio ket, que opera sobre los estados, y cuyo resultado es, en general un estado distinto pero que pertenece al mismo espacio.
 \[
 \hat{a} \cdot (\ket{\psi}) = \hat{a}\ket{\psi}
 \]
 
-Para cada operador $\hat{a}$ existen kets ``especiales'' llamados eigenkets o \textbf{eigenestados} de $\hat{a}$: $\ket{a}$, que al aplicarles el operador resulta el mismo estado $\ket{a}$ multiplicado por $a$, es decir:
+Para cada operador $\hat{a}$ existen kets ``especiales'' llamados \textbf{eigenkets} o \textbf{eigenestados} de $\hat{a}$ denotados por $\ket{a'}$, que al aplicarles el operador resulta el mismo estado $\ket{a'}$ multiplicado por $a'$, es decir:
 
-\[ \hat{a}\ket{a} = a\ket{a}\]
+\[ \hat{a}\ket{a'} = a'\ket{a'}\]
 
-en donde $a$ puede ser un número real o complejo, y es llamado \textbf{eigenvalor} de $\hat{a}$.
+en donde $a'$ puede ser un número real o complejo, y es llamado \textbf{eigenvalor} de $\hat{a}$.
 \\
-Un \textbf{observable} en mecánica cuántica puede ser la posición, el momento o el spin de una partícula, y se puede representar mediante un operador. Una propiedad importante de los observables, es que son operadores Hermitianos\footnote{El espacio de Hilbert Dual de los kets es el espacio de los bras, cada estado $\ket{\psi}$ tiene su dual correspondiente: $\bra{\psi}$, así como cada operador $X$ tiene su dual correspondiente $X^\dag$, llamado Hermitiano adjunto, cuando resulta que $X = X^\dag$, se dice que $X$ es un \textbf{operador Hermitiano}.}, por lo que sus eigenvalores son valores reales, y además sus eigenestados son ortonormales, y, por construcción, forman una base completa del espacio de Hilbert.
+\\
+El espacio dual al espacio ket es llamado \textbf{espacio bra}. En el formalismo de la mecánica cuántica se postula que para cada ket $\ket{\psi}$ existe un bra denotado por $\bra{\psi}$ que pertenece al espacio bra, este espacio es generado por los \textbf{eigenbras} $\bra{a'}$ correspondientes a los eigenkets $\ket{a'}$.
+\\
+El producto interno de un bra y un ket se define como:
+\[ \bra{\phi}\ket{\psi} = (\bra{\phi})\cdot (\ket{\psi}) \]
+y es en general un número complejo. Se postulan dos propiedades fundamentales del producto interno:
+\[ \bra{\phi}\ket{\psi} = \bra{\phi}\ket{\psi}^* \]
+\[ \bra{\psi}\ket{\psi} \geq 0 \]
+en donde $^*$ representa el complejo conjugado, y la igualdad en la segunda propiedad se da solo si $\ket{\psi}$ es el ket nulo o cero.
+\\
+Cuando los eigenkets de $\hat{a}$ están normalizados, es decir: $\bra{a''}\ket{a'}=\delta(a''-a')$ se dice que forman una \textbf{base ortonormal} completa para el espacio ket, así, cualquier estado $\ket{\psi}$ puede ser escrito como:
+\begin{equation}
+ \ket{\psi} = \sum_{a'}c_{a'}\ket{a'}\label{eq:psi_co}
+\end{equation}
+multiplicando $\ket{a''}$ por el lado izquierdo en ambos lados se sigue que:
+\[ c_{a'} = \bra{a'}\ket{\psi} \]
+sustituyendo en la \autoref{eq:psi_co} se tiene que:
+\begin{equation}
+  \ket{\psi} = \sum_{a'}\ket{a'}\bra{a'}\ket{\psi}
+\end{equation}
+dado que $\ket{\psi}$ es un estado arbitrario, se sigue que:
+\begin{equation}
+  \label{eq:completness}
+  \sum_{a'}\ket{a'}\bra{a'} = \hat{1}
+\end{equation}
+donde $\hat{1}$ es el operador identidad. La \autoref{eq:completness} es conocida como la \textbf{relación de completitud}.
+\\
+\\
+Un \textbf{observable} en mecánica cuántica puede ser la posición, el momento o el spin de una partícula, y se puede representar mediante un operador. Una propiedad importante de los observables es que son operadores Hermitianos. Un \textbf{operador Hermitiano} $\hat{x}$ es aquel que cumple:
+\[ \hat{x} = \hat{x}^\dag\]
+donde $\hat{x}^\dag$ es el operador adjunto en el espacio bra, es decir, el dual correspondiente a $\hat{x}$. De la definición se sigue que los eigenvalores de un observable son valores reales, y además sus eigenestados son ortonormales, y, por construcción, forman una base completa del espacio ket.
 
+\section{Representación matricial de un operador}
+Dada una base conformada por los eigenestados $\ket{a'}$, por la relación de completitud un operador $\hat{x}$ en el espacio ket se puede representar como:
+\begin{equation}
+  \label{eq:xhat}
+  \hat{x} = \sum_{a''}\sum_{a'}\ket{a''}\bra{a''}\hat{x}\ket{a'}\bra{a'}
+\end{equation}
+en donde hay $N^2$ elementos, donde $N$ es la dimensión del espacio ket. Estos elementos se pueden colocar de manera ordenada en una matriz de $N \times N$, que puede escribirse explícitamente como:
+\begin{equation}
+\hat{x}\equiv
+\begin{pmatrix}
+  \bra{a^1}\hat{x}\ket{a^1} & \bra{a^1}\hat{x}\ket{a^2} & \cdots \\
+  \bra{a^2}\hat{x}\ket{a^1} & \bra{a^2}\hat{x}\ket{a^2} & \cdots \\
+  \vdots & \vdots & \ddots
+\end{pmatrix}
+\label{eq:xmatrix}
+\end{equation}
 
-\section{Operador de Propagación: Evolución Temporal de un Sistema}
+A menudo esta representación de los operadores como matrices es útil cuando se trata de resolver problemas en mecánica cuántica. En este trabajo se utiliza esta representación matricial para escribir al operador Hamiltoniano en los capítulos siguientes. 
+
+\section{Operador de propagación: evolución temporal de un sistema}
 
 Dado un sistema cuántico a un tiempo inicial $t_0$, representado por el estado: $$\ket{\psi_{t_0}}$$ la evolución temporal del estado a un tiempo $t>t_0$ se puede escribir como: $$\ket{\psi_{t_0}(t)}$$ haciendo referencia de que el estado evolucionado en el tiempo depende del estado inicial al tiempo $t_0$.
 \\
@@ -49,12 +97,12 @@ A partir de estas propiedades, de la relación de energía Planck-Einstein: $E=\
   i\hbar\frac{\partial}{\partial t}\mathcal{U}(t_0,t) = H\mathcal{U}(t_0,t)
 \end{equation}
 
-Se sigue que, para un estado $\ket{\psi_{t_0}}$, la evolución temporal está dada por la \textbf{Ecuación de Schrödinger Dependiente del Tiempo} para un estado:
+Se sigue que, para un estado $\ket{\psi_{t}}$, la evolución temporal está dada por la \textbf{ecuación de Schrödinger dependiente del tiempo} para un estado:
 
 \begin{tcolorbox}[colback=CTtitle!5!white,colframe=CTtitle!85!white]%,title=\centering{Ecuación de Schrödinger Dependiente del Tiempo para un estado}]
 \begin{equation}
 \label{eq:TDSE ket}
-i\hbar\frac{\partial}{\partial t}\mathcal{U}(t_0,t)\ket{\psi_{t_0}} = H\mathcal{U}(t_0,t)\ket{\psi_{t_0}}
+i\hbar\frac{\partial}{\partial t}\mathcal{U}(t_0,t)\ket{\psi_{t}} = H\mathcal{U}(t_0,t)\ket{\psi_{t}}
 \end{equation}
 \end{tcolorbox}
 
@@ -76,10 +124,10 @@ Cuando el Hamiltoniano tiene dependencia temporal, pero conmuta en diferentes ti
 $$[H(t_1), H(t_2)] = H(t_1)H(t_2) - H(t_2)H(t_1)=0$$
 para $t_1 \neq t_2$, se puede probar que el operador de propagación está dado por:
 $$\mathcal{U}(t_0,t) = \exp{-\left( \frac{i}{\hbar}\right)\int_{t_1}^{t_2}H(t')dt'}$$
-Encontrar de manera analítica el operador de propagación se vuelve más complejo y complicado cuando el Hamiltoniano tiene dependencia temporal y no conmuta en diferentes tiempos, para estos casos se pueden desarrollar métodos de aproximación a la \autoref{eq:TDSE ket} como: la Expansión de Magnus, Teoría de Perturbaciones con dependencia temporal, integral de caminos, entre otros.
+Encontrar de manera analítica el operador de propagación se vuelve más complejo y complicado cuando el Hamiltoniano tiene dependencia temporal y no conmuta en diferentes tiempos, para estos casos se pueden desarrollar métodos de aproximación a la \autoref{eq:TDSE ket} como: la Expansión de Magnus, Teoría de Perturbaciones con dependencia temporal, integral de caminos, entre otros. \cite{Begzjav2020} \cite{Picasso2012}
 
 
-\section{Función de Onda en el espacio de Posiciones}
+\section{Función de onda en el espacio de posiciones}
 Un observable comúnmente estudiado en sistemas cuánticos es la posición: $\hat{x}$. Como se mencionó en la sección \autoref{sec:Estados y Operadores}, un observable da lugar a un conjunto de eigenvectores: $\{\ket{x'}, \ket{x''}\dots \}$, con las siguientes propiedades:
 
 $$\hat{x}\ket{x'} = x'\ket{x'}$$
@@ -113,7 +161,7 @@ Esta relación describe para cada $x$ en el dominio la probabilidad de encontrar
 
  
 \begin{comment}
-\subsection{Ecuación de Schrödinger Dependiente del Tiempo}
+\subsection{Ecuación de Schrödinger dependiente del tiempo}
 
 La \autoref{eq:TDSE ket} se puede escribir en términos de la función de onda. Dado que en esta sección y en las posteriores se estará tratando la evolución temporal de un sistema, se hará referencia a la variable del tiempo $t$ en la función de onda: $\psi(\vec{x},t)$. 
 \\

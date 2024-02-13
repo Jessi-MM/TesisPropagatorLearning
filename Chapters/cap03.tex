@@ -1,11 +1,11 @@
 %************************************************
-\chapter{Representación de Variable Discreta}\label{ch:DVR}
+\chapter{Representación de variable discreta}\label{ch:DVR}
 % ************************************************
-Existen diferentes métodos numéricos para resolver la ecuación de Schrödinger Dependiente del Tiempo (\autoref{eq:TDSE ket}). En esta capítulo se desarrollará un método particular conocido como el método de \textbf{Representación de Variable Discreta}, \acs{DVR} por sus siglas en inglés.
+Existen diferentes métodos numéricos para resolver la ecuación de Schrödinger dependiente del tiempo (\autoref{eq:TDSE ket}). En esta capítulo se desarrollará un método particular conocido como el método de \textbf{representación de variable discreta}, \acs{DVR} por sus siglas en inglés.
 \\\\
-Formalmente, el espacio de Hilbert de las funciones de onda es infinito, sin embargo, para resolver y tratar problemas de numéricamente, es necesario hacer un truncamiento de la dimensión del espacio a un número finito $N$. Este espacio reducido de Hilbert, puede verse como un espacio generado por un operador de proyección, además, el espacio reducido de Hilbert tiene el mismo formalismo de la mecánica cuántica, pues, si se recuerda que la dimensión del espacio de Hilbert está dado por las distintas alternativas que puede tomar el sistema cuántico en cuestión, este espacio de dimensión $N$, puede ser un espacio completo para otro problema en mecánica cuántica.
+Formalmente, el espacio de Hilbert de las funciones de onda es infinito, sin embargo, para resolver y tratar problemas numéricamente, es necesario hacer un truncamiento de la dimensión del espacio a un número finito $N$. Este espacio reducido de Hilbert, puede verse como un espacio generado por un operador de proyección, además, el espacio reducido de Hilbert tiene el mismo formalismo de la mecánica cuántica, pues, si se recuerda que la dimensión del espacio de Hilbert está dado por las distintas alternativas que puede tomar el sistema cuántico en cuestión, este espacio de dimensión $N$, puede ser un espacio completo para otro problema en mecánica cuántica.
 
-\section{Proyección Espectral}
+\section{Proyección espectral}
 Una función de onda y sus operadores se pueden representar mediante una una base de funciones ortogonales, a esta base se le conoce como \textbf{base espectral}:
 $$\{\phi_i(x)\}_{i=1}^{N}$$
 que, por ser funciones ortogonales cumplen que:
@@ -30,7 +30,7 @@ Utilizando la base espectral, el Hamiltoniano en el espacio reducido de Hilbert 
   H_N = P_NHP_N
 \end{equation}
 
-Definiendo $Q_N = 1-P_N$, la Ecuación de Schrödinger Dependiente del Tiempo se puede escribir en términos de $P_N$ y $Q_N$ como un conjunto de dos ecuaciones diferenciales acopladas:
+Definiendo $Q_N = 1-P_N$, la ecuación de Schrödinger dependiente del tiempo se puede escribir en términos de $P_N$ y $Q_N$ como un conjunto de dos ecuaciones diferenciales acopladas:
 
 \begin{equation}
   \label{eq:acopladas1}
@@ -45,7 +45,7 @@ Definiendo $Q_N = 1-P_N$, la Ecuación de Schrödinger Dependiente del Tiempo se
 en donde: $\psi_N = P_N\psi$ y $\psi_{\perp}=Q_N\psi$.
 \\
 
-Para este trabajo se usará la aproximación de Galerkin \cite{Gottlieb}, en donde se desprecia la contribución de $\psi_{\perp}$, de esta forma, la Ecuación de Schrödinger Dependiente del Tiempo a resolver es:
+Para este trabajo se usará la aproximación de Galerkin \cite{Gottlieb}, en donde se desprecia la contribución de $\psi_{\perp}$, de esta forma, la \acs{TDSE} a resolver es:
 \begin{tcolorbox}[colback=CTtitle!5!white,colframe=CTtitle!85!white]%,title=\centering{Ecuación de Schrödinger Dependiente del Tiempo para un estado}]
 \begin{equation}
 \label{eq:TDSEN}
@@ -53,7 +53,7 @@ i\hbar \frac{\partial \psi_N}{\partial t} = P_NHP_N\psi_N
 \end{equation}
 \end{tcolorbox}
 
-\subsection{Representación de la Función de Onda}
+\subsection{Representación de la función de onda}
 
 Una función de onda $\psi(x)$ se puede escribir como una suma infinita en términos de funciones ortonormales $\phi_i$:
 \begin{equation}
@@ -72,7 +72,7 @@ Utilizando la definición del operador de proyección de la \autoref{eq:operador
   \psi_N(x) = P_N\psi(x)=\sum_{n=1}^{N}a_n\phi_n(x)
 \end{equation}
 
-\subsection{Colocación del Operador de Proyección}
+\subsection{Colocación del operador de proyección}
 Dado un conjunto de puntos en el espacio de posiciones: $\{x_i\}$ con $i=1,2,3,\dots N$, la siguiente relación:
 \begin{equation}
   \label{eq:wavefunexp}
@@ -82,7 +82,7 @@ Dado un conjunto de puntos en el espacio de posiciones: $\{x_i\}$ con $i=1,2,3,\
 está asociada a la \textbf{colocación}\footnote{Los \textbf{métodos de colocación} son soluciones numéricas de un conjunto de ecuaciones, cuya solución resulta ser exacta en un conjunto discreto de puntos llamados puntos de colocación.\cite{Tannor:2006}} del operador de proyección, y los puntos $\{x_i\}$ son llamados \textbf{puntos de colocación}. Los coeficientes $b_n$ están determinados por la condición de que: $\psi_N(x)=\psi(x)$ en el conjunto de puntos de colocación.
 
 
-\section{Base Pseudo-espectral}
+\section{Base pseudo-espectral}
 Una \textbf{base pseudo-espectral}: $\{\theta_j\}_{j=1}^N$ se define como la base de las funciones localizadas espacialmente. La base de funciones ortogonales $\{\phi_n\}_{n=1}^N$, la colocación en la \autoref{eq:wavefunexp}, los puntos de colocación $\{x_i\}_{i=1}^N$, y los factores de peso definidos como $\Delta_j$ con $j=1,\dots,N$, determinan completamente la forma de la base pseudo-espectral:
 
 \begin{equation}
@@ -108,7 +108,7 @@ Se puede probar \cite{Tannor:2006}, que tanto la base espectral, como la base ps
 En esta sección se aplicarán los conceptos revisados a lo largo del capítulo para resolver un problema físico-químico que involucra potenciales dependientes del tiempo utilizando el método \acs{DVR}.\\
 La implementación numérica se realizó en Python 3.9.7 y se encuentra disponible en el repositorio: \href{https://github.com/Jessi-MM/PropagatorLearning/blob/main/src/ANN_as_Propagators_DidacticNotebook.ipynb}{\faGithub Transferencia de Protones}
 
-\subsection{Sistema de Transferencia de Protones}\label{sec:ProtonTransfer}
+\subsection{Sistema de transferencia de protones}\label{sec:ProtonTransfer}
 
 Los sistemas de \textbf{transferencia de protones} ocurren en un complejo de enlaces de hidrógeno: $A-H\dotsb A'$. El modelo simplificado se muestra en la siguiente figura:
 
@@ -166,7 +166,7 @@ En las ecuaciones de potenciales de oscilador armónico, $m$ se refiere a la mas
 
 La \autoref{fig:drawPot} muestra un ejemplo de potencial $V(r,t)$ generado con la implementación de las ecuaciones anteriores. Los parámetros de potencial utilizados se muestran en la \autoref{tab:ValuesPlot1}
 
-\subsection{Elección de una base Ortonormal y Grid}
+\subsection{Elección de una base ortonormal y grid}
 
 Para proceder con la solución a la \acs{TDSE} \autoref{eq:TDSE ket}, elegimos una base de funciones ortogonales: \cite{Colbert1992}
 
@@ -190,9 +190,9 @@ donde: $a=-1.5\AA$, $b=1.5\AA$ y $N=200$ para la implementación numérica, es d
   \label{fig:Phi_n}
 \end{figure}
 
-\subsubsection{Representación de la matriz del Hamiltoniano en la Base Espectral}
+\subsubsection{Representación de la matriz del Hamiltoniano en la base espectral}
 
-Los elementos de matriz de la Energía Cinética en la base pseudo-espectral están dados por:
+Los elementos de matriz de la energía cinética en la base pseudo-espectral están dados por:
 \begin{equation}
   \label{eq:T}
 T^{\theta}_{ij}= \bra{\theta_i}T\ket{\theta_j}=\sum_{n=1}^N\bra{\theta_i}\ket{\phi_n}\bra{\phi_n}T\ket{\theta_j}
@@ -219,10 +219,10 @@ donde: $\Delta r = (b-a)/N-1$. Obteniendo la segunda derivada de la \autoref{eq:
   T^{\theta}_{ij}=\frac{\hbar^2}{2m}\left(\frac{\pi}{b-a} \right)^2\frac{2}{N-1}\sum_{n=1}^Nn^2\sin\left(\frac{n\pi i}{N-1} \right)\sin\left(\frac{n\pi j}{N-1} \right)
 \end{equation}
 
-que son los elementos de matriz de la Energía Cinética en la base pseudo-espectral, $T^{\theta}\in \mathcal{M}_{200\times200}(\mathbb{R})$.
+que son los elementos de matriz de la energía cinética en la base pseudo-espectral, $T^{\theta}\in \mathcal{M}_{200\times200}(\mathbb{R})$.
 \\
 \\
-La representación de la matriz de Energía Potencial en la base pseudo-espectral es más simple que la de la Energía Cinética, pues 
+La representación de la matriz de energía potencial en la base pseudo-espectral es más simple que la de la energía cinética, pues 
 las funciones $\{\theta_i\}$ son localizadas en el espacio de posiciones $r$ y cumplen la condición de ortogonalidad: $\bra{\theta_i}\ket{\theta_j}= \delta_{ij}$, así:
 
 \begin{equation}
@@ -232,16 +232,16 @@ las funciones $\{\theta_i\}$ son localizadas en el espacio de posiciones $r$ y c
 
 $V^{\theta}\in \mathcal{M}_{200\times200}(\mathbb{R})$ es una matriz diagonal.
 \\
-Dado un tiempo $t$, los elementos de la diagonal $V^{\theta}_{ii}$ están dados por $V(r_i,t)$ (\autoref{eq:matrixPot}), con $i=0,..,31$.
+Dado un tiempo $t$, los elementos de la diagonal $V^{\theta}_{ii}$ están dados por $V(r_i,t)$ (\autoref{eq:matrixPot}), con $i=0,..,199$.
 \\
 A partir de la \autoref{eq:T_N} y \autoref{eq:V_DVR}, se construye la matriz del Hamiltoniano en la base pseudo-espectral al tiempo $t$:
 \begin{equation}
   \label{eq:H_DVR}
   H(t)^{\theta} = V(t)^{\theta}+T^{\theta}
 \end{equation}
-en donde el Hamiltoniano tiene dependencia temporal debido a que el Potencial del sistema es dependiente del tiempo.
+en donde el Hamiltoniano tiene dependencia temporal debido a que el potencial del sistema es dependiente del tiempo.
 
-\subsection{Propagación de un Paquete de Onda}
+\subsection{Propagación de un paquete de onda}
 
 Sea un paquete de onda al tiempo $t=0$ (\autoref{fig:psi_0}): 
 \begin{equation}
@@ -271,10 +271,10 @@ así,
 \end{equation}
 
 En donde la matriz $U$ está formada por los $N$ eigenvectores de $H^{\theta}$ como vectores columna, y:
-$$D=U^{-1}H^{\theta}U$$.
+$$D=U^{-1}H^{\theta}U$$
 \\
 
-La \autoref{fig:psi_ev} muestra la evolución de la parte real del paquete de onda en intervalos de $1\,fs$ a lo largo de $5\,fs$, obtenida con la \autoref{eq:psi_t}. En la \autoref{fig:dens_ev} se muestra la evolución temporal de la densidad del protón.\\
+La \autoref{fig:psi_evre} y la \autoref{fig:psi_evim} muestran la evolución de la parte real e imaginaria del paquete de onda en intervalos de $1\,fs$ a lo largo de $20\,fs$, obtenidas con la \autoref{eq:psi_t}. En la \autoref{fig:dens_ev} se muestra la evolución temporal de la densidad del protón.\\
 \href{https://github.com/Jessi-MM/PropagatorLearning/blob/main/src/Animacion/gifs/animation-dens\%26pot.gif}{\faPlayCircle[regular] Evolución Temporal: Potencial y Densidad}
 
 \begin{figure}[!htbp]

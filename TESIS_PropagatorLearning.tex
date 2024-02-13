@@ -38,7 +38,7 @@
                 ]{scrreprt}
 
 
-    %original
+    %original To print thesis
     %\documentclass[twoside,openright,titlepage,numbers=noenddot,%1headlines,
      %           headinclude,footinclude,cleardoublepage=empty,abstract=on,
       %          BCOR=5mm,paper=a4,fontsize=12pt
@@ -128,11 +128,12 @@
 %\include{FrontBackmatter/DirtyTitlepage}
 \include{FrontBackmatter/Titlepage}
 \include{FrontBackmatter/Titleback}
-%\cleardoublepage\include{FrontBackmatter/Dedication}
+\cleardoublepage\include{FrontBackmatter/Abstract}
+\cleardoublepage\include{FrontBackmatter/Dedication}
 %\cleardoublepage\include{FrontBackmatter/Foreword}
-%\cleardoublepage\include{FrontBackmatter/Abstract}
+
 %\cleardoublepage\include{FrontBackmatter/Publications}
-%\cleardoublepage\include{FrontBackmatter/Acknowledgments}
+\cleardoublepage\include{FrontBackmatter/Acknowledgments}
 %\cleardoublepage
 \include{FrontBackmatter/Contents}
 %********************************************************************
@@ -150,7 +151,7 @@
 
 
 
-%agregar a forma final\cleardoublepage
+\cleardoublepage
 %\ctparttext{You can put some informational part preamble text here.}
 \part{Ecuación de Schrödinger Dependiente del Tiempo}\label{pt:TDSE}
 
@@ -160,7 +161,7 @@
 
 %agregar a forma final \cleardoublepage
 %\ctparttext{You can put some informational part preamble text here.}
-\part{Redes Neuronales Artificiales (ANN's)}\label{pt:ANNS}
+\part{Redes Neuronales Artificiales (ANNs)}\label{pt:ANNS}
 
 \include{Chapters/cap04}
 \include{Chapters/cap05}
@@ -173,7 +174,7 @@
 
 %agregar a forma final \cleardoublepage
 %\ctparttext{You can put some informational part preamble text here.}
-\part{Implementación de un modelo de ANN como propagador en Dinámica Cuántica }\label{pt:Modelos}
+\part{Implementación de un modelo de LSTM como propagador en Dinámica Cuántica }\label{pt:Modelos}
 \include{Chapters/cap08}
 %\include{Chapters/cap09}
 %\include{Chapters/cap10}
