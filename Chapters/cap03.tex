@@ -3,10 +3,10 @@
 % ************************************************
 Existen diferentes métodos numéricos para resolver la ecuación de Schrödinger dependiente del tiempo (\autoref{eq:TDSE ket}). En esta capítulo se desarrollará un método particular conocido como el método de \textbf{representación de variable discreta}, \acs{DVR} por sus siglas en inglés.
 \\\\
-Formalmente, el espacio de Hilbert de las funciones de onda es infinito, sin embargo, para resolver y tratar problemas numéricamente, es necesario hacer un truncamiento de la dimensión del espacio a un número finito $N$. Este espacio reducido de Hilbert, puede verse como un espacio generado por un operador de proyección, además, el espacio reducido de Hilbert tiene el mismo formalismo de la mecánica cuántica, pues, si se recuerda que la dimensión del espacio de Hilbert está dado por las distintas alternativas que puede tomar el sistema cuántico en cuestión, este espacio de dimensión $N$, puede ser un espacio completo para otro problema en mecánica cuántica.
+Formalmente, el espacio de Hilbert de las funciones de onda es infinito, sin embargo, para resolver y tratar problemas numéricamente, es necesario hacer un truncamiento de la dimensión del espacio a un número finito $N$. Este espacio tiene el mismo formalismo de la mecánica cuántica, pues la dimensión del espacio de Hilbert está dado por las distintas alternativas que puede tomar el sistema físico en cuestión, de manera que este espacio de dimensión $N$ puede ser un espacio completo para otro problema en mecánica cuántica. Por ejemplo, si $N=2$ el espacio generado puede verse como el espacio de Hilbert asociado al problema de la medición del spin en los átomos de plata. \cite{Gerlach1922}
 
-\section{Proyección espectral}
-Una función de onda y sus operadores se pueden representar mediante una una base de funciones ortogonales, a esta base se le conoce como \textbf{base espectral}:
+\section{Proyección espectral y colocación}
+Una función de onda y sus operadores se pueden representar mediante una base de funciones ortogonales, a esta base se le conoce como \textbf{base espectral}:
 $$\{\phi_i(x)\}_{i=1}^{N}$$
 que, por ser funciones ortogonales cumplen que:
 $$\bra{\phi_i(x)}\ket{\phi_j(x)} = \delta_{ij}$$
@@ -17,34 +17,103 @@ Como se mencionó anteriormente, la dimensión del espacio de Hilbert se debe re
   P_N = \sum_{n=1}^N\ket{\phi_n}\bra{\phi_n}
 \end{equation}
 
-Mediante el operador $P_N$ se puede mapear la dinámica del espacio de Hilbert al espacio reducido de Hilbert, en particular, es de interés para resolver la \autoref{eq:TDSE ket} conocer cómo se representa el operador Hamiltoniano:
+Mediante el operador $P_N$ se puede mapear la dinámica del espacio de Hilbert al espacio reducido de Hilbert, en particular, es de interés para resolver la \autoref{eq:TDSE ket} conocer cómo se representa el operador Hamiltoniano en su representación matricial:
 \begin{equation}
   \label{eq:Hamiltoniano}
   H = \frac{\hat{p}^2}{2m}+V(\hat{x})
 \end{equation}
 
-Utilizando la base espectral, el Hamiltoniano en el espacio reducido de Hilbert se puede representar como:
+Asumiendo que la matriz de elementos $\bra{\phi_m}H\ket{\phi_n}$ es conocida dada la base espectral, el Hamiltoniano en el espacio reducido de Hilbert se puede representar como:
 
 \begin{equation}
   \label{eq:Hamiltonianored}
   H_N = P_NHP_N
 \end{equation}
 
-Definiendo $Q_N = 1-P_N$, la ecuación de Schrödinger dependiente del tiempo se puede escribir en términos de $P_N$ y $Q_N$ como un conjunto de dos ecuaciones diferenciales acopladas:
+La ecuación de Schrödinger dependiente del tiempo:
 
 \begin{equation}
-  \label{eq:acopladas1}
-  i\hbar\frac{\partial \psi_N}{\partial t} = P_NHP_N\psi_N + P_NHQ_N\psi_{\perp}
+  \label{eq:tdse-1}
+  i\hbar\frac{\partial \psi}{\partial t} = H \psi
 \end{equation}
+
+puede escribirse como un conjunto de dos ecuaciones diferenciales acopladas a partir de las siguientes definiciones: \cite{Tannor:2006}
+
 \begin{equation}
-  \label{eq:acopladas2}
+  \label{eq:acop1}
+  Q_N = \mathbb{1} - P_N
+\end{equation}
+
+\begin{equation}
+  \label{eq:acop2}
+  \psi_N = P_N\psi
+\end{equation}
+
+\begin{equation}
+  \label{eq:acop3}
+  \psi_{\\perp}=Q_N\psi = \psi - \psi_{N}
+\end{equation}
+
+de la \autoref{eq:acop3} se sigue que: $\psi = \psi_N + \psi_{\perp}$, sustituyendo en la \autoref{eq:tdse-1} se tiene:
+\begin{equation}
+  \label{eq:tdse-2}
+  i\hbar\frac{\partial (\psi_N + \psi_{\perp})}{\partial t} = H (\psi_N + \psi_{\perp})
+\end{equation}
+
+multiplicando por el operador $P_N$ por la izquierda en ambos lados se obtiene:
+\begin{equation}
+   \label{eq:tdse-3}
+  i\hbar\frac{\partial (P_N \psi_N + P_N \psi_{\perp})}{\partial t} = P_NH (\psi_N + \psi_{\perp})
+\end{equation}
+
+por definición $P_N \psi_{\perp}= P_NQ_N\psi = P_N(\mathbb{1}-P_N)\psi = (P_N - P_N^2)\psi = (P_N-P_N)\psi=0$, pues $P_N$ es un operador de proyección, también se sigue que $P_N\psi_N = P_N P_N \psi = P_N^2 \psi = P_N\psi = \psi_N$
+De esta manera la \autoref{eq:tdse-3} se convierte en:
+
+\begin{equation}
+   \label{eq:tdse-4}
+  i\hbar\frac{\partial \psi_N}{\partial t} = P_NH (\psi_N + \psi_{\perp})
+\end{equation}
+
+multiplicando por $\mathbb{1}=P_N + Q_N$ en el lado derecho de la ecuación se sigue:
+\begin{align}
+  \label{eq:tdse-5}
+ i\hbar\frac{\partial \psi_N}{\partial t}&= P_NH(P_N + Q_N) (\psi_N + \psi_{\perp})  \\ 
+                                         &= (P_NHP_N + P_NHQ_N)(\psi_N + \psi_{\perp}) \\
+  &= P_NHP_N\psi_N + P_NHQ_N\psi_N + P_NHQ_N\psi_{\perp} + P_NHQ_N\psi_{\perp}
+\end{align}
+
+como se mostró anteriormente $P_N\psi_{\perp}=0$, además $Q_N \psi_N = (\mathbb{1}-P_N)\psi_N = \psi_N - P_N\psi_N = \psi_N - \psi_N = 0$, de esta manera el segundo y tercer término del lado derecho en la \autoref{eq:tdse-5} se hacen $0$ y se sigue que:
+
+\begin{equation}
+  \label{eq:tdse-p1}
+  i\hbar\frac{\partial \psi_N}{\partial t} = P_NHP_N\psi_N  + P_NHQ_N\psi_{\perp}
+\end{equation}
+
+Por otro lado, multiplicando el operador $Q_N$ por la izquierda en ambos lados de la \autoref{eq:tdse-2} se tiene:
+
+\begin{align}
+   \label{eq:tdse-6}
+  i\hbar\frac{\partial (Q_N \psi_N + Q_N \psi_{\perp})}{\partial t} &= Q_NH (\psi_N + \psi_{\perp}) \\
+  i\hbar\frac{\partial \psi_{\perp}}{\partial t} &= Q_NH (\psi_N + \psi_{\perp})
+\end{align}
+
+multiplicando por $\mathbb{1}=P_N + Q_N$ en el lado derecho de la ecuación se sigue:
+\begin{align}
+  \label{eq:tdse-7}
+  i\hbar\frac{\partial \psi_{\perp}}{\partial t}&= Q_NH(P_N + Q_N) (\psi_N + \psi_{\perp})  \\ 
+                                         &= (Q_NHP_N + Q_NHQ_N)(\psi_N + \psi_{\perp}) \\
+                                          &= Q_NHP_N\psi_N + Q_NHQ_N\psi_N + Q_NHP_N\psi_{\perp} + Q_NHQ_N\psi_{\perp}
+\end{align}
+
+por los argumentos anteriores, el segundo y tercer término del lado derecho de la \autoref{eq:tdse-7} se hacen $0$, obteniendo:
+
+\begin{equation}
+  \label{eq:tdse-p2}
   i\hbar\frac{\partial \psi_{\perp}}{\partial t} = Q_NHP_N\psi_N + Q_NHQ_N\psi_{\perp}
 \end{equation}
 
-
-en donde: $\psi_N = P_N\psi$ y $\psi_{\perp}=Q_N\psi$.
+de esta manera la \autoref{eq:tdse-p1} y la \autoref{eq:tdse-p2} son un conjunto de dos ecuaciones diferenciales acopladas.
 \\
-
 Para este trabajo se usará la aproximación de Galerkin \cite{Gottlieb}, en donde se desprecia la contribución de $\psi_{\perp}$, de esta forma, la \acs{TDSE} a resolver es:
 \begin{tcolorbox}[colback=CTtitle!5!white,colframe=CTtitle!85!white]%,title=\centering{Ecuación de Schrödinger Dependiente del Tiempo para un estado}]
 \begin{equation}
@@ -53,7 +122,7 @@ i\hbar \frac{\partial \psi_N}{\partial t} = P_NHP_N\psi_N
 \end{equation}
 \end{tcolorbox}
 
-\subsection{Representación de la función de onda}
+\subsection{Representación de la función de onda bajo el operador de proyección}
 
 Una función de onda $\psi(x)$ se puede escribir como una suma infinita en términos de funciones ortonormales $\phi_i$:
 \begin{equation}
@@ -72,36 +141,142 @@ Utilizando la definición del operador de proyección de la \autoref{eq:operador
   \psi_N(x) = P_N\psi(x)=\sum_{n=1}^{N}a_n\phi_n(x)
 \end{equation}
 
-\subsection{Colocación del operador de proyección}
-Dado un conjunto de puntos en el espacio de posiciones: $\{x_i\}$ con $i=1,2,3,\dots N$, la siguiente relación:
+\subsection{Definición del proyector de colocación}
+Dado un conjunto de puntos en el espacio de posiciones: $\{x_i\}$ con $i=1,2,3,\dots, N$, la siguiente relación:
 \begin{equation}
   \label{eq:wavefunexp}
   \psi_N(x_i) = P_N\psi(x_i)=\sum_{n=1}^{N}b_n\phi_n(x_i) = \psi(x_i)
 \end{equation}
 
 está asociada a la \textbf{colocación}\footnote{Los \textbf{métodos de colocación} son soluciones numéricas de un conjunto de ecuaciones, cuya solución resulta ser exacta en un conjunto discreto de puntos llamados puntos de colocación.\cite{Tannor:2006}} del operador de proyección, y los puntos $\{x_i\}$ son llamados \textbf{puntos de colocación}. Los coeficientes $b_n$ están determinados por la condición de que: $\psi_N(x)=\psi(x)$ en el conjunto de puntos de colocación.
+\\
+Es importante notar que los coeficientes $b_n$ son en general distintos a los coeficientes $a_n$ de la \autoref{eq:wavepacketinit}. A pesar de que el operador $P_N$ en la proyección espectral general el mismo espacio reducido de Hilbert que el operador $P_N$ en la colocación, estos operadores difieren en el estado que producen en el mismo espacio. Si se define:
+\begin{equation}
+  \label{eq:chi}
+  \chi = \psi - \psi_N
+\end{equation}
+Para la proyección espectral se tiene que:
+\begin{equation}
+  \label{eq:ortochi}
+  \chi(x) = \sum_{n=1}^{\infty} a_n\phi_n(x) - \sum_{n=1}^{N} a_n\phi_n(x)=\sum_{n=N+1}^{\infty} a_n\phi_n(x)
+\end{equation}
+de manera que:
+\begin{equation}
+  \label{eq:puntoorto}
+  \bra{\chi}\ket{\psi_N}= \int \left( \sum_{n=N+1}^{\infty} a_n^*\phi_n^*(x)\right) \left( \sum_{m=1}^{N} a_m\phi_m(x) \right)dx = 0
+\end{equation}
 
+lo que muestra que el proyector espectral es un proyector ortogonal. Por otro lado, si se considera la colocación del proyector:
+\begin{equation}
+  \label{eq:chinon}
+  \chi(x) = \psi - \psi_N = \sum_{n=1}^{\infty} a_n\phi_n(x) - \sum_{n=1}^{N} b_n\phi_n(x)
+\end{equation}
+el producto está dado por:
+\begin{equation}
+  \label{eq:puntonon}
+  \bra{\chi}\ket{\psi_N}= \int \left(\sum_{n=1}^{\infty} a_n^*\phi_n^*(x) - \sum_{n=1}^{N} b_n^*\phi_n^*(x) \right)
+  \left(  \sum_{m=1}^{N} b_m\phi_m(x)  \right) dx \neq 0
+\end{equation}
+mostrando así que el proyector de colocación no es un proyector ortogonal. La \autoref{fig:projortoandnon} muestra una interpretación geométrica de lo anterior, en este caso el espacio reducido es $\mathbb{R}^2$, y el vector $(x,y,z) \in \mathbb{R}^3$ es proyectado por dos distintos operadores: uno ortogonal y uno no ortogonal, como se observa, el vector proyectado en ambos casos pertenece al mismo espacio reducido, pero no son el mismo vector. \cite{Tannor:2006}
 
-\section{Base pseudo-espectral}
-Una \textbf{base pseudo-espectral}: $\{\theta_j\}_{j=1}^N$ se define como la base de las funciones localizadas espacialmente. La base de funciones ortogonales $\{\phi_n\}_{n=1}^N$, la colocación en la \autoref{eq:wavefunexp}, los puntos de colocación $\{x_i\}_{i=1}^N$, y los factores de peso definidos como $\Delta_j$ con $j=1,\dots,N$, determinan completamente la forma de la base pseudo-espectral:
+\begin{figure}[ht]
+  \centering
+\includegraphics[width=0.6\textwidth]{/home/jessica/Tesis/img/tesis/projortoandnon.drawio.png}
+\caption{Interpretación geométrica de una proyección ortogonal y una no ortogonal del un vector en el espacio $\mathbb{R}^3$ al espacio $\mathbb{R}^2$. }
+\label{fig:projortoandnon}
+\end{figure}
+
+\subsection{Colocación ortogonal}
+
+Un proyector que cumpla con las condiciones de colocación y además sea un proyector ortogonal debe tener funciones $\phi_n(x)$ que satisfagan las relaciones discretas de ortogonalidad definidas en los puntos de colocación: \cite{Tannor:2006}
 
 \begin{equation}
-  \label{eq:basepseudo}
+  \label{eq:ortox2}
+  \sum_{j=1}^N \phi_m^*(x_j)\phi_n(x_j)\Delta_j = \delta_{mn}, \,\,\, m,n=1,\dots,N
+\end{equation}
+
+en donde $\Delta_j$ es un factor de peso. Los coeficientes $b_n$ de la \autoref{eq:wavefunexp} pueden encontrarse a partir de la \autoref{eq:ortox2} multiplicando a la izquierda por $\phi_m^*(x_j)\Delta_j$ y sumando sobre $j$:
+\begin{equation}
+  \label{eq:11.36}
+  b_n = \sum_{j=1}^N\psi(x_j)\phi_n^*(x_j)\Delta_j
+\end{equation}
+Lo anterior es una buena aproximación discreta a la relación de los coeficientes $a_n$ en la \autoref{eq:wavefuninf}, que cumplen la condición para una proyección ortogonal. Los esquemas que satisfacen la \autoref{eq:ortox2} son llamados \textbf{esquemas de colocación ortogonales}, y pueden ser redefinidos de manera más sencilla de la siguiente manera:
+\begin{equation}
+  \label{eq:11.37}
+  \Phi_n(x_j) \equiv \sqrt{\Delta_j} \phi_n(x_j)
+\end{equation}
+así, la \autoref{eq:ortox2} puede escribirse como:
+\begin{equation}
+  \label{eq:11.38}
+  \sum_{j=1}^N \Phi_m^*(x_j)\Phi_n(x_j) = \delta_{mn}, \,\,\, m,n=1,\dots,N
+\end{equation}
+La ecuación anterior puede escribirse en forma matricial como:
+\begin{equation}
+  \label{eq:11.39}
+  \Phi^{\dag}\Phi=\mathbb{1}
+\end{equation}
+lo que indica que la transformación $\Phi$ es unitaria, por lo que se tiene también la siguiente relación:
+\begin{equation}
+  \label{eq:11.40}
+  \Phi\Phi^{\dag} = \mathbb{1}
+\end{equation}
+que puede escribirse de manera extendida como:
+\begin{equation}
+  \label{eq:11.41}
+  \sum_{n=1}^N \Phi_n(x_i)\Phi_n^*(x_j) = \delta_{ij}, \,\,\, i,j=1,\dots,N
+\end{equation}
+es importante notar que la ecuación anterior es distinta a la \autoref{eq:11.38}, pues la ecuación \autoref{eq:11.41} implica una relación de ortogonalidad para los diferentes puntos en la malla del espacio de posiciones. La matriz $\Phi$ será llamada matriz de colocación ortogonal.
+
+\section{Base pseudo-espectral}
+
+Una \textbf{base pseudo-espectral}: $\{\theta_j\}_{j=1}^N$ se define como la base de las funciones localizadas espacialmente. La base de funciones ortogonales $\{\phi_n\}_{n=1}^N$, la colocación en la \autoref{eq:wavefunexp}, los puntos de colocación $\{x_i\}_{i=1}^N$, y los factores de peso definidos como $\Delta_j$ con $j=1,\dots,N$, determinan completamente la forma de la base pseudo-espectral. \\
+Reemplazando $\Phi_n(x_i)$ por $\phi_n(x)$ en el primer factor de la \autoref{eq:11.41} se definen las funciones pseudo-espectrales base:
+
+\begin{equation}
+  \label{eq:11.43}
   \theta_j(x) \equiv \sum_{n=1}^N\phi_n(x)\Phi_n^*(x_j)
 \end{equation}
-donde:
-$$\Phi_n(x_j)\equiv \sqrt{\Delta_j}\phi_n(x_j)$$
-$$\theta_j(x_i) = \Delta_j^{-1/2}\delta_{ij}$$
 
+Las funciones $\{\theta_j\}$ son localizadas, cada una alrededor de los diferentes valores $x_j$. De la \autoref{eq:11.43}, \autoref{eq:11.37} y \autoref{eq:11.41} se tiene que las funciones satisfacen:
 
-En conjunto, las $N$ funciones de la base pseudo-espectral generan el mismo espacio de Hilbert reducido que las $N$ funciones ortogonales de la base espectral, y ambas bases están relacionadas mediante una transformación unitaria: $\Phi_n^*$. Como consecuencia, se tiene que el operador de proyección es idéntico en ambas bases, es decir:
+\begin{equation}
+  \label{eq:11.44}
+  \theta_j(x_i) = \Delta_j^{-1/2}\delta_{ij}
+\end{equation}
+
+La \autoref{eq:11.43} puede escribirse en notación matricial como:
+\begin{equation}
+  \label{eq:11.45}
+  \Phi^{\dag}\phi(x) = \theta(x)
+\end{equation}
+
+de manera que $\{\theta_j\}$ y $\{\phi_n \}$ son bases que están relacionadas mediante una transformación unitaria $\Phi^{\dag}$ y generan el mismo espacio de Hilbert reducido. Como consecuencia, el operador de proyección es idéntico en ambas bases:
 \begin{equation}
   \label{eq:proyecbases}
   P_N = \sum_{n=1}^N\ket{\phi_n}\bra{\phi_n}=\sum_{j=1}^N\ket{\theta_j}\bra{\theta_j}
 \end{equation}
 
-Se puede probar \cite{Tannor:2006}, que tanto la base espectral, como la base pseudo-espectral tienen propiedades de completes y ortogonalidad completamente análogas. Esto es de particular importancia, pues, dado que ambas bases generan el mismo espacio reducido de Hilbert, los operadores se pueden escribir tanto en términos de una base, como en la otra, y, si es necesario hacer cálculos con estos operadores (como sumarlos), se puede utilizar la transformación unitaria para escribirlos en términos de la misma base.
+\subsection{Completes y ortogonalidad de las funciones base pseudo-espectrales}
+La base de las funciones localizadas $\{\theta_j\}$ cumple las propiedades de ortogonalidad y completes, para mostrar esto se multiplica por $\phi^*_m(x)$ ambos lados de la ecuación \autoref{eq:11.43} y se integra sobre el dominio:
+$$ \int \phi^*_m(x) \theta_j(x_j) dx = \int \sum_{n=1}^{N}\phi^*_m(x)\phi_n(x)\Phi^*_n(x_j) dx$$
+\begin{equation}
+  \label{eq:11.46}
+\bra{\phi_n} \ket{\theta_j} =   \Phi^*_n(x_j) 
+\end{equation}
+De esta manera, la relación de ortogonalidad es:
+\begin{equation}
+  \label{eq:11.47}
+  \sum_{n=1}^N \Phi_n(x_i)\Phi_n^*(x_j) = \delta_{ij}=\sum_{n=1}^{N}\bra{\theta_i}\ket{\phi_n}\bra{\phi_n}\ket{\theta_j} = \bra{\theta_i}\ket{\theta_j}
+\end{equation}
+mientras que la de completes está dada por:
+\begin{equation}
+  \label{eq:11.48}
+  \sum_{j=1}^N \Phi_m(x_j)\Phi_n^*(x_j) = \delta_{mn} = \sum_{j=1}^N \bra{\phi_m} \ket{\theta_j} \bra{\theta_j}\ket{\phi_n}
+\end{equation}
+La \autoref{eq:11.47} significa que las funciones $\theta_j$ tienen un pico en el valor correspondiente a $x_j$ mientras que se desvanece en cualquier otro punto de la malla $x_i$. La \autoref{eq:11.48} es una relación de completes respecto a la suma sobre todos los puntos de la malla.
 
+\subsection{El proyector de colocación en la base pseudo-espectral}
+La \autoref{eq:11.43} 
 
 \section{Algoritmo DVR aplicado a un proceso físico-químico}\label{sec:DVRapp}
 
@@ -133,7 +308,7 @@ A continuación se presenta un modelo particular de potencial para el sistema de
   \end{pmatrix}
 \end{equation}
 
-En donde $U_1(r,R(t))$ y  $U_1(r,R(t))$ son potenciales de oscilador armónico, y $V$ es una constante.
+En donde $U_1(r,R(t))$ y  $U_2(r,R(t))$ son potenciales de oscilador armónico, y $V$ es una constante de acoplamiento electrónico.
 
 \begin{equation}
   \label{eq:U1}
@@ -145,7 +320,7 @@ En donde $U_1(r,R(t))$ y  $U_1(r,R(t))$ son potenciales de oscilador armónico, 
   U_2(r,R(t))=\frac{1}{2}m\omega_2^2\left( r - \frac{R(t)}{2} \right)
 \end{equation}
 
-En las ecuaciones de potenciales de oscilador armónico, $m$ se refiere a la masa del protón, $\omega$ es la frecuencia del pozo de protones. Los términos $U_1(r,R(t))$ y  $U_1(r,R(t))$ están desplazados mediante un término de energía dependiente del tiempo: $X(t)$, y un termino de distancia dependiente del tiempo: $R(t)$. La dinámica de $X(t)$ corresponde a las fluctuaciones del entorno, mientras que $R(t)$ representa las vibraciones de los sitios donantes y aceptores de protones. \cite{Main:2021}
+En las ecuaciones de potenciales de oscilador armónico, $m$ se refiere a la masa del protón, $\omega_1$ y $\omega_2$  son las frecuencias del potencial armónico del protón. Los términos $U_1(r,R(t))$ y  $U_2(r,R(t))$ están desplazados mediante un término de energía dependiente del tiempo $X(t)$, y un termino de distancia dependiente del tiempo $R(t)$. La dinámica de $X(t)$ corresponde a las fluctuaciones del entorno, mientras que $R(t)$ representa las vibraciones de los sitios donantes y aceptores de protones: \cite{Main:2021}
 
 \begin{equation}
   \label{eq:X(t)}
@@ -156,6 +331,9 @@ En las ecuaciones de potenciales de oscilador armónico, $m$ se refiere a la mas
   \label{eq:R(t)}
   R(t)=(R_0-R_{eq})\cos(\omega_Rt + \theta_R) + R_{eq}
 \end{equation}
+En donde $\lambda$ es la amplitud del sesgo de energía, $\omega_x$ es la frecuencia de las oscilaciones de polarización de energía, $\theta_x$ es una fase inicial aleatoria; $R_{eq}$ es la distancia de equilibrio entre los mínimos de los potenciales armónicos, $R_0$ es el desplazamiento inicial desde el equilibrio, $\omega_R$ es la frecuencia de las oscilaciones de la distancia donante-aceptor de protones y $\theta_R$ es una fase inicial aleatoria. \cite{Main:2021}
+
+
 
 \begin{figure}[ht]
   \centering
@@ -166,31 +344,31 @@ En las ecuaciones de potenciales de oscilador armónico, $m$ se refiere a la mas
 
 La \autoref{fig:drawPot} muestra un ejemplo de potencial $V(r,t)$ generado con la implementación de las ecuaciones anteriores. Los parámetros de potencial utilizados se muestran en la \autoref{tab:ValuesPlot1}
 
-\subsection{Elección de una base ortonormal y grid}
+\subsection{Elección de una base ortonormal y malla}
 
 Para proceder con la solución a la \acs{TDSE} \autoref{eq:TDSE ket}, elegimos una base de funciones ortogonales: \cite{Colbert1992}
 
 \begin{equation}
   \label{eq:eigenfunc}
-  \phi_n(r)=\sqrt{\frac{2}{b-a}}\sin\left( \frac{n\pi(r-a)}{b-a}\right) \,\,\,\,\, n=1,..,N
+  \phi_n(r)=\sqrt{\frac{2}{b-a}}\sin\left( \frac{n\pi(r-a)}{b-a}\right) \,\,\,\,\, n=1,\dots,N
 \end{equation}
 
-y un grid en el espacio de posiciones:
+y una malla en el espacio de posiciones:
 \begin{equation}
   \label{eq:grid}
-  r_i = a + \frac{(b-a)i}{N-1} \,\,\,\,\, i=0,..,N-1
+  r_i = a + \frac{(b-a)i}{N-1} \,\,\,\,\, i=0,\dots,N-1
 \end{equation}
 
-donde: $a=-1.5\AA$, $b=1.5\AA$ y $N=200$ para la implementación numérica, es decir, que el espacio reducido de Hilbert del sistema tiene una dimensión de $N=200$. La \autoref{fig:Phi_n} muestra las primeras cinco funciones ortogonales de la base en el grid del espacio de posiciones. Las funciones $\phi_n$ están construidas para que se cumpla: $\phi_n(r=r_0=a)=\phi_n(r=r_{N-1}=b)=0$.
+donde: $a=-1.5\AA$, $b=1.5\AA$ y $N=200$ para la implementación numérica, es decir, que el espacio reducido de Hilbert del sistema tiene una dimensión de $N=200$. La \autoref{fig:Phi_n} muestra las primeras cinco funciones ortogonales de la base en la malla del espacio de posiciones. Las funciones $\phi_n$ están construidas para que se cumpla: $\phi_n(r=r_0=a)=\phi_n(r=r_{N-1}=b)=0$.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/Phi_n1.png}
-  \caption{Funciones ortogonales $\phi_n(r)$ en el grid $\{r_i\}_{i=0}^{N-1}$ para $n=1,..5$.}
+  \caption{Funciones ortogonales $\phi_n(r)$ en la malla $\{r_i\}_{i=0}^{N-1}$ para $n=1,\dots,5$.}
   \label{fig:Phi_n}
 \end{figure}
 
-\subsubsection{Representación de la matriz del Hamiltoniano en la base espectral}
+\subsubsection{Representación de la matriz del Hamiltoniano en la base pseudo-espectral}
 
 Los elementos de matriz de la energía cinética en la base pseudo-espectral están dados por:
 \begin{equation}

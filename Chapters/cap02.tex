@@ -15,7 +15,7 @@ La información física de un sistema en mecánica cuántica está contenida en 
 La dimensión del espacio depende de las diferentes posibilidades o alternativas que el sistema puede tomar, por ejemplo, si el sistema es un átomo y las medición que se está realizando es de su spin, el átomo, que se representa por su estado, pertenece a un espacio vectorial de dos dimensiones, dado que existen dos posibilidades de spin. En ocasiones, las alternativas que puede tomar un estado son infinitas y no numerables, por ejemplo, cuando se requiere saber la posición o momento de una partícula.
 \\
 \\
-Un \textbf{operador} $\hat{a}$, en mecánica cuántica, es también un elemento del espacio ket, que opera sobre los estados, y cuyo resultado es, en general un estado distinto pero que pertenece al mismo espacio.
+Un \textbf{operador} $\hat{a}$ en mecánica cuántica es una entidad que actúa sobre los estados del sistema, produciendo típicamente un estado diferente al inicial, pero que sigue perteneciendo al mismo espacio de estados.
 \[
 \hat{a} \cdot (\ket{\psi}) = \hat{a}\ket{\psi}
 \]
@@ -79,10 +79,10 @@ A menudo esta representación de los operadores como matrices es útil cuando se
 
 \section{Operador de propagación: evolución temporal de un sistema}
 
-Dado un sistema cuántico a un tiempo inicial $t_0$, representado por el estado: $$\ket{\psi_{t_0}}$$ la evolución temporal del estado a un tiempo $t>t_0$ se puede escribir como: $$\ket{\psi_{t_0}(t)}$$ haciendo referencia de que el estado evolucionado en el tiempo depende del estado inicial al tiempo $t_0$.
+Dado un sistema cuántico a un tiempo inicial $t_0$, representado por el estado: $$\ket{\psi_{t_0}}$$ la evolución temporal del estado a un tiempo $t>t_0$ se puede escribir como: $$\ket{\psi(t)}$$
 \\
-Bajo el formalismo de la mecánica cuántica, se puede visualizar a este nuevo estado $\ket{\psi_{t_0}(t)}$, como el resultado de aplicar un operador al estado $\ket{\psi_{t_0}}$:
-$$\ket{\psi_{t_0}(t)}=\mathcal{U}(t_0,t)\ket{\psi_{t_0}}$$
+Bajo el formalismo de la mecánica cuántica, se puede visualizar a este nuevo estado $\ket{\psi(t)}$, como el resultado de aplicar un operador al estado $\ket{\psi_{t_0}}$:
+$$\ket{\psi(t)}=\mathcal{U}(t_0,t)\ket{\psi_{t_0}}$$
 donde el operador $\mathcal{U}$ es el \textbf{operador de propagación}. Para que este operador sea físicamente consistente, debe satisfacer las siguientes propiedades:
 
 \begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
@@ -90,14 +90,14 @@ donde el operador $\mathcal{U}$ es el \textbf{operador de propagación}. Para qu
 \item Propiedad de composición, para $t_0<t_1<t_2$: $$\mathcal{U}(t_0,t_2) = \mathcal{U}(t_1,t_2)\mathcal{U}(t_0,t_1)$$  
 \end{itemize}
 
-A partir de estas propiedades, de la relación de energía Planck-Einstein: $E=\hbar\omega$, y de considerar al Hamiltoniano como el generador de la evolución temporal de un sistema físico\cite{Sakurai:1994}, se puede escribir la siguiente ecuación diferencial para el operador de propagación:
+A partir de estas propiedades, de la relación de energía Planck-Einstein: $E=\hbar\omega$, y de considerar al Hamiltoniano como el generador de la evolución temporal de un sistema físico \cite{Sakurai:1994}, se puede escribir la siguiente ecuación diferencial para el operador de propagación:
 
 \begin{equation}
   \label{eq:TDSE operator}
   i\hbar\frac{\partial}{\partial t}\mathcal{U}(t_0,t) = H\mathcal{U}(t_0,t)
 \end{equation}
 
-Se sigue que, para un estado $\ket{\psi_{t}}$, la evolución temporal está dada por la \textbf{ecuación de Schrödinger dependiente del tiempo} para un estado:
+Se sigue que, para un estado $\ket{\psi_{t}}$, la evolución temporal está dada por la \textbf{ecuación de Schrödinger dependiente del tiempo} para un estado: \cite{Tannor:2006}
 
 \begin{tcolorbox}[colback=CTtitle!5!white,colframe=CTtitle!85!white]%,title=\centering{Ecuación de Schrödinger Dependiente del Tiempo para un estado}]
 \begin{equation}
@@ -133,7 +133,7 @@ Un observable comúnmente estudiado en sistemas cuánticos es la posición: $\ha
 $$\hat{x}\ket{x'} = x'\ket{x'}$$
 $$\bra{x''}\ket{x'}=\delta(x''-x')$$
 
-Cualquier estado el tiempo $t$: $\ket{\psi(t)}$, puede ser escrito en función de los eigenestados de la siguiente manera:
+Cualquier estado al tiempo $t$: $\ket{\psi(t)}$, puede ser escrito en función de los eigenestados de la siguiente manera:
 $$\ket{\psi(t)} = \int dx\ket{x}\bra{x}\ket{\psi(t)}$$
 
 En el formalismo de Dirac, el producto interno:

@@ -126,7 +126,7 @@ en donde $\vec{o}$ es una capa \emph{Sigmoid} llamada compuerta \textbf{output},
 
 En esta sección se implementa una red \acs{LSTM} para predecir la evolución en un periodo de tiempo largo\footnote{Respecto a la escala de tiempo característico del sistema físico estudiado.} de un paquete de onda a un tiempo inicial $\psi(r,t)$ bajo un potencial dependiente del tiempo $V(r,t)$ en intervalos de tiempo$\Delta t$. Se utilizó como referencia un trabajo previo \cite{Main:2021} en donde se implementó un modelo de perceptrón multicapa para obtener el paquete de onda propagado un paso de tiempo $\Delta t$.
 
-\subsection{Obtención de datos}
+\subsection{Obtención de datos}\label{sec:6.4.1}
 
 El conjunto de datos de entrenamiento utilizado se obtuvo generando 8000 trayectorias de $200\,fs$, cada una con un $\Delta t = 1\,fs$. El diagrama de la \autoref{fig:DiagTraj} muestra una trayectoria, en donde $\psi(r,t_l)r$ con $l=0,\dots 200$ representa la parte real del paquete de onda, $\psi(r,t_l)i$ la parte imaginaria y $V(r,t_l)$ el potencial.
 
@@ -232,7 +232,7 @@ En donde se utilizan las siguientes variables:
 \item gaussiana: True o False. True genera una onda inicial Gaussiana (\autoref{eq:gaussian}), False solicita $k$ para generar la onda inicial como una suma de eigenfunciones (\autoref{eq:psi_0}) 
 \end{itemize}
 
-\subsection{Procesamiento de datos: visualización y forma}
+\subsection{Procesamiento de datos: visualización y forma}\label{sec:6.4.2}
 
 Para el entrenamiento de la red, las trayectorias deben estar conformados por entradas $X$ y etiquetas o salidas $y$, para este problema, cada entrada está conformada por la parte real y compleja de un paquete onda y el potencial al tiempo $t$, es decir un vector de la forma:
 
@@ -274,7 +274,7 @@ La división de los datos se muestra en la \autoref{tab:SplitData}.
   \label{tab:SplitData}
 \end{table}
 
-\subsection{Modelo LSTM: arquitectura y entrenamiento}
+\subsection{Modelo LSTM: arquitectura y entrenamiento}\label{sec:6.4.3}
 
 Para el modelo de la red y su entrenamiento se utilizó PyTorch versión 1.9.0+cu102 en una computadora personal. El resumen del modelo se muestra en la \autoref{tab:model}, y el código completo se puede ver en \href{https://github.com/Jessi-MM/LSTM_PropagatorLearning/blob/main/src/Python/LSTM_model.py}{\faGithub Implementación LSTM}.
 
