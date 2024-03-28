@@ -141,7 +141,7 @@ Utilizando la definición del operador de proyección de la \autoref{eq:operador
   \psi_N(x) = P_N\psi(x)=\sum_{n=1}^{N}a_n\phi_n(x)
 \end{equation}
 
-\subsection{Definición del proyector de colocación}
+\subsection{Definición del proyector de colocación}\label{sec:collocation}
 Dado un conjunto de puntos en el espacio de posiciones: $\{x_i\}$ con $i=1,2,3,\dots, N$, la siguiente relación:
 \begin{equation}
   \label{eq:wavefunexp}
@@ -276,7 +276,31 @@ mientras que la de completes está dada por:
 La \autoref{eq:11.47} significa que las funciones $\theta_j$ tienen un pico en el valor correspondiente a $x_j$ mientras que se desvanece en cualquier otro punto de la malla $x_i$. La \autoref{eq:11.48} es una relación de completes respecto a la suma sobre todos los puntos de la malla.
 
 \subsection{El proyector de colocación en la base pseudo-espectral}
-La \autoref{eq:11.43} 
+En la sección \autoref{sec:collocation} se definió el proyector de colocación utilizando la base espectral $\{ \phi_i(x)\}_{i=1}^{N}$, en esta sección se escribirá la relación de colocación en la base pseudo-espectral.
+\\
+
+La \autoref{eq:11.43} puede invertirse usando la matriz de transformación unitaria $\Phi$:
+\begin{equation}
+  \label{eq:11.51}
+  \phi_n(x) = \sum_{i=1}^{N}\Phi_n(x_i)\theta_i(x)
+\end{equation}
+usando esta relación, la \autoref{eq:wavefunexp} y la \autoref{eq:11.37}, se puede reescribir la relación de colocación como:
+\begin{equation}
+  \label{eq:11.53}
+  \psi_N(x) = \sum_{n=1}^N b_n\phi_n(x) = \sum_{i=1}^N \left \{ \sum_{n=1}^Nb_n\Phi_n(x_i)\right\} \theta_i(x)
+\end{equation}
+\begin{equation}
+  \label{eq:11.54}
+  \psi_N(x) = \sum_{i=1}^N \psi(x_i)\theta_i(x_i)\Delta_i^{1/2}
+\end{equation}
+En los puntos de colocación $\{x_i\}$ se tiene:
+
+\begin{equation}
+  \label{eq:11.55}
+  \psi_N(x_i) = \sum_{i=1}^N \psi(x_i)\theta_i(x_i)\Delta_i^{1/2}
+\end{equation}
+
+de esta manera se tiene la relación de colocación en la base pseudo-espectral $\{ \theta_i(x)\}_{i=1}^N$.
 
 \section{Algoritmo DVR aplicado a un proceso físico-químico}\label{sec:DVRapp}
 
