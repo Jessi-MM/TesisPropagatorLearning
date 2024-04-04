@@ -227,7 +227,7 @@ que puede escribirse de manera extendida como:
 \end{equation}
 es importante notar que la ecuación anterior es distinta a la \autoref{eq:11.38}, pues la ecuación \autoref{eq:11.41} implica una relación de ortogonalidad para los diferentes puntos en la malla del espacio de posiciones. La matriz $\Phi$ será llamada matriz de colocación ortogonal.
 
-\section{Base pseudo-espectral}
+\section{Base pseudo-espectral}\label{sec:ps-basis}
 
 Una \textbf{base pseudo-espectral}: $\{\theta_j\}_{j=1}^N$ se define como la base de las funciones localizadas espacialmente. La base de funciones ortogonales $\{\phi_n\}_{n=1}^N$, la colocación en la \autoref{eq:wavefunexp}, los puntos de colocación $\{x_i\}_{i=1}^N$, y los factores de peso definidos como $\Delta_j$ con $j=1,\dots,N$, determinan completamente la forma de la base pseudo-espectral. \\
 Reemplazando $\Phi_n(x_i)$ por $\phi_n(x)$ en el primer factor de la \autoref{eq:11.41} se definen las funciones pseudo-espectrales base:
@@ -322,7 +322,8 @@ En donde la coordenada $Q$ hace referencia a la separación entre los átomos $A
 En las descripciones teóricas de la transferencia de protones, a menudo el hidrógeno es representado moviéndose a través de un pozo de doble potencial unidimensional. \cite{Enzymes}
 \\
 
-A continuación se presenta un modelo particular de potencial para el sistema de transferencia de protones, en donde la descripción está dada por la coordenada del protón $r \in [-1.5 \,\,\mathring{A}, 1.5 \,\,\mathring{A}]$. A cada tiempo $t$ el valor del potencial $V(r,t)$ está dado por el eigenvalor más bajo de la siguiente matriz:
+A continuación se presenta un modelo particular de potencial para el sistema de transferencia de protones, en donde la descripción está dada por la coordenada del protón $r \in [-1.5 \,\,\mathring{A}, 1.5 \,\,\mathring{A}]$. Los sistemas de transferencia de protones son, en general, electrónicamente adiabáticos, en el sentido de que ocurren en el estado base o ground state (GS) en inglés, y no involucran los estados excitados del sistema o excited states (ES) en inglés. \cite{Enzymes}. \\
+A cada tiempo $t$ el valor del potencial $V(r,t)$ está dado por el estado base, que es el eigenvalor más bajo de la siguiente matriz:
 
 \begin{equation}
   \label{eq:matrixPot}
@@ -367,10 +368,20 @@ En donde $\lambda$ es la amplitud del sesgo de energía, $\omega_x$ es la frecue
 \end{figure}
 
 La \autoref{fig:drawPot} muestra un ejemplo de potencial $V(r,t)$ generado con la implementación de las ecuaciones anteriores. Los parámetros de potencial utilizados se muestran en la \autoref{tab:ValuesPlot1}
+\\
+La \autoref{fig:drawGSandES} muestra el estado base que se toma como el potencial, el primer estado excitado del sistema correspondiente al eigenvalor más grande de la matriz en la \autoref{eq:matrixPot}, y los potenciales de oscilador armónico \autoref{eq:U1} y \autoref{eq:U2} a un tiempo $t$.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/ExamplesGSandES.png}
+  \caption{Estado base (GS), primer estado excitado (ES) y potenciales armónicos $U_1(r,(R(t)))$ y $U_2(r, R(t))$ al tiempo $t=0$.}
+  \label{fig:drawGSandES}
+\end{figure}
+
 
 \subsection{Elección de una base ortonormal y malla}
 
-Para proceder con la solución a la \acs{TDSE} \autoref{eq:TDSE ket}, elegimos una base de funciones ortogonales: \cite{Colbert1992}
+Para proceder con la solución a la \acs{TDSE} \autoref{eq:TDSE ket}, elegimos una base espectral de funciones ortogonales: \cite{Colbert1992}
 
 \begin{equation}
   \label{eq:eigenfunc}
@@ -380,52 +391,147 @@ Para proceder con la solución a la \acs{TDSE} \autoref{eq:TDSE ket}, elegimos u
 y una malla en el espacio de posiciones:
 \begin{equation}
   \label{eq:grid}
-  r_i = a + \frac{(b-a)i}{N-1} \,\,\,\,\, i=0,\dots,N-1
+  r_i = a + \frac{(b-a)i}{N+1} \,\,\,\,\, i=0,\dots,N
 \end{equation}
 
-donde: $a=-1.5\AA$, $b=1.5\AA$ y $N=200$ para la implementación numérica, es decir, que el espacio reducido de Hilbert del sistema tiene una dimensión de $N=200$. La \autoref{fig:Phi_n} muestra las primeras cinco funciones ortogonales de la base en la malla del espacio de posiciones. Las funciones $\phi_n$ están construidas para que se cumpla: $\phi_n(r=r_0=a)=\phi_n(r=r_{N-1}=b)=0$.
+donde: $a=-1.5\AA$, $b=1.5\AA$ y $N=200$ para la implementación numérica, es decir, que el espacio reducido de Hilbert del sistema tiene una dimensión de $N=200$. La \autoref{fig:Phi_n} muestra las primeras cinco funciones ortogonales de la base en la malla del espacio de posiciones. Las funciones $\phi_n$ están construidas para que se cumpla: $\phi_n(r=r_0=a)=\phi_n(r=r_{N+1}=b)=0$.
 
 \begin{figure}[ht]
   \centering
   \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/Phi_n1.png}
-  \caption{Funciones ortogonales $\phi_n(r)$ en la malla $\{r_i\}_{i=0}^{N-1}$ para $n=1,\dots,5$.}
+  \caption{Funciones ortogonales $\phi_n(r)$ en la malla $\{r_i\}_{i=1}^{N}$ para $n=1,\dots,5$.}
   \label{fig:Phi_n}
 \end{figure}
 
-\subsubsection{Representación de la matriz del Hamiltoniano en la base pseudo-espectral}
-
-Los elementos de matriz de la energía cinética en la base pseudo-espectral están dados por:
-\begin{equation}
-  \label{eq:T}
-T^{\theta}_{ij}= \bra{\theta_i}T\ket{\theta_j}=\sum_{n=1}^N\bra{\theta_i}\ket{\phi_n}\bra{\phi_n}T\ket{\theta_j}
-\end{equation}
-realizando la aproximación:
-$$\bra{\theta_j}T\ket{\phi_n} \approx \bra{r_j}T\ket{\phi_n}$$
-y considerando que el operador $T$ en el espacio de posiciones $r$ está dado por:
-\begin{equation}
-  \label{eq:Toperator}
-  T = -\frac{\hbar^2}{2m}\frac{d^2}{dr^2}
-\end{equation}
-
-
-se puede obtener que: \cite{Tannor:2006}\cite{Colbert1992}
-\begin{equation}
-  \label{eq:T_DVR}
-  T^{\theta}_{ij}\approx -\frac{\hbar^2}{2m}\Delta r\sum_{n=1}^{N}\phi_n(r_i)\frac{\partial^2\phi_n}{\partial r^2}\biggr\rvert_{r_j}
-\end{equation}
-
-donde: $\Delta r = (b-a)/N-1$. Obteniendo la segunda derivada de la \autoref{eq:eigenfunc}, y sustituyendo en la \autoref{eq:T_DVR} se tiene:
+Dada esta base, los siguientes elementos de matriz pueden ser calculados de manera exacta:
 
 \begin{equation}
-  \label{eq:T_N}
-  T^{\theta}_{ij}=\frac{\hbar^2}{2m}\left(\frac{\pi}{b-a} \right)^2\frac{2}{N-1}\sum_{n=1}^Nn^2\sin\left(\frac{n\pi i}{N-1} \right)\sin\left(\frac{n\pi j}{N-1} \right)
+  \label{eq:trash}
+  \bra{\phi_j}\ket{\phi_k} = \delta_{jk}
 \end{equation}
 
-que son los elementos de matriz de la energía cinética en la base pseudo-espectral, $T^{\theta}\in \mathcal{M}_{200\times200}(\mathbb{R})$.
-\\
-\\
-La representación de la matriz de energía potencial en la base pseudo-espectral es más simple que la de la energía cinética, pues 
-las funciones $\{\theta_i\}$ son localizadas en el espacio de posiciones $r$ y cumplen la condición de ortogonalidad: $\bra{\theta_i}\ket{\theta_j}= \delta_{ij}$, así:
+\begin{equation}
+  \label{eq:trash1}
+  \bra{\phi_j}\frac{d}{d r}\ket{\phi_k} = mod(j-k,2)\frac{4}{b-a}\left(\frac{jk}{j^2 - k^2}\right)\,\,\,\text{con } j\neq k
+\end{equation}
+
+\begin{equation}
+  \label{eq:trash2}
+  \bra{\phi_j}\frac{d^2}{d r^2}\ket{\phi_k} = -\left( \frac{j\pi}{b-a} \right)^2 \delta_{jk}
+\end{equation}
+
+Dado que la energía cinética está dada por $T= -\frac{\hbar^2}{2m}\frac{d^2}{d r^2}$, usando la \autoref{eq:trash2} se tiene que los elementos de matriz de energía cinética en la base espectral están dados por:
+\begin{equation}
+  \label{eq:T_phi0}
+  T^{\phi}_{jk} = \bra{\phi_j}T\ket{\phi_k} = -\frac{\hbar^2}{2m}\bra{\phi_j}\frac{d^2}{d r^2}\ket{\phi_k}
+\end{equation}
+\begin{equation}
+  \label{eq:T_phi}
+  T^{\phi}_{jk} = \frac{\hbar^2}{2m} \left( \frac{j\pi}{b-a} \right)^2 \delta_{jk}
+\end{equation}
+
+\subsection{Representación del operador espacial $\hat{r}$ en la base espectral}
+
+La matriz que representa al operador espacial $\hat{r}$ en la base de funciones ortogonales $\{\phi_n \}_{n=1}^{N}$ está dada por $\bra{\phi_j}r\ket{\phi_k}$, sin embargo, para hacer más sencilla la diagonalización en el siguiente paso se usará la siguiente transformación:
+
+\begin{equation}
+  \label{eq:trash3}
+  f(r) = \cos{\pi\frac{(r-r_0)}{b-a}}
+\end{equation}
+
+de esta manera, los elementos de matriz están dados por:
+
+\begin{equation}
+  \label{eq:trash4}
+  F_{jk} = \bra{\phi_j}f(r)\ket{\phi_k} = \frac{1}{2}(\delta_{j,k+1}+ \delta_{j,k-1}) = \frac{1}{2}
+  \begin{pmatrix}
+0 & 1 & 0 & \ldots\\
+1 & 0 & 1 & \ldots \\
+0 & 1 & 0 & \ldots \\
+\vdots & \vdots & \vdots & \ddots
+\end{pmatrix}
+\end{equation}
+
+\subsection{Diagonalización mediante una transformación unitaria}
+
+La matriz de la \autoref{eq:trash4} es una matriz simétrica con entradas reales, por el teorema espectral de dimensión finita, puede ser diagonalizada por una matriz ortogonal:
+
+\begin{equation}
+  \label{eq:trash5}
+  \Phi_{j\alpha} = \sqrt{\frac{2}{N+1}}\sin{\frac{j\alpha \pi}{N+1}}
+\end{equation}
+
+que además es unitaria:
+\begin{align}
+  \label{eq:unitaryproof}
+  \{\Phi^{\dagger} \Phi\}_{jk} &= \{\Phi \Phi\}_{jk} \\
+                      &= \frac{2}{N+1} \sum_{\alpha}^{N} \sin{\pi\frac{j\alpha}{N+1}}\sin{\pi\frac{k\alpha}{N+1}} =
+                        \begin{cases}
+                          1 & \text{si}\ j=k \\
+                          0 & \text{si}\ j\neq k
+                        \end{cases}
+\end{align}
+
+
+y sus eigenvalores están dados por: \cite{Noschese2012}
+
+\begin{equation}
+  \label{eq:trash7}
+  f_{\alpha} = \cos{\frac{\alpha \pi}{N+1}}
+\end{equation}
+
+de esta manera, los puntos en la malla están definidos por:
+
+\begin{align}
+  \label{eq:trash8}
+  r_{\alpha} &= f^{-1}(f_{\alpha}) = r_0 + \frac{b-a}{\pi}\arccos{f_{\alpha}} = r_0 + \alpha \frac{b-a}{N+1} \nonumber\\
+  r_{\alpha} &= r_0 + \alpha \Delta r
+\end{align}
+
+con $\alpha=1,2,\dots,N$ y $\Delta r = \frac{b-a}{N+1}$
+
+
+\subsection{Representación del Hamiltoniano en la base pseudo-espectral}
+
+La \autoref{eq:trash5} permite pasar de la base espectral de las funciones ortogonales a la base pseudo-espectral de las funciones localizadas espacialmente. La base de las funciones pseudo-espectrales se puede escribir explícitamente usando la \autoref{eq:11.43}:
+
+\begin{align}
+  \theta_{\alpha}(r) & = \sum_{j=1}^{N}\phi_j(x)\Phi_{j\alpha} \label{eq:trash9}\\
+    & = \sum_{j=1}^{N} \sqrt{\frac{2}{b-a}}\sin{\frac{j\pi(r-r_0)}{b-a}}\sqrt{\frac{2}{N+1}} \sin{\frac{j\alpha \pi}{N+1}} \label{eq:trash10}\\
+                     & = \frac{2}{\sqrt{(b-a)(N+1)}}\sum_{j=1}^{N}\sin{\frac{j\pi(r-r_0)}{b-a}}\sin{\frac{j\alpha \pi}{N+1}} \label{eq:trash11} \\
+  & \text{usando identidades trigonométricas de multiplicación a suma:} \nonumber \\
+    & = \frac{2}{\sqrt{(b-a)(N+1)}}\sum_{j=1}^{N} \frac{1}{2}\left\{
+\cos{j\pi \left(\frac{r-r_0}{b-a} - \frac{\alpha}{N+1}\right)} 
+-
+\cos{j\pi \left(\frac{r-r_0}{b-a} + \frac{\alpha}{N+1}\right)}
+\right\} \label{eq:trash11} \\
+& = \frac{1}{\sqrt{(b-a)(n+1)}} \left\{
+\sum_{j=1}^{N}
+\cos{j\pi \left(\frac{r-r_0}{b-a} - \frac{\alpha}{N+1}\right)} 
+-
+\sum_{j=1}^{N}
+\cos{j\pi \left(\frac{r-r_0}{b-a} + \frac{\alpha}{N+1}\right)}
+                                 \right\} \label{eq:trash12} \\
+   & \text{de acuerdo a \autoref{A:proof}:} \nonumber \\
+\theta_{\alpha}(r) & = \frac{1}{\sqrt{(b-a)(n+1)}} \left\{
+\cos{\frac{N+1}{2} \pi \left(\frac{r-r_0}{b-a} - \frac{\alpha}{N+1}\right) }
+\frac{\sin{\frac{N}{2}}\pi \left(\frac{r-r_0}{b-a} - \frac{\alpha}{N+1}\right)}{\sin\frac{1}{2}\pi \left(\frac{r-r_0}{b-a} - \frac{\alpha}{N+1}\right)} \right. \nonumber \\
+&-
+\left. \cos{\frac{N+1}{2} \pi \left(\frac{r-r_0}{b-a} + \frac{\alpha}{N+1}\right) }
+\frac{\sin{\frac{N}{2}}\pi \left(\frac{r-r_0}{b-a} + \frac{\alpha}{N+1}\right)}{\sin\frac{1}{2}\pi \left(\frac{r-r_0}{b-a} + \frac{\alpha}{N+1}\right)}\right\} \label{eq:trash13}
+\end{align}
+
+La \autoref{fig:theta_n} muestra algunas funciones base pseudo-espectrales. Estas funciones tienen un valor distinto de cero únicamente en el punto $r_{i=\alpha}$, como se esperaba por las propiedades descritas en la sección \autoref{sec:ps-basis}.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/theta_n1.png}
+  \caption{Funciones ortogonales $\theta_{\alpha}(r)$ en la malla $\{r_i\}_{i=1}^{N}$ para $\alpha=1,10,22,32,42$.}
+  \label{fig:theta_n}
+\end{figure}
+
+La representación de la matriz de energía potencial en la base pseudo-espectral es simple, pues 
+las funciones $\{\theta_{\alpha}\}$ son localizadas en el espacio de posiciones y cumplen la condición de ortogonalidad: $\bra{\theta_{\alpha}}\ket{\theta_{\beta}}= \delta_{\alpha \beta}$, así:
 
 \begin{equation}
   \label{eq:V_DVR}
@@ -436,7 +542,16 @@ $V^{\theta}\in \mathcal{M}_{200\times200}(\mathbb{R})$ es una matriz diagonal.
 \\
 Dado un tiempo $t$, los elementos de la diagonal $V^{\theta}_{ii}$ están dados por $V(r_i,t)$ (\autoref{eq:matrixPot}), con $i=0,..,199$.
 \\
-A partir de la \autoref{eq:T_N} y \autoref{eq:V_DVR}, se construye la matriz del Hamiltoniano en la base pseudo-espectral al tiempo $t$:
+\\
+Escribir directamente la matriz de energía cinética en la base pseudo-espectral es, en general, complicado, por ello comúnmente se calcula en la base espectral y se utiliza la matriz de transformación unitaria \autoref{eq:trash5} para escribirla en la base pseudo-espectral:
+
+\begin{equation}
+  \label{eq:trash6}
+  T^{\theta} = \Phi T^{\phi} \Phi
+\end{equation}
+
+en donde $T^{\phi}$ está dada por la \autoref{eq:T_phi}, de esta manera, la matriz del Hamiltoniano en la base pseudo-espectral al tiempo $t$ es:
+
 \begin{equation}
   \label{eq:H_DVR}
   H(t)^{\theta} = V(t)^{\theta}+T^{\theta}
@@ -448,9 +563,9 @@ en donde el Hamiltoniano tiene dependencia temporal debido a que el potencial de
 Sea un paquete de onda al tiempo $t=0$ (\autoref{fig:psi_0}): 
 \begin{equation}
   \label{eq:psi_0}
-\psi(r,0)=\sum_{i=1}^{k=5}C_i \cdot \phi_{i}(r)
+\psi(r,0)=\sum_{i=1}^{N}C_i \cdot \theta_{i}(r)
 \end{equation}
-con $C_i$ números complejos aleatorios de una distribución uniforme, y elegidos de tal forma que: $\bra{\psi(r,0)}\ket{\psi(r,0)}=1$
+con $C_i$ números complejos de una distribución normal aleatoria alrededor de la malla, elegidos de tal forma que: $\bra{\psi(r,0)}\ket{\psi(r,0)}=1$
 \begin{figure}[!htbp]
   \centering
   \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/psi_01}
@@ -461,15 +576,15 @@ con $C_i$ números complejos aleatorios de una distribución uniforme, y elegido
 Si se toma un intervalo de tiempo $\Delta t$ lo suficientemente pequeño como para que el potencial se pueda considerar constante en ese intervalo de tiempo ($\approx 1\,\,fs$ para el sistema en cuestión), la evolución temporal del paquete de onda está dado por (\autoref{eq:U IT}):
 \begin{equation}
   \label{eq:wp_ev}
-  \psi(r,t)=\exp{-iH^{\theta}t/\hbar}\psi(r,0)
+  \psi(r,t)=\exp{-iH^{\theta}t/\hbar}\psi(r,t-1)
 \end{equation}
 
 Si $H^{\theta} = UDU^{-1}$, con $D$ una matriz diagonal:
-$$ \psi(r,t) = \exp{-iUDU^{-1}t/\hbar}\psi(r,0)$$  
+$$ \psi(r,t) = \exp{-iUDU^{-1}t/\hbar}\psi(r,t-1)$$  
 así,
 \begin{equation}
   \label{eq:psi_t}
-\psi(r,t) = U\exp{\frac{-it}{\hbar}D}U^{-1}\psi(r,0)
+\psi(r,t) = U\exp{\frac{-it}{\hbar}D}U^{-1}\psi(r,t-1)
 \end{equation}
 
 En donde la matriz $U$ está formada por los $N$ eigenvectores de $H^{\theta}$ como vectores columna, y:
@@ -481,14 +596,14 @@ La \autoref{fig:psi_evre} y la \autoref{fig:psi_evim} muestran la evolución de 
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/psi_ev1real}
+  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/psi_ev1imag}
   \caption{Propagación del paquete de onda $\psi(r,t)$ parte real.}
   \label{fig:psi_evre}
 \end{figure}
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/psi_ev1imag}
+  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/psi_ev1real}
   \caption{Propagación del paquete de onda $\psi(r,t)$ parte imaginaria.}
   \label{fig:psi_evim}
 \end{figure}
