@@ -6,7 +6,88 @@
 \chapter{Apéndice}
 
 \section{Prueba de la identidad}\label{A:proof}
-$$\sum_{1}^n\cos{nx}=\cos{\frac{(n+1)x}{2}} \frac{\sin{\frac{nx}{2}}}{\sin{\frac{x}{2}}}$$
+$$ S = \sum_{k=1}^n\cos{kx}=\cos{\frac{(n+1)x}{2}} \frac{\sin{\frac{nx}{2}}}{\sin{\frac{x}{2}}} $$
+
+Dado que
+\begin{equation}
+  \label{eq:a.1}
+  \exp{inx} = \cos{kx} + i \sin{kx}
+\end{equation}
+
+la suma $S$ se puede expresar como:
+\begin{align}
+  \label{eq:a.2}
+  S &= \mathbb{R} \left ( \sum_{k=1}^n \exp{ikx}   \right ) \\
+  &= \mathbb{R} \left( \exp{ix} + \exp{2ix} + \dots + \exp{inx} \right)
+\end{align}
+
+donde $\mathbb{R}$ representa la parte real. Reescribiendo cada término:
+
+\begin{align}
+  \label{eq:a.3}
+  S  &= \mathbb{R} ( \exp{ix}\cdot 1 + \exp{ix} \cdot \exp{ix} + \exp{ix} \cdot \exp{2ix} \nonumber \\
+  & + \dots + \exp{ix} \cdot \exp{(n-1)ix}) \nonumber \\
+&= \sum_{k=0}^{n-1}\exp{ix} \cdot \left( \exp{ix} \right)^k
+\end{align}
+
+esta última expresión corresponde a una serie geométrica:
+
+\begin{equation}
+  \label{eq:a.4}
+  \sum_{k=0}^{n-1} a \cdot r^k = \sum_{k=1}^n a \cdot r^{k-1} = a\left( \frac{r^n -1}{r-1}\right)
+\end{equation}
+
+con $a = r = \exp{ix}$, de esta manera el resultado de la suma es:
+
+\begin{align}
+  \label{eq:a.5}
+  S & = \mathbb{R}\left ( \exp{ix}\frac{\exp{ixn}-1}{\exp{ix}-1}\right) \nonumber \\
+  & = \mathbb{R} \left( \exp{ix} \frac{\exp{\frac{ixn}{2}}( \exp{\frac{ixn}{2}} - \exp{-\frac{ixn}{2}} )}{\exp{\frac{ix}{2}}( \exp{\frac{ix}{2}} - \exp{-\frac{ix}{2}} )} \right)
+\end{align}
+
+dado que:
+\begin{equation*}
+  \exp{-ik \theta} = \cos{k \theta} - i\sin{k \theta}
+\end{equation*}
+\begin{equation*}
+  \Longrightarrow \exp{ik \theta} - \exp{-ik \theta} = 2i\sin{k \theta}
+\end{equation*}
+
+sustituyendo en la \autoref{eq:a.5}:
+
+\begin{align}
+  \label{eq:a.66}
+  S &= \mathbb{R} \left( \frac{\exp{ix} \exp{\frac{inx}{2}}}{\exp{\frac{ix}{2}}} \cdot
+      \frac{2i \sin{\frac{nx}{2}}}{2i\sin{\frac{x}{2}}} \right) \nonumber\\
+  &= \mathbb{R} \left( \frac{\exp{ix} \exp{\frac{inx}{2}}}{\exp{\frac{ix}{2}}} \cdot
+    \frac{\sin{\frac{nx}{2}}}{\sin{\frac{x}{2}}} \right) \nonumber\\
+    & = \mathbb{R}\left( \exp{\frac{i(n+1)x}{2}} \frac{\sin{\frac{nx}{2}}}{\sin{\frac{x}{2}}} \right)\nonumber\\
+  & = \cos{\frac{(n+1)x}{2}}\left(\frac{\sin{\frac{nx}{2}}}{\sin{\frac{x}{2}}} \right)
+\end{align}
+
+como se quería probar.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Variables de parámetros para el potencial}
 
