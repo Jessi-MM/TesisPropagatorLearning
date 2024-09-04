@@ -44,7 +44,7 @@ donde \emph{Tanh} es la función de activación, que está siendo aplicada a cad
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/RNN.png}
+  \includegraphics[width=0.9\textwidth]{./img/RNN.png}
   \caption{Diagrama de una \acs{RNN} y su representación en capas de tiempo.}
   \label{fig:RNN}
 \end{figure}
@@ -62,7 +62,7 @@ Las \textbf{redes long short-term memory} son un tipo de \acs{RNN} diseñadas pa
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.9\textwidth]{/home/jessica/Tesis/img/tesis/LSTM_layerS.drawio.png}
+  \includegraphics[width=0.9\textwidth]{./img/LSTM_layerS.drawio.png}
   \caption{Diagrama de una \acs{LSTM} representada en capas de tiempo.}
   \label{fig:LSTMlayerS}
 \end{figure}
@@ -74,7 +74,7 @@ La \autoref{fig:LSTMlayer} muestra un bloque de memoria de una \acs{LSTM}, en do
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.7\textwidth]{/home/jessica/Tesis/img/tesis/LSTM_layer.png}
+  \includegraphics[width=0.7\textwidth]{./img/LSTM_layer.png}
   \caption{Diagrama de un bloque de memoria de una \acs{LSTM}.}
   \label{fig:LSTMlayer}
 \end{figure}
@@ -132,7 +132,7 @@ El conjunto de datos de entrenamiento utilizado se obtuvo generando 8000 trayect
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.7\textwidth]{/home/jessica/Tesis/img/tesis/DiagTrayectoria.png}
+  \includegraphics[width=0.7\textwidth]{./img/DiagTrayectoria.png}
   \caption{Diagrama de una trayectoria generada.\\Para cada tiempo $t_i$ la onda $\psi(r,t_i)$ contiene el valor de la onda en los $N=32$ puntos en la malla del espacio de posiciones en $r$.}
   \label{fig:DiagTraj}
 \end{figure}
@@ -140,7 +140,7 @@ El conjunto de datos de entrenamiento utilizado se obtuvo generando 8000 trayect
 Para cada trayectoria, los paquetes de onda iniciales, es decir al tiempo $t=0$, se definieron como ondas Gaussianas: (\autoref{fig:Gauss})
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/DataWave.png}
+  \includegraphics[width=1\textwidth]{./img/DataWave.png}
   \caption{Parte real y compleja de un paquete de onda inicial $\psi(r,t=0)$.}
   \label{fig:Gauss}
 \end{figure}
@@ -157,7 +157,7 @@ Para propagar la onda se utilizó el método \acs{DVR} revisado en la sección \
 El modelo de potencial $V(r,t)$ utilizado fue el mismo que se usó en la sección \autoref{sec:ProtonTransfer}. Para cada trayectoria se eligieron valores de parámetros para el modelo de potencial aleatorios entre rangos especificados en la \autoref{tab:RangeValuesPot}. En la \autoref{fig:Pote} se muestra un ejemplo de un potencial generado.
 \begin{figure}[H]
   \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/DataPot.png}
+  \includegraphics[width=1\textwidth]{./img/DataPot.png}
   \caption{Potencial inicial al tiempo $t=0$}
   \label{fig:Pote}
 \end{figure}
@@ -254,7 +254,7 @@ La \autoref{fig:datavis} muestra cada componente de los vectores de entrada y sa
 
 \begin{figure}[!htbp]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{/home/jessica/Tesis/img/tesis/dataInputOutput.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{./img/dataInputOutput.png}}
   \caption{Visualización gráfica: Entrada $X$ y etiqueta $y$ a un tiempo $t$.}
   \label{fig:datavis}
 \end{figure}
@@ -306,7 +306,7 @@ En la \autoref{fig:Model} se muestra un diagrama del modelo de red representado 
 
 \begin{figure}[!htbp]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{/home/jessica/Tesis/img/tesis/model/modelDiag2.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1.3\textwidth]{./img/model/modelDiag2.png}}
   \caption{Diagrama del modelo \acs{LSTM}: se muestran 3 de las 200 capas de tiempo.}
   \label{fig:Model}
 \end{figure}
@@ -333,7 +333,7 @@ En la \autoref{fig:S-phase} se muestran los valores promedio obtenidos de la mag
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/S-plot.png}
+  \includegraphics[width=1\textwidth]{./img/S-plot.png}
   \caption{Valores promedio de $|S|$ y $\theta$ en el conjunto de validación por cada época.}
   \label{fig:S-phase}
 \end{figure}
@@ -355,35 +355,35 @@ A continuación se muestran algunos ejemplos de predicciones de un solo paso del
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{./img/model/1step.png}}
   \caption{Ejemplo 1 de predicción a un paso de tiempo $\Delta t = 1\,fs$.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
   \label{fig:1step1}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step1.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{./img/model/1step1.png}}
   \caption{Ejemplo 2 de predicción a un paso de tiempo $\Delta t = 1\,fs$.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
   \label{fig:1step2}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step2.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{./img/model/1step2.png}}
   \caption{Ejemplo 3 de predicción a un paso de tiempo $\Delta t = 1\,fs$.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica. }
   \label{fig:1step3}
 \end{figure}
 
 \begin{figure}[!htbp]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step3.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{./img/model/1step3.png}}
   \caption{Ejemplo 4 de predicción a un paso de tiempo $\Delta t = 1\,fs$.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
   \label{fig:1step4}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step4.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{./img/model/1step4.png}}
   \caption{Ejemplo 5 de predicción a un paso de tiempo $\Delta t = 1\,fs$.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
   \label{fig:1step5}
 \end{figure}
@@ -412,21 +412,21 @@ Las siguientes gráficas muestran la evolución temporal de la densidad de proba
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{/home/jessica/Tesis/img/tesisimg/model/trajDens1.png}}%trajDens7.png}} %CHANGE THIS; IS A TEST TO SIZED IMG
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{./img/model/trajDens7.png}}
   \caption{Ejemplo 1 de predicción para una trayectoria completa de $200\,fs$.\\ Las densidades de probabilidad $|\psi|$ están escaladas para poder visualizar el potencial en la misma gráfica.}
   \label{fig:trajec1}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{/home/jessica/Tesis/img/tesisimg/model/trajDens1resized.png}} % CHANGE THIS
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{./img/model/trajDens1.png}}
   \caption{Ejemplo 2 de predicción para una trayectoria completa de $200\,fs$.\\ Las densidades de probabilidad $|\psi|$ están escaladas para poder visualizar el potencial en la misma gráfica}
   \label{fig:trajec2}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens5.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{./img/model/trajDens5.png}}
   \caption{Ejemplo 3 de predicción para una trayectoria completa de $200\,fs$.\\ Las densidades de probabilidad $|\psi|$ están escaladas para poder visualizar el potencial en la misma gráfica}
   \label{fig:trajec3}
 \end{figure}
@@ -440,7 +440,7 @@ Una manera de aumentar la resolución de la red, es decir, aumentar el número d
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.5\textwidth]{/home/jessica/Tesis/img/tesis/aumento.drawio.png}
+  \includegraphics[width=0.5\textwidth]{./img/aumento.drawio.png}
   \caption{División de 64 puntos en el espacio de posiciones en dos grupos.}
   \label{fig:aumento}
 \end{figure}
@@ -451,21 +451,21 @@ Las siguientes gráficas muestran el resultado de aplicar este método.
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step64size.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{./img/model/1step64size.png}}
   \caption{Ejemplo 1 de predicción a un paso de tiempo $\Delta t = 1\,fs$, $N=64$ puntos.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
   \label{fig:1step164}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step64size1.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{./img/model/1step64size1.png}}
   \caption{Ejemplo 2 de predicción a un paso de tiempo $\Delta t = 1\,fs$, $N=64$ puntos.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
   \label{fig:1step264}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{/home/jessica/Tesis/img/tesis/model/1step64size2.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{./img/model/1step64size2.png}}
   \caption{Ejemplo 3 de predicción a un paso de tiempo $\Delta t = 1\,fs$, $N=64$ puntos.\\ Las funciones de onda $\psi$ están escaladas para poder visualizar el potencial en la misma gráfica.}
   \label{fig:1step364}
 \end{figure}
@@ -474,7 +474,7 @@ La siguiente gráfica muestra la evolución temporal de la densidad de probabili
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens64size.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{./img/model/trajDens64size.png}}
   \caption{Ejemplo de predicción para una trayectoria completa de $200\,fs$, $N=64$ puntos.\\ Las densidades de probabilidad $|\psi|$ están escaladas para poder visualizar el potencial en la misma gráfica}
   \label{fig:trajec1_64}
 \end{figure}
