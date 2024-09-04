@@ -133,7 +133,7 @@ El conjunto de datos de entrenamiento utilizado se obtuvo generando 8000 trayect
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{/home/jessica/Tesis/img/tesis/DiagTrayectoria.png}
-  \caption{Diagrama de una trayectoria generada.\\Para cada tiempo $t_i$ la onda $\psi(r,t_i)$ contiene el valor de la onda en los $N=32$ puntos en el grid del espacio de posiciones en $r$.}
+  \caption{Diagrama de una trayectoria generada.\\Para cada tiempo $t_i$ la onda $\psi(r,t_i)$ contiene el valor de la onda en los $N=32$ puntos en la malla del espacio de posiciones en $r$.}
   \label{fig:DiagTraj}
 \end{figure}
 
@@ -152,7 +152,7 @@ Para cada trayectoria, los paquetes de onda iniciales, es decir al tiempo $t=0$,
 en donde $\mu$ y $\sigma$ son valores aleatorios elegidos de una distribución uniforme de $(-0.5,0.5)\mathring{A}$ y $(0.1,0.3)\mathring{A}$ respectivamente. $C_i$ es un número complejo aleatorio elegido de tal manera que la onda esté normalizada, es decir:
 $$\bra{\psi(r,0)}\ket{\psi(r,0)} = 1$$
 
-Para propagar la onda se utilizó el método \acs{DVR} revisado en la sección \autoref{sec:DVRapp} con un grid de $N=32$ puntos, con $a=r_0=-1.5\mathring{A}$ y $b=r_{N-1}=1.5\mathring{A}$ (\autoref{eq:grid}).
+Para propagar la onda se utilizó el método \acs{DVR} revisado en la sección \autoref{sec:DVRapp} con una malla de $N=32$ puntos, con $a=r_0=-1.5\mathring{A}$ y $b=r_{N-1}=1.5\mathring{A}$ (\autoref{eq:malla}).
 \\
 El modelo de potencial $V(r,t)$ utilizado fue el mismo que se usó en la sección \autoref{sec:ProtonTransfer}. Para cada trayectoria se eligieron valores de parámetros para el modelo de potencial aleatorios entre rangos especificados en la \autoref{tab:RangeValuesPot}. En la \autoref{fig:Pote} se muestra un ejemplo de un potencial generado.
 \begin{figure}[H]
@@ -221,9 +221,9 @@ En el repositorio \href{https://github.com/Jessi-MM/PropagatorLearning/tree/main
 
 En donde se utilizan las siguientes variables:
 \begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
-\item n: Número de puntos en el grid
-\item a: Punto inicial del grid $[\mathring{A}]$
-\item b: Punto final del grid $[\mathring{A}]$
+\item n: Número de puntos en la malla
+\item a: Punto inicial de la malla $[\mathring{A}]$
+\item b: Punto final de la malla $[\mathring{A}]$
 \item time: True o False. Determina si se utiliza un potencial dependiente del tiempo: True, o independiente del tiempo: False  
 \item var\_random: True o False. True inicia las variables de manera aleatoria para el potencial del sistema. False solicita al usuario cada variable. \autoref{tab:RangeValuesPot}
 \item save\_dir: Nombre del directorio donde se guardarán los datos del potencial y la evolución de onda.
@@ -393,7 +393,7 @@ En la \autoref{tab:comptime} se reportan los tiempos de computación requeridos 
 \begin{table}[H]
   \myfloatalign
   \begin{tabularx}{\textwidth}{XXXX} \toprule
-   \tableheadline{N grid} & \tableheadline{exponencial$^a$} & \tableheadline{diagonalización$^b$}& \tableheadline{LSTM$^c$} \\ \midrule
+   \tableheadline{N malla} & \tableheadline{exponencial$^a$} & \tableheadline{diagonalización$^b$}& \tableheadline{LSTM$^c$} \\ \midrule
    32          &  0.41 s & 0.14 s & 0.0536 s
  \end{tabularx}
  \begin{tabularx}{\textwidth}{X}
@@ -412,14 +412,14 @@ Las siguientes gráficas muestran la evolución temporal de la densidad de proba
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens7.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{/home/jessica/Tesis/img/tesisimg/model/trajDens1.png}}%trajDens7.png}} %CHANGE THIS; IS A TEST TO SIZED IMG
   \caption{Ejemplo 1 de predicción para una trayectoria completa de $200\,fs$.\\ Las densidades de probabilidad $|\psi|$ están escaladas para poder visualizar el potencial en la misma gráfica.}
   \label{fig:trajec1}
 \end{figure}
 
 \begin{figure}[H]
   \centering
-  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{/home/jessica/Tesis/img/tesis/model/trajDens1.png}}
+  \makebox[\textwidth][c]{\includegraphics[width=1.4\textwidth]{/home/jessica/Tesis/img/tesisimg/model/trajDens1resized.png}} % CHANGE THIS
   \caption{Ejemplo 2 de predicción para una trayectoria completa de $200\,fs$.\\ Las densidades de probabilidad $|\psi|$ están escaladas para poder visualizar el potencial en la misma gráfica}
   \label{fig:trajec2}
 \end{figure}
@@ -436,7 +436,7 @@ En las gráficas anteriores se observa que la red es capaz de predecir la evoluc
 
 \subsection{Aumento de resolución con dos LSTM}
 
-Una manera de aumentar la resolución de la red, es decir, aumentar el número de puntos en el grid es tomar una división de $N=64$ puntos en el grid para la onda inicial $\psi(r,t=0)$ y los potenciales $V(r,t)$, y dividirlos en dos grupos de $N_{azul}=32$ y $N_{rojo}=32$ de manera distribuida en el grid, como se muestra en la \autoref{fig:aumento}. 
+Una manera de aumentar la resolución de la red, es decir, aumentar el número de puntos en la malla es tomar una división de $N=64$ puntos en la malla para la onda inicial $\psi(r,t=0)$ y los potenciales $V(r,t)$, y dividirlos en dos grupos de $N_{azul}=32$ y $N_{rojo}=32$ de manera distribuida en la malla, como se muestra en la \autoref{fig:aumento}. 
 
 \begin{figure}[H]
   \centering
@@ -445,7 +445,7 @@ Una manera de aumentar la resolución de la red, es decir, aumentar el número d
   \label{fig:aumento}
 \end{figure}
 
-De esta forma, se tienen los valores correspondientes: $\psi_{azul}(r,t=0)$, $V_{azul}(r,t)$, $\psi_{rojo}(r,t=0)$ y $V_{rojo}(r,t)$, en donde cada uno tiene entradas de $N=32$ puntos, que se ajustan al tamaño de la entrada de la red. Así, utilizando dos veces la misma red, una vez para cada grupo de puntos, se obtienen los resultados a cada tiempo $t$ para un grid de tamaño de $N=64$ puntos.
+De esta forma, se tienen los valores correspondientes: $\psi_{azul}(r,t=0)$, $V_{azul}(r,t)$, $\psi_{rojo}(r,t=0)$ y $V_{rojo}(r,t)$, en donde cada uno tiene entradas de $N=32$ puntos, que se ajustan al tamaño de la entrada de la red. Así, utilizando dos veces la misma red, una vez para cada grupo de puntos, se obtienen los resultados a cada tiempo $t$ para un malla de tamaño de $N=64$ puntos.
 \\
 Las siguientes gráficas muestran el resultado de aplicar este método.
 
@@ -483,6 +483,6 @@ La siguiente gráfica muestra la evolución temporal de la densidad de probabili
 La evolución temporal de un sistema cuántico se encuentra resolviendo la ecuación de Schrödinger \autoref{eq:TDSE ket}, cuando el Hamiltoniano del sistema es dependiente del tiempo, encontrar el operador de propagación, que es una solución general de la ecuación, puede ser un proceso complicado para los métodos analíticos, o costoso en tiempo computacional para los métodos numéricos. En este trabajo se desarrolló una alternativa para resolver la \acs{TDSE} utilizando una red neuronal artificial tipo long short-term memory como propagador, encontrando que la red entrenada necesita menos tiempo de ejecución para propagar una onda en comparación a otros métodos numéricos, con una calidad de predicción promedio de $0.946$ para la magnitud $|S|$ y $0.0001$ para la fase absoluta $\theta$. \\
 Como propuesta para trabajos futuros se presentan las siguientes sugerencias:
 \begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
-\item Utilizar más puntos en el grid: Generar datos con más puntos en el grid requieren de un mayor tiempo de computación, sin embargo la calidad en las predicciones puede mejorar significativamente, esperando resultados como los que se presentan en la sección \autoref{sec:ProtonTransfer}.
+\item Utilizar más puntos en la malla: Generar datos con más puntos en la malla requieren de un mayor tiempo de computación, sin embargo la calidad en las predicciones puede mejorar significativamente, esperando resultados como los que se presentan en la sección \autoref{sec:ProtonTransfer}.
 \item Implementar el modelo para dos dimensiones en el espacio de posiciones: En el documento de información adicional de la referencia \cite{Main:2021} se proporcionan las ecuaciones para modelar el potencial en dos dimensiones.
 \end{itemize}
