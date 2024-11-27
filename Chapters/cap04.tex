@@ -22,18 +22,19 @@ La \textbf{inteligencia artificial}, o AI por sus siglas en inglés, se puede de
   \label{fig:IA-ML-DL}
 \end{figure}
 
-Los métodos de \textbf{aprendizaje automático} se pueden definir como un conjunto de métodos que pueden detectar automáticamente patrones en datos y aplicarlos para predecir nuevos datos. A grandes rasgos, los métodos de aprendizaje automático pueden dividirse en dos categorías: aprendizaje supervisado y aprendizaje no supervisado. \cite{murphy:2013}
+Los métodos de \textbf{aprendizaje automático} se pueden definir como un conjunto de métodos que pueden detectar automáticamente patrones en datos y aplicarlos para predecir nuevos datos. A grandes rasgos, los métodos de aprendizaje automático pueden dividirse en dos categorías: aprendizaje supervisado y aprendizaje no supervisado \cite{murphy:2013}.
 
 \section{Aprendizaje supervisado}
 En el \textbf{aprendizaje supervisado} el objetivo es aprender a partir de un conjunto de $M$ datos de entrenamiento definidos como:
 \begin{equation}
-\{\vec{x}_i, y_i\}_{i=1}^{M}
+\{\vec{x}_i, y_i\}_{i=1}^{M},
 \end{equation}
 una forma de mapear $\vec{x}_i$ a $y_i$.
 \\
 Cada vector:
 \begin{equation}
-\vec{x}_i = (x_1,x_2, \dots , x_d)_i\label{eq:trainset}
+  \label{eq:trainset}
+\vec{x}_i = (x_1,x_2, \dots , x_d)_i,
 \end{equation}
 corresponde a un dato, en donde cada componente es una \textbf{característica} o \textbf{atributo} del dato en cuestión, y el número de componentes depende del problema. Algunos ejemplos de $\vec{x}_i$ son:
 \begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
@@ -66,12 +67,12 @@ Algunos ejemplos de métodos de aprendizaje no supervisado son:
 \item Análisis de Componentes Principales: Buscar la relación entre las característica de los datos y reducir su dimensionalidad
 \end{itemize}
 
-El \textbf{aprendizaje por refuerzo} es comúnmente considerado una tercer categoría de aprendizaje automático, de manera general, en estas técnicas el sistema inteligente interactúa con su entorno con el objetivo de obtener recompensas, bajo el contexto en el que se está implementando, a menudo se utiliza este tipo de aprendizaje para enseñar a las máquinas cómo jugar video juegos. \cite{Ivan:2019}
+El \textbf{aprendizaje por refuerzo} es comúnmente considerado una tercer categoría de aprendizaje automático, de manera general, en estas técnicas el sistema inteligente interactúa con su entorno con el objetivo de obtener recompensas, bajo el contexto en el que se está implementando, a menudo se utiliza este tipo de aprendizaje para enseñar a las máquinas cómo jugar video juegos \cite{Ivan:2019}.
 
 \section{Aprendizaje profundo}
-El \textbf{aprendizaje profundo}, o \textbf{deep learning} en inglés, como se muestra en la \autoref{fig:IA-ML-DL}, es un sub-campo del aprendizaje automático, que puede definirse como aquellos métodos que procesan la información en múltiples capas, en donde el nivel de abstracción y complejidad de la información incrementa conforme avanza de una capa a la siguiente.
+El \textbf{aprendizaje profundo}, o \textbf{deep learning} \cite{Bengio2009} en inglés, como se muestra en la \autoref{fig:IA-ML-DL}, es un sub-campo del aprendizaje automático, que puede definirse como aquellos métodos que procesan la información en múltiples capas, en donde el nivel de abstracción y complejidad de la información incrementa conforme avanza de una capa a la siguiente.
 \\
-En la práctica, los modelos de aprendizaje profundo son redes neuronales artificiales multicapa (\autoref{ch:NNBasics}). Algunos ejemplos comúnmente utilizados son: \cite{Ivan:2019}
+En la práctica, los modelos de aprendizaje profundo son redes neuronales artificiales multicapa (\autoref{ch:NNBasics}). Algunos ejemplos comúnmente utilizados son \cite{Ivan:2019}:
 \begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
 \item Perceptrones Multicapa \autoref{sec:multicapamodels}
 \item Redes Neuronales Convolucionales
