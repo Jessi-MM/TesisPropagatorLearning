@@ -3,7 +3,7 @@
 % ************************************************
 Existen diferentes métodos numéricos para resolver la ecuación de Schrödinger dependiente del tiempo \autoref{eq:TDSE ket}. En esta capítulo se desarrollará un método particular conocido como el método de \textbf{representación de variable discreta}, \acs{DVR} \cite{Light1985,Light1992} por sus siglas en inglés.
 \\\\
-Formalmente, el espacio de Hilbert de las funciones de onda es infinito, sin embargo, para resolver y tratar problemas numéricamente, es necesario hacer un truncamiento de la dimensión del espacio a un número finito $N$. Este espacio tiene el mismo formalismo de la mecánica cuántica, pues la dimensión del espacio de Hilbert está dado por las distintas alternativas que puede tomar el sistema físico en cuestión, de manera que este espacio de dimensión $N$ puede ser un espacio completo para otro problema en mecánica cuántica. Por ejemplo, si $N=2$ el espacio generado puede verse como el espacio de Hilbert asociado al problema de la medición del espín en los átomos de plata \cite{Gerlach1922}.
+Formalmente, el espacio de Hilbert de las funciones de onda es infinito, sin embargo, para resolver y tratar problemas numéricamente, es necesario hacer un truncamiento de la dimensión del espacio a un número finito $N$. Este espacio tiene el mismo formalismo de la mecánica cuántica, pues la dimensión del espacio de Hilbert está dado por las distintas alternativas que puede tomar el sistema físico en cuestión, de manera que este espacio de dimensión $N$ puede ser un espacio completo para otro problema en mecánica cuántica. Por ejemplo, si $N=2$, el espacio generado puede verse como el espacio de Hilbert asociado al problema de la medición del espín en los átomos de plata \cite{Gerlach1922}.
 
 \section{Proyección espectral y colocación}
 Una función de onda y sus operadores se pueden representar mediante una base de funciones ortogonales, a esta base se le conoce como \textbf{base espectral}:
@@ -82,7 +82,7 @@ multiplicando por $\mathbb{1}=P_N + Q_N$ en el lado derecho de la ecuación se s
   &= P_NHP_N\psi_N + P_NHQ_N\psi_N + P_NHQ_N\psi_{\perp} + P_NHQ_N\psi_{\perp}.
 \end{align}
 
-\noindent como se mostró anteriormente $P_N\psi_{\perp}=0$, además $Q_N \psi_N = (\mathbb{1}-P_N)\psi_N = \psi_N - P_N\psi_N = \psi_N - \psi_N = 0$, de esta manera el segundo y tercer término del lado derecho en la \autoref{eq:tdse-5} se hacen $0$ y se sigue que:
+\noindent como se mostró anteriormente $P_N\psi_{\perp}=0$, además $Q_N \psi_N = (\mathbb{1}-P_N)\psi_N = \psi_N - P_N\psi_N = \psi_N - \psi_N = 0$, de esta manera el segundo y tercer término del lado derecho en la \autoref{eq:tdse-5} se cancelan y se sigue que:
 
 \begin{equation}
   \label{eq:tdse-p1}
@@ -105,7 +105,7 @@ Por otro lado, multiplicando el operador $Q_N$ por la izquierda en ambos lados d
                                           &= Q_NHP_N\psi_N + Q_NHQ_N\psi_N + Q_NHP_N\psi_{\perp} + Q_NHQ_N\psi_{\perp}.
 \end{align}
 
-\noindent por los argumentos anteriores, el segundo y tercer término del lado derecho de la \autoref{eq:tdse-7} se hacen $0$, obteniendo:
+\noindent por los argumentos anteriores, el segundo y tercer término del lado derecho de la \autoref{eq:tdse-7} se cancelan, obteniendo:
 
 \begin{equation}
   \label{eq:tdse-p2}
@@ -142,7 +142,7 @@ Utilizando la definición del operador de proyección de la \autoref{eq:operador
 \end{equation}
 
 \subsection{Definición del proyector de colocación}\label{sec:collocation}
-Dado un conjunto de puntos en el espacio de posiciones: $\{x_i\}$ con $i=1,2,3,\dots, N$, la siguiente relación:
+Dado un conjunto de puntos en el espacio de posiciones $\{x_i\}$ con $i=1,2,3,\dots, N$, la siguiente relación:
 \begin{equation}
   \label{eq:wavefunexp}
   \psi_N(x_i) = P_N\psi(x_i)=\sum_{n=1}^{N}b_n\phi_n(x_i) = \psi(x_i),
@@ -150,7 +150,7 @@ Dado un conjunto de puntos en el espacio de posiciones: $\{x_i\}$ con $i=1,2,3,\
 
 \noindent está asociada a la \textbf{colocación}\footnote{Los \textbf{métodos de colocación} son soluciones numéricas de un conjunto de ecuaciones, cuya solución resulta ser exacta en un conjunto discreto de puntos llamados puntos de colocación.\cite{Tannor:2006}} del operador de proyección, y los puntos $\{x_i\}$ son llamados \textbf{puntos de colocación}. Los coeficientes $b_n$ están determinados por la condición de que: $\psi_N(x)=\psi(x)$ en el conjunto de puntos de colocación.
 \\
-Es importante notar que los coeficientes $b_n$ son en general distintos a los coeficientes $a_n$ de la \autoref{eq:wavepacketinit}. A pesar de que el operador $P_N$ en la proyección espectral general el mismo espacio reducido de Hilbert que el operador $P_N$ en la colocación, estos operadores difieren en el estado que producen en el mismo espacio. Si se define:
+Es importante notar que los coeficientes $b_n$ son en general distintos a los coeficientes $a_n$ de la \autoref{eq:wavepacketinit}. A pesar de que el operador $P_N$ en la proyección espectral genera el mismo espacio reducido de Hilbert que el operador $P_N$ en la colocación, estos operadores difieren en el estado que producen en el mismo espacio. Si se define:
 \begin{equation}
   \label{eq:chi}
   \chi = \psi - \psi_N.
@@ -320,16 +320,16 @@ Estas reacciones involucran la interacción entre una partícula donadora del pr
 
 \noindent en donde las coordenadas $r, \nabla_e$ representan las coordenadas de los electrones y momentos respectivamente, $R,\nabla_N$ representan las coordenadas de los núcleos y sus momentos y $Z_i$ representa la carga nuclear en el núcleo $i$. Los términos en el Hamiltoniano representan la energía cinética de los electrones $T_e$, la energía potencial electrón-electrón $V_e$, la energía cinética de los núcleos $T_N$, la energía potencial núcleo-núcleo $V_n$ y la energía potencial electrón-núcleo $V_{eN}$. \\
 
-Debido a que los núcleos involucrados en el sistema son mucho más pesados que los electrones, su movimiento es muy lento respecto al de los electrones. La aproximación de Born-Oppenheimer \cite{Born1927, LPauling1935} permite tratar al sistema completo como núcleos estacionarios que generan un campo para los electrones, de esta manera, se puede resolver la ecuación de Schrödinger para la parte electrónica y encontrar las superficies de energía potencial o PES por sus siglas en inglés. Los sistemas de transferencia de protones son, en general, electrónicamente adiabáticos, en el sentido de que ocurren en el estado base o ground state (GS) en inglés, y no involucran los estados excitados del sistema o excited states (ES) en inglés \cite{Enzymes}. \\
+Debido a que los núcleos involucrados en el sistema son mucho más pesados que los electrones, su movimiento es muy lento respecto al de los electrones. La aproximación de Born-Oppenheimer \cite{Born1927, LPauling1935} permite tratar al sistema completo como núcleos estacionarios que generan un campo para los electrones, de esta manera, se puede resolver la ecuación de Schrödinger para la parte electrónica y encontrar las superficies de energía potencial o PES, por sus siglas en inglés. Los sistemas de transferencia de protones son, en general, electrónicamente adiabáticos, en el sentido de que ocurren en el estado base, o ground state (GS) en inglés, y no involucran los estados excitados del sistema, o excited states (ES) en inglés \cite{Enzymes}. \\
 
-Una vez obtenido el estado base, se puede resolver la ecuación de Schrödinger para la parte nuclear, incluyendo el protón, tomando como potencial resultante el estado base resultado de resolver la ecuación de Schrödinger para la parte electrónica, y considerando únicamente al protón en el término de energía cinética, debido a que los núcleos han sido considerados estacionarios y su interacción está incluida en el potencial estado base. De manera que el Hamiltoniano puede aproximarse como:
+Una vez obtenido el estado base, se puede resolver la ecuación de Schrödinger para la parte nuclear incluyendo el protón, tomando como potencial resultante el estado base producto de resolver la ecuación de Schrödinger para la parte electrónica y considerando únicamente al protón en el término de energía cinética, debido a que los núcleos han sido considerados estacionarios y su interacción está incluida en el potencial estado base. De manera que el Hamiltoniano puede aproximarse como:
 
 \begin{equation}
   \label{eq:hamApprox}
   H = -\frac{\hbar^2}{2m}\nabla^2_{H^+} + V_{GS}.
 \end{equation}
 
-El modelo simplificado en una dimensión de un complejo de enlaces de hidrógeno $D_p-H^+\dotsb A_p$ se muestra en la \autoref{fig:drawmodel}
+El modelo simplificado en una dimensión de un complejo de enlaces de hidrógeno $D_p-H^+\dotsb A_p$ se muestra en la \autoref{fig:drawmodel}.
 
 \begin{figure}[ht]
   \centering
@@ -338,7 +338,7 @@ El modelo simplificado en una dimensión de un complejo de enlaces de hidrógeno
 \label{fig:drawmodel}
 \end{figure}
 
-En donde $D_p$ y $A_p$ hacen referencia a los partículas donador y aceptor respectivamente, la coordenada $r$ es la distancia del protón al centro de los enlaces. \cite{DynamicalTheoryPTS}. \\
+En donde $D_p$ y $A_p$ hacen referencia a las partículas donador y aceptor respectivamente, la coordenada $r$ es la distancia del protón al centro de los enlaces. \cite{DynamicalTheoryPTS}. \\
 En las descripciones teóricas de la transferencia de protones, a menudo el hidrógeno es representado moviéndose a través de un pozo de doble potencial unidimensional \cite{Enzymes, Krishtalik2000}. 
 \\
 
@@ -376,7 +376,7 @@ En las ecuaciones de potenciales de oscilador armónico, $m$ se refiere a la mas
   \label{eq:R(t)}
   R(t)=(R_0-R_{eq})\cos(\omega_Rt + \theta_R) + R_{eq}.
 \end{equation}
-En donde $\lambda$ es la amplitud del sesgo de energía, $\omega_x$ es la frecuencia de las oscilaciones de polarización de energía, $\theta_x$ es una fase inicial aleatoria; $R_{eq}$ es la distancia de equilibrio entre los mínimos de los potenciales armónicos, $R_0$ es el desplazamiento inicial desde el equilibrio, $\omega_R$ es la frecuencia de las oscilaciones de la distancia donante-aceptor de protones y $\theta_R$ es una fase inicial aleatoria \cite{Main:2021}.
+En donde $\lambda$ es la amplitud del sesgo de energía, $X_{eq}$ es el sesgo energético de equilibrio, $\omega_x$ es la frecuencia de las oscilaciones de polarización de energía, $\theta_x$ es una fase inicial aleatoria; $R_{eq}$ es la distancia de equilibrio entre los mínimos de los potenciales armónicos, $R_0$ es el desplazamiento inicial desde el equilibrio, $\omega_R$ es la frecuencia de las oscilaciones de la distancia donante-aceptor de protones y $\theta_R$ es una fase inicial aleatoria \cite{Main:2021}.
 
 
 
@@ -389,7 +389,7 @@ En donde $\lambda$ es la amplitud del sesgo de energía, $\omega_x$ es la frecue
 
 La \autoref{fig:drawPot} muestra un ejemplo de potencial $V(r,t)$ generado con la implementación de las ecuaciones anteriores. Los parámetros de potencial utilizados se muestran en la \autoref{tab:ValuesPlot1}.
 \\
-La \autoref{fig:drawGSandES} muestra el estado base que se toma como el potencial, el primer estado excitado del sistema correspondiente al eigenvalor más grande de la matriz en la \autoref{eq:matrixPot}, y los potenciales de oscilador armónico \autoref{eq:U1} y \autoref{eq:U2} a un tiempo $t$.
+La \autoref{fig:drawGSandES} muestra el estado base que se toma como el potencial, es decir, el primer estado excitado del sistema correspondiente al eigenvalor más bajo de la matriz en la \autoref{eq:matrixPot}, y los potenciales de oscilador armónico \autoref{eq:U1} y \autoref{eq:U2} a un tiempo $t$.
 
 \begin{figure}[ht]
   \centering
@@ -408,7 +408,7 @@ Para proceder con la solución a la \acs{TDSE} \autoref{eq:TDSE ket}, elegimos l
   \phi_n(r)=\sqrt{\frac{2}{b-a}}\sin \frac{n\pi(r-a)}{b-a} \,\,\,\,\, n=1,\dots,N,
 \end{equation}
 
-que es ortonormal $\bra\phi_j|\phi_k\ket = \delta_{jk}$ y completa si $n \to \infty$. 
+que es ortonormal $\langle \phi_j|\phi_k\rangle = \delta_{jk}$ y completa si $n \to \infty$. 
 Con los parámetros $a=-1.5\,\,\mathring{A}$, $b=1.5\,\,\mathring{A}$ y $N=200$ para la implementación numérica, es decir, que el espacio reducido de Hilbert del sistema tiene una dimensión de $N=200$.
 La \autoref{fig:Phi_n} muestra las primeras cinco funciones ortogonales de la base, las funciones $\phi_n$ están construidas para que se cumpla: $\phi_n(r=r_0=a)=\phi_n(r=r_{N+1}=b)=0$.
 
@@ -583,7 +583,7 @@ Sea un paquete de onda Gaussiana definido por:
 g(r)=\frac{1}{\sigma\sqrt{2\pi}}\exp{\frac{-1}{2}\frac{(r-\mu)^2}{\sigma^2}},
 \end{equation}
 
-\noindent con valores $\mu$ y $\sigma$ valores aleatorios elegidos entre $(-0.5,-0.5)\AA$ y $(0.1,0.3)\AA$ respectivamente. \\
+\noindent con valores $\mu$ y $\sigma$ valores aleatorios elegidos entre $(-0.5,-0.5)\,\, \mathring{A}$ y $(0.1,0.3)\,\, \mathring{A}$ respectivamente. \\
 
 La \autoref{eq:psi_00} puede escribirse como suma de las funciones pseudo-espectrales \autoref{eq:trash13} en la malla definida por los puntos en la \autoref{eq:malla} multiplicados por coeficientes complejos $C_i$. De esta manera, se puede definir una onda inicial al tiempo $t=0$ como:
 
@@ -617,7 +617,7 @@ En donde la matriz $U$ está formada por los $N$ eigenvectores de $H^{\theta}$ c
 $$D=U^{-1}H^{\theta}U.$$
 \\
 
-La \autoref{fig:psi_evre} y la \autoref{fig:psi_evim} muestran algunas ondas de la evolución de la parte real e imaginaria del paquete de onda en intervalos de $1\,fs$ a lo largo de $150\,fs$, obtenidas con la \autoref{eq:psi_t}. En la \autoref{fig:dens_ev} se muestra la evolución temporal de la densidad del protón.\\
+La \autoref{fig:psi_evre} y la \autoref{fig:psi_evim} muestran algunas ondas de la evolución de la parte real e imaginaria del paquete de onda en intervalos de $50\,fs$ a lo largo de $150\,fs$, obtenidas con la \autoref{eq:psi_t}. En la \autoref{fig:dens_ev} se muestra la evolución temporal de la densidad del protón.\\
 Las siguientes animaciones muestran la evolución temporal con el potencial incluido. \\
 \href{https://github.com/Jessi-MM/LSTM_PropagatorLearning/blob/main/src/Animation/gifs/animation-dens%26pot.gif}{\faPlayCircle[regular] Evolución temporal: potencial y densidad de la función de onda} \\
 \href{https://github.com/Jessi-MM/LSTM_PropagatorLearning/blob/main/src/Animation/gifs/animation-all.gif}{\faPlayCircle[regular] Evolución temporal: potencial, parte real y compleja de la función de onda y su densidad}

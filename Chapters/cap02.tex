@@ -97,17 +97,17 @@ A partir de estas propiedades, de la relación de energía Planck-Einstein: $E=\
   i\hbar\frac{\partial}{\partial t}\mathcal{U}(t_0,t) = H\mathcal{U}(t_0,t)
 \end{equation}
 
-Se sigue que, para un estado $\ket{\psi_{t}}$, la evolución temporal está dada por la \textbf{ecuación de Schrödinger dependiente del tiempo} para un estado \cite{Tannor:2006}:
+Aplicando la \autoref{eq:TDSE operator} al estado $\ket{\psi_{t_0}}$ y usando la definición $\ket{\psi(t)}=\mathcal{U}(t_0,t)\ket{\psi_{t_0}}$ se sigue que, para un estado $\ket{\psi_{t}}$, la evolución temporal está dada por la \textbf{ecuación de Schrödinger dependiente del tiempo} para un estado \cite{Tannor:2006}:
 
 \begin{tcolorbox}[colback=CTtitle!5!white,colframe=CTtitle!85!white]%,title=\centering{Ecuación de Schrödinger Dependiente del Tiempo para un estado}]
 \begin{equation}
 \label{eq:TDSE ket}
-i\hbar\frac{\partial}{\partial t}\mathcal{U}(t_0,t)\ket{\psi_{t}} = H\mathcal{U}(t_0,t)\ket{\psi_{t}}
+i\hbar\frac{\partial}{\partial t}\ket{\psi_{t}} = H\ket{\psi_{t}}
 \end{equation}
 \end{tcolorbox}
 
 \paragraph{Afirmación:}
-  Cuando el hamiltoniano $H$ no tiene dependencia temporal, el operador de propagación toma la siguiente forma:
+  Cuando el Hamiltoniano $H$ no tiene dependencia temporal, el operador de propagación toma la siguiente forma:
 \begin{equation}
 \label{eq:U IT}
 \mathcal{U}(t_0,t) = \exp{\frac{-iH(t-t_0)}{\hbar}}

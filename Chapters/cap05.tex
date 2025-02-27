@@ -163,9 +163,9 @@ En el segundo caso, la importancia de elegir una función de activación no line
 
 
 \subsection{Función de pérdida}
-La \textbf{función de pérdida} \cite{HINTON1989185}, o \textbf{loss function} en inglés $L(\hat{y},y)$, es la función que compara el resultado o salida de la red $\hat{y}$, respecto a la etiqueta original $y$, correspondiente a la entrada $\vec{x}$. En otras palabras, indica qué tan bueno es el modelo implementado, el modelo es mejor cuanto menos sea la diferencia entre el valor predicho $\hat{y}$ respecto al valor esperado $y$.
+La \textbf{función de pérdida} \cite{HINTON1989185}, o \textbf{loss function} en inglés $L(\hat{y},y)$, es la función que compara el resultado o salida de la red $\hat{y}$, respecto a la etiqueta original $y$, correspondiente a la entrada $\vec{x}$, en otras palabras, indica qué tan bueno es el modelo implementado. En el entrenamiento de una red, el objetivo es minimizar esta función a través de la actualización de los pesos $w_i$, el modelo es mejor cuanto menor sea la diferencia entre el valor predicho $\hat{y}$ y el valor esperado $y$.
 \\
-En el entrenamiento de una red, el objetivo es minimizar esta función a través de la actualización de los pesos $w_i$. La elección de la función de pérdida, depende del problema a resolver, como en el caso de la función de activación de la última capa. En los modelos en donde los valores de la salida $\hat{y}$ son reales, se puede utilizar una \emph{función de pérdida cuadrática} o \emph{mean square error (MSE)} en inglés:
+La elección de la función de pérdida, depende del problema a resolver, como en el caso de la función de activación de la última capa. En los modelos en donde los valores de la salida $\hat{y}$ son reales, se puede utilizar una \emph{función de pérdida cuadrática} o \emph{mean square error (MSE)} en inglés:
 \begin{equation}
   \label{eq:MSE}
   L = (\hat{y}-y)^2.
@@ -233,11 +233,15 @@ En la sección \autoref{sec:perceptron} se revisó el perceptrón como el modelo
 
 La arquitectura específica de las redes multicapa se conoce como redes \emph{feed-forward} en inglés, pues las capas se alimentan una tras otra desde la capa de entrada hasta la capa de salida. La arquitectura por defecto de las redes feed-forward supone que todos los nodos de una capa están conectados a los de la capa siguiente \cite{Nielsen:2018}.
 \\
-La operación que realiza una red multicapa de la capa de entrada a la primer capa oculta con $p_1$ nodos está definida como:
+La operación que realiza una red multicapa desde la capa de entrada hacia la primer capa oculta, con $p_1$ nodos, está definida como:
 $$\vec{h}_1 = f(W^T_1 \cdot \vec{x}),$$
-donde $W^T_1$ es la transpuesta de $W_1$, de dimensión $p_1 \times d$, y $\vec{x}$ el vector de entrada de dimensión $d$. La operación que se realiza de la capa oculta $p$ a la $p+1$ $\forall p \in \{1,...,k-1\}$ es:
-$$\vec{h}_{p+1} = f(W^T_{p} \cdot \vec{h}_p),$$
-donde $W^T_{p}$ es de dimensión $p_{r+1} \times p_r$ y $\vec{h}_p$ es de dimensión $p$. Finalmente, de la última capa oculta a la capa de salida con dimensión $o$ la operación realizada es:
+donde $W^T_1$ es la transpuesta de $W_1$, de dimensión $p_1 \times d$, y $\vec{x}$ el vector de entrada de dimensión $d$.
+
+\noindent La operación realizada entre la capa oculta $r$ y la capa $r+1$ con $r \in \{1,...,k-1\}$, está definida como:
+$$\vec{h}_{r+1} = f(W^T_{r} \cdot \vec{h}_r),$$
+donde $W^T_{r}$ tiene dimensión $p_{r+1} \times p_r$ y $\vec{h}_r$ tiene dimensión $p_r$.
+
+\noindent Finalmente, de la última capa oculta hacia la capa de salida con dimensión $o$ la operación realizada es:
 $$\vec{o} = f(W^T_{k+1} \cdot \vec{h}_k),$$
 con $W^T_{k+1}$ de dimensión $o \times p_{k}$, y $\vec{h}_k$ de dimensión $p_k$. En todas las expresiones $f$ es una función de activación que se aplica a cada elemento del vector.
 
@@ -297,7 +301,7 @@ En este ejemplo existen únicamente dos caminos posibles de $w$ a $o$. En la pr�
   \frac{\partial L}{\partial w_{h_r, h_{r+1}}} = \frac{\partial L}{\partial o}\cdot \left( \sum_{(h_r,h_{r+1},...,h_k,o)\in \mathcal{P}}\frac{\partial o}{\partial h_k}\prod_{i=r}^{k-1}\frac{\partial h_{i+1}}{\partial h_i}\right) \frac{\partial h_r}{\partial w_{h_{r-1},h_r}},
 \end{equation}
 
-\noindent con $\mathcal{P}$ el conjunto de las capas ocultas. Una vez conocidos los gradientes respecto a los pesos en las múltiples capas, se actualizan los valores $w$ con el objetivo de minimizar la función de pérdida, y así mejorar el modelo.\\
+\noindent con $\mathcal{P}$ el conjunto de todos los caminos existentes desde $h_r$ hasta $o$ en la red. Una vez conocidos los gradientes respecto a los pesos en las múltiples capas, se actualizan los valores $w$ con el objetivo de minimizar la función de pérdida, y así mejorar el modelo.\\
 El número de datos de entrenamiento, es decir de pares $(X_l,y_l)$, que pasan por la red antes de que se actualicen los pesos, se llama \textbf{tamaño de lote} o \textbf{batch size} en inglés. Una vez que todos los datos de entrenamiento han pasado por la red, se dice que ha pasado una \textbf{época} o \textbf{epoch} en inglés. Tanto el número de épocas, como el tamaño de lote son hiper-parámetros de la red.
 
 %K(p,q)=K(g(f(w)),h(f(w)))

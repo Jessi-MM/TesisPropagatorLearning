@@ -44,9 +44,10 @@ corresponde a un dato, en donde cada componente es una \textbf{característica} 
 \item Series de tiempo
 \end{itemize}
 
-Por otro lado, $y_i$ corresponde a la \textbf{etiqueta} de $\vec{x}_i$. Cuando $y_i$ puede tomar un valor categórico, es decir, que de un conjunto finito:
+Por otro lado, $y_i$ corresponde a la \textbf{etiqueta} de $\vec{x}_i$. Si $y_i$ toma un valor categórico, es decir, pertenece a un conjunto finito de categorías:
 $$y_i \in \{1,\dots,c\}, \text{  por ejemplo: 1=perro, 2=gato, etc. }$$ 
-se dice que se trata de un problema de \textbf{clasificación}. Por otro lado, si $y_i$\footnote{$y_i$ puede ser también un vector: $\vec{y}_i$, en donde su dimensión está determinada por el problema a resolver, y no necesariamente es igual a la de $\vec{x}_i$.} es un valor real, se dice que el problema es de \textbf{regresión}.
+se dice que el problema es de \textbf{clasificación}.
+En cambio, si $y_i$\footnote{$y_i$ puede ser también un vector $\vec{y}_i$, en donde su dimensión está determinada por el problema a resolver, y no necesariamente es igual a la de $\vec{x}_i$.} es un valor real, se dice que el problema es de \textbf{regresión}.
 \\
 
 Algunos ejemplos de métodos de aprendizaje supervisado son:

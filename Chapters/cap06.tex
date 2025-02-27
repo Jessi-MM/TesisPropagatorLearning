@@ -6,7 +6,7 @@ En el capítulo anterior se desarrollaron conceptos básicos generales de las re
 \\
 En este capítulo se abordará un modelo particular de red llamado \emph{long short-term memory} (\acs{LSTM}), que pertenece a un tipo de redes llamadas \emph{redes neuronales recurrentes} (\acs{RNN}, por sus siglas en inglés). Este tipo de redes es comúnmente utilizada cuando los atributos en el conjunto de datos están relacionados entre sí, o guardan una dependencia.
 \\\\
-En la sección \autoref{sec:lstm} se desarrollará la arquitectura de las redes \acs{LSTM}, así como sus aplicaciones más comunes, haciendo énfasis a las series de tiempo, que son de particular interés en el presente trabajo, pues la evolución temporal de un paquete de onda puede tratarse como un problema de series de tiempo, encontrando así una manera de abordar el problema de propagar una onda en el tiempo utilizando una red \acs{LSTM}.
+En la sección \autoref{sec:lstm} se desarrollará la arquitectura de las redes \acs{LSTM}, así como sus aplicaciones más comunes, haciendo énfasis en las series de tiempo, que son de particular interés en el presente trabajo, pues la evolución temporal de un paquete de onda puede tratarse como un problema de series de tiempo, encontrando así una manera de abordar el problema de propagar una onda en el tiempo utilizando una red \acs{LSTM}.
 \\
 En la sección \autoref{sec:Project} se implementa el modelo de \acs{LSTM} que servirá como propagador $\mathcal{U}$ en la ecuación de Schrödinger Dependiente del Tiempo (\autoref{eq:TDSE ket}) para los potenciales $V(r,t)$ revisados en la sección \autoref{sec:ProtonTransfer}.
 \\
@@ -26,7 +26,7 @@ Algunos ejemplos de aplicaciones se muestran a continuación:
 
 \begin{itemize}[label=\textcolor{CTtitle}{\textbullet}]
 \item \emph{Secuencias de texto:} \cite{Graves2013GeneratingSW} En donde la importancia o información de una palabra depende del contexto en el que se encuentra dentro de una oración. Cada palabra\footnote{En este caso, la dimensión $d$ hace referencia al número de palabras que tiene el léxico utilizado.}: $\vec{x}_t$,  puede verse como un atributo relacionado a la palabra anterior en una oración: $\vec{x}_{t-1}$, o a la palabra siguiente: $\vec{x}_{t+1}$.
- \item \emph{Series de tiempo:} \cite{ELMAN1990179} $\vec{x}_t$ en este caso puede almacenar $d$ valores, que pueden ser, por ejemplo, los correspondientes al valor de una función $f(x,t)$ en una maya de $d$ puntos en el espacio $x$ al tiempo $t$. En este tipo de configuración la salida $\vec{y}_t$ podría ser la predicción pronosticada de $\vec{x}_{t+1}$.
+ \item \emph{Series de tiempo:} \cite{ELMAN1990179} $\vec{x}_t$ en este caso puede almacenar $d$ valores, que pueden ser, por ejemplo, los correspondientes al valor de una función $f(x,t)$ en una maya de $d$ puntos en el espacio $x$ al tiempo $t$. En este tipo de configuración la salida $\vec{y}_t$ podría ser la predicción pronosticada por $\vec{x}_{t+1}$.
  \end{itemize}
   
 Un diagrama sencillo de una \acs{RNN} se muestra en la \autoref{fig:RNN}, en donde un auto-bucle actualizará el \textbf{estado oculto} $\vec{h}_t$ a cada tiempo $t$ después de la entrada $\vec{x}_t$:
@@ -79,13 +79,13 @@ La \autoref{fig:LSTMlayer} muestra un bloque de memoria de una \acs{LSTM}, en do
   \label{fig:LSTMlayer}
 \end{figure}
 
-Una compuerta $\vec{f}$ llamada \textbf{forget}, decide qué información proveniente del tiempo anterior $t-1$ se mantiene y cual no, tomando en consideración también la entrada $\vec{x}_t$, aplicando la función sigma (es decir, $\vec{f}$ es una capa \emph{Sigmoid}):
+Una compuerta $\vec{f}$ llamada \textbf{forget}, decide qué información proveniente del tiempo anterior ($t-1$) se mantiene y cual se descarta, tomando en consideración la entrada actual $\vec{x}_t$ y el estado oculto previo $\vec{h}_{t-1}$, aplicando la función sigma (es decir, $\vec{f}$ es una capa \emph{Sigmoid}):
 
 \begin{equation}\label{eq:ft}
 \vec{f}_t = \sigma(W_{xf}\vec{x}_t + W_{hf}\vec{h}_{t-1} + b_f).
 \end{equation}
 
-En donde $W$ y $b$ con sus correspondientes subíndices representan las matrices de peso y vectores de sesgo correspondientes a cada capa oculta. \\
+Donde $W$ y $b$, con sus correspondientes subíndices, representan las matrices de peso y los vectores de sesgo asociados a esta operación en la capa oculta. \\
 Posteriormente, para decidir qué nueva información será incluida a la celda de estado se calculan:
 
 \begin{equation}\label{eq:it}
@@ -338,7 +338,7 @@ En la \autoref{fig:S-phase} se muestran los valores promedio obtenidos de la mag
   \label{fig:S-phase}
 \end{figure}
 
-Al finalizar el entrenamiento, sobre el conjunto de testeo los resultados de las variables se reportan en la \autoref{tab:res-S}.
+Al finalizar el entrenamiento se calcularon las variables $|S|$ y $\theta$ para cada trayectoria en el conjunto de testeo. Los valores promedio se reportan en la \autoref{tab:res-S}.
 
 \begin{table}[ht]
   \myfloatalign
